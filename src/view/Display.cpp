@@ -38,6 +38,10 @@ void Display::close(void) {
 
 Display::~Display() {
 	// TODO Auto-generated destructor stub
+
+	//Deallocate renderer
+    SDL_DestroyRenderer(renderer);
+
 	//Deallocate surface
 	SDL_FreeSurface( screen );
 	screen = NULL;
