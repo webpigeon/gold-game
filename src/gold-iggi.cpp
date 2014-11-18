@@ -21,11 +21,25 @@ int main() {
 	Display display;
 	display.init();
 
+	unsigned short fps = 0;
+	Uint32 lastUpdateTime = SDL_GetTicks();
+
 	bool quit = false;
 	while(!quit) {
 		SDL_Event event;
 		while(SDL_PollEvent(&event) != 0){
 			if(event.type == SDL_QUIT){ quit = true;}
+		}
+
+		display.update();
+
+		fps++;
+		Uint32 currentTime = SDL_GetTicks();
+		if (currentTime >= lastUpdateTime + 1000)
+		{
+			cout << fps << endl;
+			lastUpdateTime = currentTime;
+			fps = 0;
 		}
 	}
 

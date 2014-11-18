@@ -14,13 +14,22 @@ Display::Display() {
 	}
 
 	screen = SDL_GetWindowSurface( window );
-    renderer = SDL_CreateRenderer(window, -1, 0);
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
 }
 
 void Display::init(void) {
     // Render a black background on the screen
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
+    SDL_RenderPresent(renderer);
+}
+
+void Display::update(void) {
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderClear(renderer);
+
+    //TODO rendering code here
+
     SDL_RenderPresent(renderer);
 }
 

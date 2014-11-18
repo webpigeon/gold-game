@@ -16,6 +16,7 @@ public:
 	Display();
 	virtual ~Display();
 	void init();
+	void update();
 	void close();
 
 private:
