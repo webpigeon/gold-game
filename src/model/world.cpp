@@ -13,6 +13,8 @@ World::World(){
 	physicsWorld = new b2World(*gravity);
 }
 
+b2Body* World::createBody(b2BodyDef& def) = physicsWorld.createBody;
+
 
 
 
