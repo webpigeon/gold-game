@@ -13,7 +13,7 @@
 
 class Asteroid {
 	double* points;
-	World* world;
+	//World* world;
 
 };
 

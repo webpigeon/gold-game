@@ -7,17 +7,22 @@
 //============================================================================
 
 #include <iostream>
-#include <SDL2/SDL.h>
+#include "view/Display.h"
 #include "model/world.h"
 
 using namespace std;
 
 int main() {
-	 //Start SDL
+	cout << "Hello, IGGI!" << endl; // prints Hello, IGGI!
+
 	SDL_Init( SDL_INIT_EVERYTHING );
 
-	cout << "Hello, IGGI!" << endl; // prints Hello, IGGI!
-	SDL_Window* screen = SDL_CreateWindow("IGGI-Gold", 50, 50, 800, 640, SDL_WINDOW_SHOWN);
+	//create display
+	Display display;
+	display.init();
+
+	unsigned short fps = 0;
+	Uint32 lastUpdateTime = SDL_GetTicks();
 
 	bool quit = false;
 	while(!quit) {
@@ -25,8 +30,20 @@ int main() {
 		while(SDL_PollEvent(&event) != 0){
 			if(event.type == SDL_QUIT){ quit = true;}
 		}
+
+		display.update();
+
+		fps++;
+		Uint32 currentTime = SDL_GetTicks();
+		if (currentTime >= lastUpdateTime + 1000)
+		{
+			cout << fps << endl;
+			lastUpdateTime = currentTime;
+			fps = 0;
+		}
 	}
 
+	display.close();
 
 
 	SDL_Quit(); // Gracefully ish
