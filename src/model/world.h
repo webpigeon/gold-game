@@ -13,7 +13,7 @@
 
 class World {
 	private:
-		b2Vec2* gravity;
+		//b2Vec2* gravity;
 		b2World* physicsWorld;
 	public:
 		World();

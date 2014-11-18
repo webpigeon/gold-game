@@ -9,8 +9,8 @@
 #include "world.h"
 
 World::World(){
-	gravity = new b2Vec2(0.0f, 0.0f);
-	physicsWorld = new b2World(*gravity);
+	b2Vec2 gravity(0.0f, 0.0f);
+	physicsWorld = new b2World(gravity);
 }
 
 
