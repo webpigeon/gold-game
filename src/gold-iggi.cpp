@@ -7,7 +7,7 @@
 //============================================================================
 
 #include <iostream>
-#include <SDL/SDL.h>
+#include <SDL2/SDL.h>
 using namespace std;
 
 int main() {
@@ -15,24 +15,18 @@ int main() {
 	SDL_Init( SDL_INIT_EVERYTHING );
 
 	cout << "Hello, IGGI!" << endl; // prints Hello, IGGI!
-	SDL_Surface* screen = SDL_SetVideoMode( 640, 480, 32, SDL_SWSURFACE );
+	SDL_Window* screen = SDL_CreateWindow("IGGI-Gold", 50, 50, 800, 640, SDL_WINDOW_SHOWN);
 
 	bool quit = false;
-
-	//Pause
-	SDL_Event e;
 	while(!quit) {
-		 //Handle events on queue
-		while( SDL_PollEvent( &e ) != 0 ) {
-			//User requests quit
-			if( e.type == SDL_QUIT ) {
-				quit = true;
-			}
+		SDL_Event event;
+		while(SDL_PollEvent(&event)!=0){
+			if(event.type == SDL_QUIT){ quit = true;}
 		}
 	}
 
-	//Quit SDL
-	SDL_Quit();
 
+
+	SDL_Quit(); // Gracefully ish
 	return 0;
 }
