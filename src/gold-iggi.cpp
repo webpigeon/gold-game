@@ -8,6 +8,8 @@
 
 #include <iostream>
 #include <SDL2/SDL.h>
+#include "model/world.h"
+
 using namespace std;
 
 int main() {
@@ -20,7 +22,7 @@ int main() {
 	bool quit = false;
 	while(!quit) {
 		SDL_Event event;
-		while(SDL_PollEvent(&event)!=0){
+		while(SDL_PollEvent(&event) != 0){
 			if(event.type == SDL_QUIT){ quit = true;}
 		}
 	}
