@@ -7,17 +7,19 @@
 //============================================================================
 
 #include <iostream>
-#include <SDL2/SDL.h>
+#include "view/Display.h"
 #include "model/world.h"
 
 using namespace std;
 
 int main() {
-	 //Start SDL
+	cout << "Hello, IGGI!" << endl; // prints Hello, IGGI!
+
 	SDL_Init( SDL_INIT_EVERYTHING );
 
-	cout << "Hello, IGGI!" << endl; // prints Hello, IGGI!
-	SDL_Window* screen = SDL_CreateWindow("IGGI-Gold", 50, 50, 800, 640, SDL_WINDOW_SHOWN);
+	//create display
+	Display display;
+	display.init();
 
 	bool quit = false;
 	while(!quit) {
@@ -27,6 +29,7 @@ int main() {
 		}
 	}
 
+	display.close();
 
 
 	SDL_Quit(); // Gracefully ish
