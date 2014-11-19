@@ -16,6 +16,5 @@ World::World(){
 void World::draw(){
 }
 
-b2Body* World::createBody(b2BodyDef& def){}
 
 

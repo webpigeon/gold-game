@@ -13,12 +13,10 @@
 
 class World {
 	private:
-		//b2Vec2* gravity;
 		b2World* physicsWorld;
 	public:
 		World();
 		void draw(void);
-		b2Body* createBody(b2BodyDef& def);
 };
 
 
