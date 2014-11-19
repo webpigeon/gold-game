@@ -24,11 +24,12 @@ void Display::init(void) {
     SDL_RenderPresent(renderer);
 }
 
-void Display::update(void) {
+void Display::update(World &world) {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
 
     //TODO rendering code here
+    world.draw();
 
     SDL_RenderPresent(renderer);
 }

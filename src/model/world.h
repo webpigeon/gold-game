@@ -17,10 +17,9 @@ class World {
 		b2World* physicsWorld;
 	public:
 		World();
+		void draw(void);
 		b2Body* createBody(b2BodyDef& def);
 };
-
-
 
 
 #endif /* WORLD_H_ */
