@@ -2,10 +2,10 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT(gold-iggi, 0.1, jwalto@essex.ac.uk)
-AM_INIT_AUTOMAKE(pippo, 2.6)
-AC_OUTPUT(Makefile src/Makefile)
+AC_INIT([gold-iggi], [0.1], [jwalto@essex.ac.uk])
+AC_OUTPUT([Makefile src/Makefile])
 AC_CONFIG_SRCDIR([src/gold-iggi.cpp])
+AM_INIT_AUTOMAKE
 #AC_CONFIG_HEADERS([config.h])
 
 # Checks for programs.

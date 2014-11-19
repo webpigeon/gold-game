@@ -2,15 +2,22 @@ bin/
 Debug/
 *.o
 
+# Game binary
+src/iggigame
+
 # Automake bonkers stuff
+
+# Configuration stuff
+config.status
+config.log
 
 ## http://www.gnu.org/software/automake
 Makefile
-src/Makefile
-src/Makefile.in
-src/.deps/
-src/iggigame
 Makefile.in
+**/Makefile
+**/Makefile.in
+**/.deps/
+**/.dirstamp
 
 ## http://www.gnu.org/software/autoconf
 /autom4te.cache

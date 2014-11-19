@@ -1,4 +1,5 @@
 # what flags you want to pass to the C compiler & linker
+AUTOMAKE_OPTIONS=subdir-objects
 CFLAGS = --pedantic -Wall -std=c99 -O2
 AM_LDFLAGS =
 
