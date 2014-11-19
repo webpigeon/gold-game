@@ -8,11 +8,12 @@
 #ifndef ASTEROID_H_
 #define ASTEROID_H_
 #include "world.h"
+#include "Entity.h"
 #include <vector>
 using namespace std;
 
 
-class Asteroid : Entity{
+class Asteroid : public Entity {
 public:
 	vector<b2Vec2> points;
 private:

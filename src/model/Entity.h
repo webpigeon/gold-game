@@ -12,6 +12,8 @@ class Entity {
 public:
 	Entity();
 	virtual ~Entity();
+
+	virtual void draw();
 };
 
 #endif /* ENTITY_H_ */

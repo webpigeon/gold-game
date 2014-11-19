@@ -16,3 +16,7 @@ Entity::~Entity() {
 	// TODO Auto-generated destructor stub
 }
 
+void Entity::draw(){
+// TODO Draw the entity here please
+}
+
