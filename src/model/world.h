@@ -9,7 +9,7 @@
 #define WORLD_H_
 
 #include <Box2D/Box2D.h>
-#include "asteroid.h"
+
 
 class World {
 	private:
@@ -18,9 +18,8 @@ class World {
 	public:
 		World();
 		void draw(void);
+		b2Body* createBody(b2BodyDef& def);
 };
-
-
 
 
 #endif /* WORLD_H_ */
