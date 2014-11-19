@@ -17,6 +17,7 @@ class World {
 		b2World* physicsWorld;
 	public:
 		World();
+		void draw(void);
 };
 
 

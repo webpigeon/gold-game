@@ -17,6 +17,8 @@ int main() {
 
 	SDL_Init( SDL_INIT_EVERYTHING );
 
+	World world;
+
 	//create display
 	Display display;
 	display.init();
@@ -31,7 +33,7 @@ int main() {
 			if(event.type == SDL_QUIT){ quit = true;}
 		}
 
-		display.update();
+		display.update(world);
 
 		fps++;
 		Uint32 currentTime = SDL_GetTicks();

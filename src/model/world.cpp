@@ -13,6 +13,8 @@ World::World(){
 	physicsWorld = new b2World(gravity);
 }
 
+void World::draw(){
 
+}
 
 
