@@ -12,7 +12,7 @@
 using namespace std;
 
 
-class Asteroid {
+class Asteroid : Entity{
 public:
 	vector<b2Vec2> points;
 private:
