@@ -1,5 +1,5 @@
-//============================================================================
-// Name        : gold-iggi.cpp
+		//============================================================================
+			// Name        : gold-iggi.cpp
 // Author      : Joseph Walton-Rivers & Piers Williams
 // Version     :
 // Copyright   : Copyright (c), 2014. All rights reserved.
