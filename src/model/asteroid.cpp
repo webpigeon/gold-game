@@ -23,6 +23,12 @@ Asteroid::Asteroid(int points, float32 roughSize, float32 x, float32 y){
 
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position.Set(x, y);
+
+	asteroidShape.SetAsBox(roughSize, roughSize);
+
+	asteroidFixture.shape = &asteroidShape;
+	asteroidFixture.density = 1.0f; // TODO - Work out exactly what this means
+	asteroidFixture.friction = 0.0f; // No friction in space
 }
 
 b2BodyDef& Asteroid::getBodyDef(){
@@ -31,6 +37,7 @@ b2BodyDef& Asteroid::getBodyDef(){
 
 void Asteroid::insertBody(b2Body* body){
 	this -> asteroidBody = body;
+	this -> asteroidBody -> CreateFixture(&asteroidFixture);
 }
 
 

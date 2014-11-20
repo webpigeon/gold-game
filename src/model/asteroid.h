@@ -19,7 +19,8 @@ public:
 private:
 	b2Body* asteroidBody;
 	b2BodyDef bodyDef;
-	b2PolygonShape asteroidBoundary;
+	b2PolygonShape asteroidShape;
+	b2FixtureDef asteroidFixture;
 
 public:
 
