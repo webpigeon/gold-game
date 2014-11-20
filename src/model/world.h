@@ -9,11 +9,16 @@
 #define WORLD_H_
 
 #include <Box2D/Box2D.h>
+#include "asteroid.h"
+#include <vector>
 
+
+using namespace std;
 
 class World {
 	private:
 		b2World* physicsWorld;
+		vector<Asteroid> asteroids;
 	public:
 		World();
 		void draw(void);

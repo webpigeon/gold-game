@@ -7,8 +7,8 @@
 
 #ifndef ASTEROID_H_
 #define ASTEROID_H_
-#include "world.h"
 #include "Entity.h"
+#include <Box2D/Box2D.h>
 #include <vector>
 using namespace std;
 
@@ -24,8 +24,6 @@ public:
 
 	Asteroid(int points, float roughSize, b2Vec2 location);
 	b2BodyDef& getBodyDef(void);
-
-
 };
 
 
