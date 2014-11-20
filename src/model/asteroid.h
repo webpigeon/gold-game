@@ -17,14 +17,15 @@ class Asteroid : public Entity {
 public:
 	vector<b2Vec2> points;
 private:
-	b2Body* groundBody;
+	b2Body* asteroidBody;
 	b2BodyDef bodyDef;
-	b2PolygonShape groundBox;
+	b2PolygonShape asteroidBoundary;
 
 public:
 
 	Asteroid(int points, float32 roughSize, float32 x, float32 y);
 	b2BodyDef& getBodyDef(void);
+	void insertBody(b2Body* body);
 };
 
 

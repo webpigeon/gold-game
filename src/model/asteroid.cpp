@@ -28,3 +28,8 @@ b2BodyDef& Asteroid::getBodyDef(){
 	return bodyDef;
 }
 
+void Asteroid::insertBody(b2Body* body){
+	this -> asteroidBody = body;
+}
+
+
