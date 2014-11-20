@@ -19,9 +19,15 @@ class World {
 	private:
 		b2World* physicsWorld;
 		vector<Asteroid> asteroids;
+
+		float32 worldWidth;
+		float32 worldHeight;
 	public:
 		World();
 		void draw(void);
+
+	private:
+		void addAsteroid(int points, float32 roughSize, float32 x, float32 y);
 };
 
 

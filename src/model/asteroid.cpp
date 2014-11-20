@@ -7,7 +7,7 @@
 #include "asteroid.h"
 using namespace std;
 
-Asteroid::Asteroid(int points, float roughSize, b2Vec2 location){
+Asteroid::Asteroid(int points, float32 roughSize, float32 x, float32 y){
 
 	this -> points.push_back(b2Vec2(0, 0));
 	this -> points.push_back(b2Vec2(0, 1));
@@ -16,7 +16,15 @@ Asteroid::Asteroid(int points, float roughSize, b2Vec2 location){
 
 	for(int i = 0; i < this -> points.size(); i++){
 		this -> points[i] *= roughSize;
-		this -> points[i] += location;
+		this -> points[i].x += x;
+		this -> points[i].y += y;
 	}
+
+	bodyDef.type = b2_dynamicBody;
+	bodyDef.position.Set(x, y);
+}
+
+b2BodyDef& Asteroid::getBodyDef(){
+	return bodyDef;
 }
 

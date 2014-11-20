@@ -18,11 +18,12 @@ public:
 	vector<b2Vec2> points;
 private:
 	b2Body* groundBody;
+	b2BodyDef bodyDef;
 	b2PolygonShape groundBox;
 
 public:
 
-	Asteroid(int points, float roughSize, b2Vec2 location);
+	Asteroid(int points, float32 roughSize, float32 x, float32 y);
 	b2BodyDef& getBodyDef(void);
 };
 
