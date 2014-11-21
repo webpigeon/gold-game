@@ -23,6 +23,7 @@ Display::Display() {
 
 void Display::init(void) {
     // Render a black background on the screen
+	this->lastLoop = SDL_GetTicks();
 }
 
 void Display::update(World &world) {
@@ -32,6 +33,11 @@ void Display::update(World &world) {
     // fills screen with the colour
     //SDL_FillRect(screen, NULL,  0xFFFFFF);
     //std::cout << SDL_GetError();
+    Uint32 currTime = SDL_GetTicks();
+    int delta = lastLoop - currTime;
+    lastLoop = currTime;
+
+    world.update(lastLoop);
 
     //TODO rendering code here
     world.draw(renderer);

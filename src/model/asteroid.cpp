@@ -7,7 +7,9 @@
 #include "asteroid.h"
 #include <assert.h>
 #include <iostream>
+
 #include <cmath>
+
 using namespace std;
 
 Asteroid::Asteroid(int points, float32 roughSize, float32 x, float32 y){
@@ -36,8 +38,6 @@ Asteroid::Asteroid(int points, float32 roughSize, float32 x, float32 y){
 		deg += 360.0f / points;
 	}
 
-
-
 	for(int i = 0; i < points; i++){
 		this -> pointsArray[i] *= roughSize;
 		this -> pointsArray[i].x += x;
@@ -61,6 +61,7 @@ b2BodyDef& Asteroid::getBodyDef(){
 void Asteroid::insertBody(b2Body* body){
 	this -> asteroidBody = body;
 	this -> asteroidBody -> CreateFixture(&asteroidFixture);
+	this -> asteroidBody -> ApplyLinearImpulse( b2Vec2(rand() * 10, rand() * 10), asteroidBody->GetWorldCenter(), true );
 }
 
 void Asteroid::draw(SDL_Renderer* renderer){
@@ -72,9 +73,12 @@ void Asteroid::draw(SDL_Renderer* renderer){
 	Sint16 vx[pointsLength];
 	Sint16 vy[pointsLength];
 
+	b2Vec2 pos = asteroidBody->GetPosition();
+	float angle = asteroidBody->GetAngle();
+
 	for(int i = 0; i < pointsLength; i++){
-		vx[i] = pointsArray[i].x;
-		vy[i] = pointsArray[i].y;
+		vx[i] = pointsArray[i].x + pos.x;
+		vy[i] = pointsArray[i].y + pos.y;
 	}
 
 	polygonRGBA(renderer, vx, vy, pointsLength, r, g, b, a);
