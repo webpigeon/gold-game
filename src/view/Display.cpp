@@ -16,13 +16,16 @@ Display::Display() {
 
 	screen = SDL_GetWindowSurface( window );
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
+    if (renderer == NULL) {
+    	cout << "ERROR: " << SDL_GetError() << endl;
+    }
 }
 
 void Display::init(void) {
     // Render a black background on the screen
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-    SDL_RenderClear(renderer);
-    SDL_RenderPresent(renderer);
+    //SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    //SDL_RenderClear(renderer);
+    //SDL_RenderPresent(renderer);
 }
 
 void Display::update(World &world) {
@@ -31,7 +34,7 @@ void Display::update(World &world) {
 
     // fills screen with the colour
     //SDL_FillRect(screen, NULL,  0xFFFFFF);
-    std::cout << SDL_GetError();
+    //std::cout << SDL_GetError();
 
     //TODO rendering code here
     world.draw(renderer);

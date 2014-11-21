@@ -6,6 +6,7 @@
  */
 
 #include "Entity.h"
+#include <iostream>
 
 Entity::Entity() {
 	// TODO Auto-generated constructor stub
@@ -19,9 +20,9 @@ Entity::~Entity() {
 void Entity::draw(SDL_Renderer* renderer){
 	// TODO Draw the entity here please
 
-	Sint16 vx[] = {0, 1, 2};
-	Sint16 vy[] = {0, 1, 0};
-	int sides = 2;
+	Sint16 vx[] = {0, 100, 200};
+	Sint16 vy[] = {0, 100, 0};
+	int sides = 3;
 
 	int r = 255;
 	int g = 255;
