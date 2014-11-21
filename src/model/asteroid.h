@@ -9,13 +9,10 @@
 #define ASTEROID_H_
 #include "Entity.h"
 #include <Box2D/Box2D.h>
-#include <vector>
-using namespace std;
 
 
 class Asteroid : public Entity {
 public:
-	vector<b2Vec2> points;
 	b2Vec2* pointsArray;
 private:
 	b2Body* asteroidBody;

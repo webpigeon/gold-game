@@ -15,7 +15,6 @@ World::World(){
 	for(int i = 1; i < 5; i++){
 		addAsteroid(5, 40, i * 50, i * 50);
 	}
-
 }
 
 void World::draw(SDL_Renderer* renderer){
