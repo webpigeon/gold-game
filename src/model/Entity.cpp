@@ -16,7 +16,18 @@ Entity::~Entity() {
 	// TODO Auto-generated destructor stub
 }
 
-void Entity::draw(){
-// TODO Draw the entity here please
+void Entity::draw(SDL_Renderer* renderer){
+	// TODO Draw the entity here please
+
+	Sint16 vx[] = {0, 1, 2};
+	Sint16 vy[] = {0, 1, 0};
+	int sides = 2;
+
+	int r = 255;
+	int g = 255;
+	int b = 255;
+	int a = 255;
+
+	polygonRGBA(renderer, vx, vy, sides, r, g, b, a);
 }
 
