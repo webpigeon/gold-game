@@ -48,10 +48,6 @@ Display::~Display() {
 	//Deallocate renderer
     SDL_DestroyRenderer(renderer);
 
-	//Deallocate surface
-	SDL_FreeSurface( screen );
-	screen = NULL;
-
 	//Destroy window
 	SDL_DestroyWindow( window );
 	window = NULL;

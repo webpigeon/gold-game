@@ -11,7 +11,7 @@ Asteroid::Asteroid(int points, float32 roughSize, float32 x, float32 y){
 
 	asteroidBody = 0; // Fixes warning about non-initialised member
 
-	b2Vec2 pointsArray [this -> points.size()];
+
 
 	// TODO - once I have worked how to correctly form the Asteroid the vector won't be needed
 	this -> points.push_back(b2Vec2(0, 1));
@@ -19,6 +19,8 @@ Asteroid::Asteroid(int points, float32 roughSize, float32 x, float32 y){
 	this -> points.push_back(b2Vec2(1.25, 0.5));
 	this -> points.push_back(b2Vec2(1, 0));
 	this -> points.push_back(b2Vec2(0, 0));
+
+	b2Vec2 pointsArray [this -> points.size()];
 
 	for(uint i = 0; i < this -> points.size(); i++){
 		this -> points[i] *= roughSize;
