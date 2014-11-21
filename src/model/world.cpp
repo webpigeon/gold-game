@@ -7,6 +7,7 @@
  */
 
 #include "world.h"
+#include <iostream>
 
 #define VEL_INTER 8
 #define POS_INTER 3
@@ -22,6 +23,8 @@ World::World(){
 }
 
 void World::update(int delta) {
+	std::cout << "delta: " << delta << std::endl;
+
 	physicsWorld->Step(delta/DELTA_PER_SEC, VEL_INTER, POS_INTER);
 }
 

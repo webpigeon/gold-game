@@ -34,10 +34,10 @@ void Display::update(World &world) {
     //SDL_FillRect(screen, NULL,  0xFFFFFF);
     //std::cout << SDL_GetError();
     Uint32 currTime = SDL_GetTicks();
-    int delta = lastLoop - currTime;
+    int delta = currTime - lastLoop;
     lastLoop = currTime;
 
-    world.update(lastLoop);
+    world.update(delta);
 
     //TODO rendering code here
     world.draw(renderer);
