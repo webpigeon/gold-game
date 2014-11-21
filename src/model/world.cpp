@@ -19,6 +19,9 @@ World::World(){
 }
 
 void World::draw(){
+	for(uint i = 0; i < asteroids.size(); i++){
+		asteroids[i].draw();
+	}
 }
 
 void World::addAsteroid(int points, float32 roughSize, float32 x, float32 y){
