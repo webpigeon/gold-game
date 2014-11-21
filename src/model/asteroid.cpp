@@ -5,28 +5,31 @@
  *      Author: piers
  */
 #include "asteroid.h"
+#include <assert.h>
 using namespace std;
 
 Asteroid::Asteroid(int points, float32 roughSize, float32 x, float32 y){
+	assert (points >= 1);
+
 
 	asteroidBody = 0; // Fixes warning about non-initialised member
-
+	pointsArray = new b2Vec2[points];
+	pointsLength = points;
 
 
 	// TODO - once I have worked how to correctly form the Asteroid the vector won't be needed
-	this -> points.push_back(b2Vec2(0, 1));
-	this -> points.push_back(b2Vec2(1, 1));
-	this -> points.push_back(b2Vec2(1.25, 0.5));
-	this -> points.push_back(b2Vec2(1, 0));
-	this -> points.push_back(b2Vec2(0, 0));
+	this -> pointsArray[0] = (b2Vec2(0, 1));
+	this -> pointsArray[1] = (b2Vec2(1, 1));
+	this -> pointsArray[2] = (b2Vec2(1.25, 0.5));
+	this -> pointsArray[3] = (b2Vec2(1, 0));
+	this -> pointsArray[4] = (b2Vec2(0, 0));
 
-	b2Vec2 pointsArray [this -> points.size()];
 
-	for(uint i = 0; i < this -> points.size(); i++){
-		this -> points[i] *= roughSize;
-		this -> points[i].x += x;
-		this -> points[i].y += y;
-		pointsArray[i] = this -> points[i];
+
+	for(int i = 0; i < points; i++){
+		this -> pointsArray[i] *= roughSize;
+		this -> pointsArray[i].x += x;
+		this -> pointsArray[i].y += y;
 	}
 
 	bodyDef.type = b2_dynamicBody;
@@ -46,6 +49,23 @@ b2BodyDef& Asteroid::getBodyDef(){
 void Asteroid::insertBody(b2Body* body){
 	this -> asteroidBody = body;
 	this -> asteroidBody -> CreateFixture(&asteroidFixture);
+}
+
+void Asteroid::draw(SDL_Renderer* renderer){
+	int r = 0;
+	int g = 255;
+	int b = 0;
+	int a = 255;
+
+	Sint16 vx[pointsLength];
+	Sint16 vy[pointsLength];
+
+	for(int i = 0; i < pointsLength; i++){
+		vx[i] = pointsArray[i].x;
+		vy[i] = pointsArray[i].y;
+	}
+
+	polygonRGBA(renderer, vx, vy, pointsLength, r, g, b, a);
 }
 
 
