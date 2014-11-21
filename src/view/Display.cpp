@@ -15,7 +15,7 @@ Display::Display() {
 	}
 
 	screen = SDL_GetWindowSurface( window );
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_SOFTWARE);
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
 }
 
 void Display::init(void) {
@@ -30,11 +30,11 @@ void Display::update(World &world) {
     SDL_RenderClear(renderer);
 
     // fills screen with the colour
-    SDL_FillRect(screen, NULL,  0xFFFFFF);
+    //SDL_FillRect(screen, NULL,  0xFFFFFF);
     std::cout << SDL_GetError();
 
     //TODO rendering code here
-    world.draw();
+    world.draw(renderer);
 
     SDL_RenderPresent(renderer);
 }

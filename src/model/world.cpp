@@ -18,9 +18,9 @@ World::World(){
 
 }
 
-void World::draw(){
+void World::draw(SDL_Renderer* renderer){
 	for(uint i = 0; i < asteroids.size(); i++){
-		asteroids[i].draw();
+		asteroids[i].draw(renderer);
 	}
 }
 
