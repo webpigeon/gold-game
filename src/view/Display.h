@@ -22,7 +22,6 @@ public:
 
 private:
 	SDL_Window* window;
-	SDL_Surface* screen;
 	SDL_Renderer* renderer;
 
 };
