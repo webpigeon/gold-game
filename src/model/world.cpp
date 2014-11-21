@@ -23,8 +23,7 @@ World::World(){
 }
 
 void World::update(int delta) {
-	std::cout << "delta: " << delta << std::endl;
-
+	//std::cout << "delta: " << delta / DELTA_PER_SEC << std::endl;
 	physicsWorld->Step(delta/DELTA_PER_SEC, VEL_INTER, POS_INTER);
 }
 

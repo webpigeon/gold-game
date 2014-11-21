@@ -27,8 +27,10 @@ int main() {
 	Display display;
 	display.init();
 
+	int deltaSum = 0;
 	unsigned short fps = 0;
 	Uint32 lastUpdateTime = SDL_GetTicks();
+	Uint32 lastLoopTime = lastUpdateTime;
 
 	bool quit = false;
 	while(!quit) {
@@ -39,12 +41,18 @@ int main() {
 
 		display.update(world);
 
+		//DEBUG - keep track of the deltas for finding delta drift
+	    Uint32 currTime = SDL_GetTicks();
+	    deltaSum += currTime - lastLoopTime;
+	    lastLoopTime = currTime;
+
 		fps++;
 		Uint32 currentTime = SDL_GetTicks();
 		if (currentTime >= lastUpdateTime + 1000)
 		{
-			cout << fps << endl;
+			cout << fps <<  " deltaSum: " << deltaSum << endl;
 			lastUpdateTime = currentTime;
+			deltaSum = 0;
 			fps = 0;
 		}
 	}
