@@ -13,7 +13,7 @@ World::World(){
 	physicsWorld = new b2World(gravity);
 
 	for(int i = 1; i < 5; i++){
-		addAsteroid(5, 40, i * 50, i * 50);
+		addAsteroid(8, 40, i * 100, i * 100);
 	}
 }
 

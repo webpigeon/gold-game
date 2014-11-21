@@ -6,11 +6,12 @@
  */
 #include "asteroid.h"
 #include <assert.h>
+#include <iostream>
+#include <cmath>
 using namespace std;
 
 Asteroid::Asteroid(int points, float32 roughSize, float32 x, float32 y){
 	assert (points >= 1);
-
 
 	asteroidBody = 0; // Fixes warning about non-initialised member
 	pointsArray = new b2Vec2[points];
@@ -18,11 +19,22 @@ Asteroid::Asteroid(int points, float32 roughSize, float32 x, float32 y){
 
 
 	// TODO - once I have worked how to correctly form the Asteroid the vector won't be needed
-	this -> pointsArray[0] = (b2Vec2(0, 1));
-	this -> pointsArray[1] = (b2Vec2(1, 1));
-	this -> pointsArray[2] = (b2Vec2(1.25, 0.5));
-	this -> pointsArray[3] = (b2Vec2(1, 0));
-	this -> pointsArray[4] = (b2Vec2(0, 0));
+
+	float deg = 0;
+	for(int i = 0; i < points; i++){
+		float theta = (180 * deg) / (M_PI );
+
+		float x = cos(2 * M_PI * i / points);
+		float y = sin(2 * M_PI * i / points);
+		//float tX = x * cos(theta) - y * sin(theta);
+
+		//y = x * sin(theta) + y * cos(theta);
+		//x = tX;
+
+		cout << "X: " << x << " Y: " << y << endl;
+		this -> pointsArray[i] = (b2Vec2(x, y));
+		deg += 360.0f / points;
+	}
 
 
 
