@@ -25,6 +25,7 @@ class World {
 		float32 worldHeight;
 	public:
 		World();
+		void update(int delta);
 		void draw(SDL_Renderer* renderer);
 
 	private:

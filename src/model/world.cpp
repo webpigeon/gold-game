@@ -8,6 +8,10 @@
 
 #include "world.h"
 
+#define VEL_INTER 8
+#define POS_INTER 3
+#define DELTA_PER_SEC 1000.0
+
 World::World(){
 	b2Vec2 gravity(0.0f, 0.0f);
 	physicsWorld = new b2World(gravity);
@@ -15,6 +19,10 @@ World::World(){
 	for(int i = 1; i < 5; i++){
 		addAsteroid(5, 40, i * 50, i * 50);
 	}
+}
+
+void World::update(int delta) {
+	physicsWorld->Step(delta/DELTA_PER_SEC, VEL_INTER, POS_INTER);
 }
 
 void World::draw(SDL_Renderer* renderer){
