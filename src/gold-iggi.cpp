@@ -15,7 +15,11 @@ using namespace std;
 int main() {
 	cout << "Hello, IGGI!" << endl; // prints Hello, IGGI!
 
-	SDL_Init( SDL_INIT_EVERYTHING );
+	int errorCode = SDL_Init( SDL_INIT_EVERYTHING );
+	if (errorCode != 0) {
+		cout << "ERROR: " << SDL_GetError() << endl;
+		return EXIT_FAILURE;
+	}
 
 	World world;
 

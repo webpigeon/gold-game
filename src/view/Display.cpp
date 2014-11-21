@@ -17,7 +17,7 @@ Display::Display() {
 	screen = SDL_GetWindowSurface( window );
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
     if (renderer == NULL) {
-    	cout << "ERROR: " << SDL_GetError() << endl;
+    	std::cout << "ERROR: " << SDL_GetError() << std::endl;
     }
 }
 
