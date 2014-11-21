@@ -6,6 +6,7 @@
  */
 
 #include "Display.h"
+#include <iostream>
 
 Display::Display() {
 	window = SDL_CreateWindow("IGGI-Gold", 50, 50, 800, 640, SDL_WINDOW_SHOWN);
@@ -14,7 +15,7 @@ Display::Display() {
 	}
 
 	screen = SDL_GetWindowSurface( window );
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_SOFTWARE);
 }
 
 void Display::init(void) {
@@ -27,6 +28,10 @@ void Display::init(void) {
 void Display::update(World &world) {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
+
+    // fills screen with the colour
+    SDL_FillRect(screen, NULL,  0xFFFFFF);
+    std::cout << SDL_GetError();
 
     //TODO rendering code here
     world.draw();
