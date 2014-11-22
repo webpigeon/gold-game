@@ -12,86 +12,41 @@
 
 using namespace std;
 
-Asteroid::Asteroid(int points, float32 roughSize, float32 x, float32 y){
-	assert (points >= 1);
+static b2PolygonShape* buildAsteroidShape(int points, int size);
 
-	asteroidBody = 0; // Fixes warning about non-initialised member
-	pointsArray = new b2Vec2[points];
-	pointsLength = points;
-
-
-	// TODO - once I have worked how to correctly form the Asteroid the vector won't be needed
-
-	float deg = 0;
-	for(int i = 0; i < points; i++){
-		float theta = (180 * deg) / (M_PI );
-
-		float x1 = cos(2 * M_PI * i / points);
-		float y1 = sin(2 * M_PI * i / points);
-		//float tX = x * cos(theta) - y * sin(theta);
-
-		//y = x * sin(theta) + y * cos(theta);
-		//x = tX;
-
-		cout << "X: " << x << " Y: " << y << endl;
-		this -> pointsArray[i] = (b2Vec2(x1, y1));
-		deg += 360.0f / points;
-	}
-
-	for(int i = 0; i < points; i++){
-		this -> pointsArray[i] *= roughSize;
-	}
-
-	bodyDef.type = b2_dynamicBody;
-	bodyDef.position.Set(x, y);
-
-	asteroidShape.Set(pointsArray, points);
-
-	asteroidFixture.shape = &asteroidShape;
-	asteroidFixture.density = 1.0f; // TODO - Work out exactly what this means
-	asteroidFixture.friction = 0.0f; // No friction in space
+Asteroid::Asteroid(b2Body* body) : Entity(body){
 }
 
-b2BodyDef& Asteroid::getBodyDef(){
+b2FixtureDef* buildAsteroidFixtureDef(int p, int size){
+	b2FixtureDef* fixture = new b2FixtureDef();
+	fixture->shape = buildAsteroidShape(p, size);
+	fixture->density = 1.0f;
+	fixture->friction = 0.0f;
+	return fixture;
+}
+
+b2BodyDef* buildAsteroidBodyDef(int x, int y){
+	b2BodyDef* bodyDef = new b2BodyDef();
+	bodyDef->type = b2_dynamicBody;
+	bodyDef->position.Set(x, y);
 	return bodyDef;
 }
 
-void Asteroid::insertBody(b2Body* body){
-	this -> asteroidBody = body;
-	this -> asteroidBody -> CreateFixture(&asteroidFixture);
-	this -> asteroidBody -> ApplyLinearImpulse( b2Vec2(rand() * 0.1, rand() * 0.1), asteroidBody->GetWorldCenter(), true );
-}
+b2PolygonShape* buildAsteroidShape(int points, int size) {
+	b2PolygonShape* shape = new b2PolygonShape();
 
-void Asteroid::draw(SDL_GLContext* renderer){
-	b2Vec2 pos = asteroidBody->GetPosition();
-	float angle = asteroidBody->GetAngle();
+	b2Vec2 pointsArray[points];
 
-	//set shape
-	glColor3f(0, 1.0f, 0);
-	glPushMatrix();
+	float deg = 0;
+	for(int i = 0; i < points; i++){
+		float x = cos(2 * M_PI * i / points);
+		float y = sin(2 * M_PI * i / points);
 
-	//move the origin to the asteroid
-	glTranslatef(pos.x, pos.y, 0);
-	glRotatef(angle, 0, 0, 1);
-
-	// now we start drawing stuff
-
-	b2Fixture* f = asteroidBody->GetFixtureList();
-	glBegin(GL_POLYGON);
-	while (f) {
-		b2PolygonShape* shape = (b2PolygonShape*)f->GetShape();
-		int vertexCount = shape->GetVertexCount();
-
-		for (int i=0; i<vertexCount; ++i) {
-			b2Vec2 vertex = shape->GetVertex(i);
-			glVertex2f(vertex.x, vertex.y);
-		}
-
-		f = f->GetNext();
+		pointsArray[i] = b2Vec2(x * size, y * size);
+		deg += 360.0f / points;
 	}
-	glEnd();
 
-	glPopMatrix();
+	shape->Set(pointsArray, points);
+	return shape;
 }
-
 

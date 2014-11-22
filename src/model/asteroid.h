@@ -13,22 +13,12 @@
 
 class Asteroid : public Entity {
 public:
-	b2Vec2* pointsArray;
-private:
-	b2Body* asteroidBody;
-	b2BodyDef bodyDef;
-	b2PolygonShape asteroidShape;
-	b2FixtureDef asteroidFixture;
-	int pointsLength;
-
-public:
-
-	Asteroid(int points, float32 roughSize, float32 x, float32 y);
-	b2BodyDef& getBodyDef(void);
-	void insertBody(b2Body* body);
-	void draw(SDL_GLContext* renderer);
+	Asteroid(b2Body* body);
 };
 
+//utility (factory) functions
+b2BodyDef* buildAsteroidBodyDef(int sides, int size);
+b2FixtureDef* buildAsteroidFixtureDef(int x, int y);
 
 
 #endif /* ASTEROID_H_ */

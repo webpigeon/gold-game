@@ -10,13 +10,16 @@
 
 #include <SDL2/SDL.h>
 #include <GL/gl.h>
+#include <Box2D/Box2D.h>
 
 class Entity {
-public:
-	Entity();
-	virtual ~Entity();
+	public:
+		Entity(b2Body* body);
+		virtual ~Entity();
+		virtual void draw(SDL_GLContext* context);
 
-	virtual void draw(SDL_GLContext* context);
+	private:
+		b2Body* body;
 };
 
 #endif /* ENTITY_H_ */

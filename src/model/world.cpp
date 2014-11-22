@@ -34,11 +34,15 @@ void World::draw(SDL_GLContext* context){
 }
 
 void World::addAsteroid(int points, float32 roughSize, float32 x, float32 y){
-	Asteroid* temp = new Asteroid(points, roughSize, x, y);
+	//create the required components
+	b2FixtureDef* fixture = buildAsteroidFixtureDef(points, roughSize);
+	b2BodyDef* bodyDef = buildAsteroidBodyDef(x, y);
 
-	// TODO - Joe is there an easier way to do this lol? this code is horrible looking
-	temp -> insertBody(physicsWorld -> CreateBody(&(temp -> getBodyDef())));
-	this -> asteroids.push_back(*temp);
+	//create the asteroid and add it
+	b2Body* body = physicsWorld->CreateBody(bodyDef);
+	body->CreateFixture(fixture);
+	Asteroid* temp = new Asteroid(body);
+	this->asteroids.push_back(*temp);
 }
 
 

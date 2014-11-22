@@ -8,9 +8,8 @@
 #include "Entity.h"
 #include <iostream>
 
-Entity::Entity() {
-	// TODO Auto-generated constructor stub
-
+Entity::Entity(b2Body* body) {
+	this->body = body;
 }
 
 Entity::~Entity() {
@@ -18,14 +17,34 @@ Entity::~Entity() {
 }
 
 void Entity::draw(SDL_GLContext* context){
-	// TODO Draw the entity here please
+	b2Vec2 pos = body->GetPosition();
+	float angle = body->GetAngle();
 
+	//set shape
+	glColor3f(0, 1.0f, 0);
+	glPushMatrix();
+
+	//move the origin to the asteroid
+	glTranslatef(pos.x, pos.y, 0);
+	glRotatef(angle, 0, 0, 1);
+
+	// now we start drawing stuff
+
+	b2Fixture* f = body->GetFixtureList();
 	glBegin(GL_POLYGON);
+	while (f) {
+		b2PolygonShape* shape = (b2PolygonShape*)f->GetShape();
+		int vertexCount = shape->GetVertexCount();
 
-	glVertex2f( 0, 0 );
-	glVertex2f( 100, 100);
-	glVertex2f( 200, 0);
+		for (int i=0; i<vertexCount; ++i) {
+			b2Vec2 vertex = shape->GetVertex(i);
+			glVertex2f(vertex.x, vertex.y);
+		}
 
+		f = f->GetNext();
+	}
 	glEnd();
+
+	glPopMatrix();
 }
 
