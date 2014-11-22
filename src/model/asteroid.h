@@ -26,7 +26,7 @@ public:
 	Asteroid(int points, float32 roughSize, float32 x, float32 y);
 	b2BodyDef& getBodyDef(void);
 	void insertBody(b2Body* body);
-	void draw(SDL_Renderer* renderer);
+	void draw(SDL_GLContext* renderer);
 };
 
 

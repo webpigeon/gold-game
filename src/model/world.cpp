@@ -17,8 +17,8 @@ World::World(){
 	b2Vec2 gravity(0.0f, 0.0f);
 	physicsWorld = new b2World(gravity);
 
-	for(int i = 1; i < 5; i++){
-		addAsteroid(8, 40, i * 100, i * 100);
+	for(int i = 1; i < 25; i++){
+		addAsteroid(8, 40, i * 50, i * 50);
 	}
 }
 
@@ -27,9 +27,9 @@ void World::update(int delta) {
 	physicsWorld->Step(delta/DELTA_PER_SEC, VEL_INTER, POS_INTER);
 }
 
-void World::draw(SDL_Renderer* renderer){
+void World::draw(SDL_GLContext* context){
 	for(uint i = 0; i < asteroids.size(); i++){
-		asteroids[i].draw(renderer);
+		asteroids[i].draw(context);
 	}
 }
 

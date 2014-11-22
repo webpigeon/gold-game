@@ -9,14 +9,14 @@
 #define ENTITY_H_
 
 #include <SDL2/SDL.h>
-#include <SDL2/SDL2_gfxPrimitives.h>
+#include <GL/gl.h>
 
 class Entity {
 public:
 	Entity();
 	virtual ~Entity();
 
-	virtual void draw(SDL_Renderer* renderer);
+	virtual void draw(SDL_GLContext* context);
 };
 
 #endif /* ENTITY_H_ */

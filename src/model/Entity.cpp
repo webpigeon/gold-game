@@ -17,18 +17,15 @@ Entity::~Entity() {
 	// TODO Auto-generated destructor stub
 }
 
-void Entity::draw(SDL_Renderer* renderer){
+void Entity::draw(SDL_GLContext* context){
 	// TODO Draw the entity here please
 
-	Sint16 vx[] = {0, 100, 200};
-	Sint16 vy[] = {0, 100, 0};
-	int sides = 3;
+	glBegin(GL_POLYGON);
 
-	int r = 255;
-	int g = 255;
-	int b = 255;
-	int a = 255;
+	glVertex2f( 0, 0 );
+	glVertex2f( 100, 100);
+	glVertex2f( 200, 0);
 
-	polygonRGBA(renderer, vx, vy, sides, r, g, b, a);
+	glEnd();
 }
 

@@ -9,6 +9,7 @@
 #define DISPLAY_H_
 
 #include <SDL2/SDL.h>
+#include <GL/gl.h>
 #include "../model/world.h"
 
 class Display {
@@ -22,7 +23,7 @@ public:
 
 private:
 	SDL_Window* window;
-	SDL_Renderer* renderer;
+	SDL_GLContext context;
 	Uint32 lastLoop;
 
 };

@@ -26,22 +26,20 @@ Asteroid::Asteroid(int points, float32 roughSize, float32 x, float32 y){
 	for(int i = 0; i < points; i++){
 		float theta = (180 * deg) / (M_PI );
 
-		float x = cos(2 * M_PI * i / points);
-		float y = sin(2 * M_PI * i / points);
+		float x1 = cos(2 * M_PI * i / points);
+		float y1 = sin(2 * M_PI * i / points);
 		//float tX = x * cos(theta) - y * sin(theta);
 
 		//y = x * sin(theta) + y * cos(theta);
 		//x = tX;
 
 		cout << "X: " << x << " Y: " << y << endl;
-		this -> pointsArray[i] = (b2Vec2(x, y));
+		this -> pointsArray[i] = (b2Vec2(x1, y1));
 		deg += 360.0f / points;
 	}
 
 	for(int i = 0; i < points; i++){
 		this -> pointsArray[i] *= roughSize;
-		this -> pointsArray[i].x += x;
-		this -> pointsArray[i].y += y;
 	}
 
 	bodyDef.type = b2_dynamicBody;
@@ -61,27 +59,26 @@ b2BodyDef& Asteroid::getBodyDef(){
 void Asteroid::insertBody(b2Body* body){
 	this -> asteroidBody = body;
 	this -> asteroidBody -> CreateFixture(&asteroidFixture);
-	this -> asteroidBody -> ApplyLinearImpulse( b2Vec2(rand() * 10, rand() * 10), asteroidBody->GetWorldCenter(), true );
+	this -> asteroidBody -> ApplyLinearImpulse( b2Vec2(rand() * 0.1, rand() * 0.1), asteroidBody->GetWorldCenter(), true );
 }
 
-void Asteroid::draw(SDL_Renderer* renderer){
-	int r = 0;
-	int g = 255;
-	int b = 0;
-	int a = 255;
-
-	Sint16 vx[pointsLength];
-	Sint16 vy[pointsLength];
-
+void Asteroid::draw(SDL_GLContext* renderer){
 	b2Vec2 pos = asteroidBody->GetPosition();
 	float angle = asteroidBody->GetAngle();
 
+	glColor3f(0, 1.0f, 0);
+	glPushMatrix();
+	glTranslatef(pos.x, pos.y, 0);
+	glRotatef(angle, 0, 0, 1);
+	glBegin(GL_POLYGON);
+
 	for(int i = 0; i < pointsLength; i++){
-		vx[i] = pointsArray[i].x + pos.x;
-		vy[i] = pointsArray[i].y + pos.y;
+		glVertex2f(pointsArray[i].x, pointsArray[i].y);
 	}
 
-	polygonRGBA(renderer, vx, vy, pointsLength, r, g, b, a);
+	glEnd();
+
+	glPopMatrix();
 }
 
 
