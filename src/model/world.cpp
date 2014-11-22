@@ -28,8 +28,8 @@ void World::update(int delta) {
 }
 
 void World::draw(SDL_GLContext* context){
-	for(uint i = 0; i < asteroids.size(); i++){
-		asteroids[i].draw(context);
+	for(uint i = 0; i < entities.size(); i++){
+		entities[i].draw(context);
 	}
 }
 
@@ -42,7 +42,9 @@ void World::addAsteroid(int points, float32 roughSize, float32 x, float32 y){
 	b2Body* body = physicsWorld->CreateBody(bodyDef);
 	body->CreateFixture(fixture);
 	Asteroid* temp = new Asteroid(body);
-	this->asteroids.push_back(*temp);
+	this->entities.push_back(*temp);
+
+	//TODO find out if it's safe to delete fixture and bodydef here
 }
 
 

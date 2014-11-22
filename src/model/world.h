@@ -19,7 +19,7 @@ using namespace std;
 class World {
 	private:
 		b2World* physicsWorld;
-		vector<Asteroid> asteroids;
+		vector<Entity> entities;
 
 		float32 worldWidth;
 		float32 worldHeight;
