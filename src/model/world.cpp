@@ -20,7 +20,7 @@ World::World(){
 	for(int i = 1; i < 5; i++){
 		addAsteroid(8, 40, i * 150, i * 150);
 	}
-	addProjectile(5, 25, 25);
+	addProjectile(5, 25, 25, b2Vec2(500, 500));
 
 	addShip(50, 50);
 }
@@ -67,12 +67,12 @@ void World::addShip(float32 x, float32 y){
 	this -> entities.push_back(*temp);
 }
 
-void World::addProjectile(float32 size, float32 x, float32 y){
+void World::addProjectile(float32 size, float32 x, float32 y, b2Vec2 initialVelocity){
 	b2FixtureDef* fixture = buildProjectileFixtureDef(size);
 	b2BodyDef* bodyDef = buildProjectileBodyDef(x, y);
 	b2Body* body = physicsWorld -> CreateBody(bodyDef);
 	body -> CreateFixture(fixture);
-	Projectile* temp = new Projectile(body);
+	Projectile* temp = new Projectile(body, initialVelocity);
 	this -> entities.push_back(*temp);
 }
 

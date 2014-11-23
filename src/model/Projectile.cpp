@@ -9,9 +9,10 @@
 
 static b2PolygonShape* buildProjectileShape(int points, int size);
 
-Projectile::Projectile(b2Body* body) : Entity(body) {
+Projectile::Projectile(b2Body* body, b2Vec2 initialVelocity) : Entity(body) {
 	// TODO Auto-generated constructor stub
-
+	body ->ApplyLinearImpulse(initialVelocity, body->GetWorldCenter(), true);
+	body->ApplyAngularImpulse(5000, true);
 }
 
 Projectile::~Projectile() {

@@ -36,7 +36,7 @@ class World {
 	private:
 		void addAsteroid(int points, float32 roughSize, float32 x, float32 y);
 		void addShip(float32 x, float32 y);
-		void addProjectile(float32 size, float32 x, float32 y);
+		void addProjectile(float32 size, float32 x, float32 y, b2Vec2 initialVelocity);
 };
 
 
