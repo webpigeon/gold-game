@@ -17,7 +17,7 @@ Entity::~Entity() {
 }
 
 void Entity::draw(SDL_GLContext* context){
-	b2Vec2 pos = body->GetPosition();
+	b2Vec2 pos = body->GetWorldCenter();
 	float angle = body->GetAngle();
 
 	//set shape
