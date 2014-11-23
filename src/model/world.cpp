@@ -78,11 +78,16 @@ void World::addProjectile(float32 size, float32 x, float32 y, b2Vec2 initialVelo
 }
 
 void World::fire(){
-
 	b2Body* body = ship->getBody();
-	b2Vec2 velocity(0, 500);
+	// Get velocity of the ship for use as direction
+	b2Vec2 velocity = body->GetLinearVelocity();
+	velocity.Normalize();
+
+	velocity*= 5;
+	b2Vec2 startPosition = body->GetPosition();
+	startPosition += (velocity);
 	 // Rotate Velocity correctly
-	addProjectile(5, body->GetPosition().x, body->GetPosition().y, velocity);
+	addProjectile(5, startPosition.x, startPosition.y, velocity);
 }
 
 

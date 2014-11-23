@@ -9,10 +9,17 @@
 
 static b2PolygonShape* buildProjectileShape(int points, int size);
 
+
 Projectile::Projectile(b2Body* body, b2Vec2 initialVelocity) : Entity(body) {
 	// TODO Auto-generated constructor stub
+
+	// Normalise it to remove magnitude
+	initialVelocity.Normalize();
+	// Apply magnitude
+	initialVelocity *= 1000.0f;
 	body ->ApplyLinearImpulse(initialVelocity, body->GetWorldCenter(), true);
-	body->ApplyAngularImpulse(5000, true);
+	//body->ApplyAngularImpulse(5000, true);
+
 }
 
 Projectile::~Projectile() {
