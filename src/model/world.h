@@ -24,6 +24,8 @@ class World {
 
 		float32 worldWidth;
 		float32 worldHeight;
+
+		Ship* ship;
 	public:
 		World();
 		void update(int delta);
@@ -34,7 +36,7 @@ class World {
 
 	private:
 		void addAsteroid(int points, float32 roughSize, float32 x, float32 y);
-		void addShip(float32 x, float32 y);
+		Ship* addShip(float32 x, float32 y);
 };
 
 
