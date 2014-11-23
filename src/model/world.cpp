@@ -71,7 +71,7 @@ void World::fire(){
 
 	cout << ship->GetWorldVector(b2Vec2(0, 1)).x << "," << ship->GetWorldVector(b2Vec2(0, 1)).y;
 
-	b2Body* body = addBullet(loc.x + (offset.x * 5), loc.y + (offset.y * 5));
+	b2Body* body = addBullet(loc.x + (offset.x * 5), loc.y + (offset.y * 5), ship->GetAngle());
 	body->ApplyLinearImpulse(b2Vec2(offset.x * 500, offset.y * 500), body->GetWorldCenter(), true);
 }
 
@@ -86,10 +86,11 @@ b2Body* World::addShip(float32 x, float32 y){
 	return body;
 }
 
-b2Body* World::addBullet(float32 x, float32 y) {
+b2Body* World::addBullet(float32 x, float32 y, float32 angle) {
 	b2FixtureDef* fixture = buildShipFixtureDef();
 	b2BodyDef* bodyDef = buildShipBodyDef(x, y);
-	//bodyDef->bullet = true;
+	bodyDef->bullet = true;
+	bodyDef->angle = angle;
 
 	b2Body* body = physicsWorld->CreateBody(bodyDef);
 
