@@ -24,7 +24,7 @@ World::World(){
 		addAsteroid(8, 40, i * 150, i * 150);
 	}
 
-	ship = addShip(50, 50);
+	addShip(50, 50);
 }
 
 void World::update(int delta) {
@@ -64,15 +64,13 @@ void World::turn(int direction) {
 
 }
 
-Ship* World::addShip(float32 x, float32 y){
+void World::addShip(float32 x, float32 y){
 	b2FixtureDef* fixture = buildShipFixtureDef();
 	b2BodyDef* bodyDef = buildShipBodyDef(x, y);
 	b2Body* body = physicsWorld -> CreateBody(bodyDef);
 	body -> CreateFixture(fixture);
 	Ship* temp = new Ship(body);
 	this -> entities.push_back(*temp);
-
-	return temp;
 }
 
 
