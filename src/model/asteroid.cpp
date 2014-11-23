@@ -15,7 +15,8 @@ using namespace std;
 static b2PolygonShape* buildAsteroidShape(int points, int size);
 
 Asteroid::Asteroid(b2Body* body) : Entity(body){
-	body->ApplyLinearImpulse(b2Vec2(100000, 100000), body->GetWorldCenter(), true);
+	body->ApplyLinearImpulse(b2Vec2(body->GetMass(), body->GetMass()), body->GetWorldCenter(), true);
+	body->ApplyAngularImpulse(body->GetMass() * 20000, true);
 	std::cout << body->GetMass() << std::endl;
 	//(b2Vec2(50, 50), true);
 }
@@ -47,8 +48,6 @@ b2PolygonShape* buildAsteroidShape(int points, int size) {
 
 		float xMod = (rand() % 20 / 100.0) - 0.1;
 		float yMod = (rand() % 20 / 100.0) - 0.1;
-
-		cout << "x" << x << " xMod" << xMod << endl;
 
 		pointsArray[i] = b2Vec2((x + xMod) * size, (y + yMod) * size);
 		deg += 360.0f / points;
