@@ -15,6 +15,9 @@ using namespace std;
 static b2PolygonShape* buildAsteroidShape(int points, int size);
 
 Asteroid::Asteroid(b2Body* body) : Entity(body){
+	body->ApplyLinearImpulse(b2Vec2(100000, 100000), body->GetWorldCenter(), true);
+	std::cout << body->GetMass() << std::endl;
+	//(b2Vec2(50, 50), true);
 }
 
 b2FixtureDef* buildAsteroidFixtureDef(int p, int size){

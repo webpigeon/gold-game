@@ -17,8 +17,8 @@ World::World(){
 	b2Vec2 gravity(0.0f, 0.0f);
 	physicsWorld = new b2World(gravity);
 
-	for(int i = 1; i < 25; i++){
-		addAsteroid(8, 40, i * 50, i * 50);
+	for(int i = 1; i < 5; i++){
+		addAsteroid(8, 40, i * 150, i * 150);
 	}
 }
 
