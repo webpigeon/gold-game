@@ -13,6 +13,7 @@
 class Ship: public Entity {
 public:
 	Ship(b2Body* body);
+	b2Body* getBody();
 };
 
 b2FixtureDef* buildShipFixtureDef();

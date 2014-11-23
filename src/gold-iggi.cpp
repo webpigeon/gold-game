@@ -61,6 +61,10 @@ int main() {
 	        			cout << "Turn clockwise!" << endl;
 	        			world.turn(1);
 	        			break;
+	        		case SDLK_SPACE:
+	        			cout << "Pressed Space" << endl;
+	        			world.fire();
+	        			break;
 	        	}
 
 	        }

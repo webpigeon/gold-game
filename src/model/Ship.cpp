@@ -14,6 +14,9 @@ Ship::Ship(b2Body* body) : Entity(body){
 	//body->ApplyAngularImpulse(body->GetMass() * 1000, true);
 }
 
+b2Body* Ship::getBody(){
+	return this->body;
+}
 
 
 b2FixtureDef* buildShipFixtureDef(){

@@ -64,6 +64,7 @@ void World::addShip(float32 x, float32 y){
 	b2Body* body = physicsWorld -> CreateBody(bodyDef);
 	body -> CreateFixture(fixture);
 	Ship* temp = new Ship(body);
+	ship = temp;
 	this -> entities.push_back(*temp);
 }
 
@@ -74,6 +75,14 @@ void World::addProjectile(float32 size, float32 x, float32 y, b2Vec2 initialVelo
 	body -> CreateFixture(fixture);
 	Projectile* temp = new Projectile(body, initialVelocity);
 	this -> entities.push_back(*temp);
+}
+
+void World::fire(){
+
+	b2Body* body = ship->getBody();
+	b2Vec2 velocity(0, 500);
+	 // Rotate Velocity correctly
+	addProjectile(5, body->GetPosition().x, body->GetPosition().y, velocity);
 }
 
 

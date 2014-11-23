@@ -22,6 +22,7 @@ class World {
 	private:
 		b2World* physicsWorld;
 		vector<Entity> entities;
+		Ship* ship;
 
 		float32 worldWidth;
 		float32 worldHeight;
@@ -32,6 +33,7 @@ class World {
 
 		void accelerate(int delta);
 		void turn(int direction);
+		void fire();
 
 	private:
 		void addAsteroid(int points, float32 roughSize, float32 x, float32 y);
