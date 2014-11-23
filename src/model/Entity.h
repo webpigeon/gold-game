@@ -17,6 +17,7 @@ class Entity {
 		Entity(b2Body* body);
 		virtual ~Entity();
 		virtual void draw(SDL_GLContext* context);
+		void wrap(float32 worldWidth, float32 worldHeight);
 
 	private:
 		b2Body* body;

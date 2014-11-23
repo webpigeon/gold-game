@@ -48,3 +48,23 @@ void Entity::draw(SDL_GLContext* context){
 	glPopMatrix();
 }
 
+void Entity::wrap(float32 worldWidth, float32 worldHeight){
+	float32 x = body->GetWorldCenter().x;
+	float32 y = body->GetWorldCenter().y;
+
+	if(x > worldWidth){
+		x = 0;
+	}
+	if(x < 0){
+		x = worldWidth;
+	}
+	if(y > worldHeight){
+		y = 0;
+	}
+	if(y < 0){
+		y = worldHeight;
+	}
+
+	body->SetTransform(b2Vec2(x, y), body->GetAngle());
+}
+

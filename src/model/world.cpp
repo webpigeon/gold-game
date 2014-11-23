@@ -16,6 +16,9 @@
 World::World(){
 	b2Vec2 gravity(0.0f, 0.0f);
 	physicsWorld = new b2World(gravity);
+	worldHeight = 640;
+	worldWidth = 800;
+
 
 	for(int i = 1; i < 5; i++){
 		addAsteroid(8, 40, i * 150, i * 150);
@@ -27,6 +30,10 @@ World::World(){
 void World::update(int delta) {
 	//std::cout << "delta: " << delta / DELTA_PER_SEC << std::endl;
 	physicsWorld->Step(delta/DELTA_PER_SEC, VEL_INTER, POS_INTER);
+
+	for(uint i = 0; i < entities.size(); i++){
+		entities[i].wrap(worldWidth, worldHeight);
+	}
 }
 
 void World::draw(SDL_GLContext* context){
