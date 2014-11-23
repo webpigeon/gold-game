@@ -20,6 +20,8 @@ World::World(){
 	for(int i = 1; i < 5; i++){
 		addAsteroid(8, 40, i * 150, i * 150);
 	}
+
+	addShip(50, 50);
 }
 
 void World::update(int delta) {
@@ -45,6 +47,16 @@ void World::addAsteroid(int points, float32 roughSize, float32 x, float32 y){
 	this->entities.push_back(*temp);
 
 	//TODO find out if it's safe to delete fixture and bodydef here
+}
+
+void World::addShip(float32 x, float32 y){
+
+	b2FixtureDef* fixture = buildShipFixtureDef();
+	b2BodyDef* bodyDef = buildShipBodyDef(x, y);
+	b2Body* body = physicsWorld -> CreateBody(bodyDef);
+	body -> CreateFixture(fixture);
+	Ship* temp = new Ship(body);
+	this -> entities.push_back(*temp);
 }
 
 
