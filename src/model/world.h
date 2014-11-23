@@ -24,7 +24,6 @@ class World {
 
 		float32 worldWidth;
 		float32 worldHeight;
-
 		b2Body* ship;
 	public:
 		World();
