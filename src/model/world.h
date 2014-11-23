@@ -11,6 +11,7 @@
 #include <SDL2/SDL.h>
 #include <Box2D/Box2D.h>
 #include "asteroid.h"
+#include "Ship.h"
 #include <vector>
 
 
@@ -33,6 +34,7 @@ class World {
 
 	private:
 		void addAsteroid(int points, float32 roughSize, float32 x, float32 y);
+		void addShip(float32 x, float32 y);
 };
 
 
