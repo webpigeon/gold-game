@@ -28,6 +28,9 @@ class World {
 		void update(int delta);
 		void draw(SDL_GLContext* context);
 
+		void accelerate(int delta);
+		void turn(int direction);
+
 	private:
 		void addAsteroid(int points, float32 roughSize, float32 x, float32 y);
 };

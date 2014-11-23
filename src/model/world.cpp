@@ -47,5 +47,12 @@ void World::addAsteroid(int points, float32 roughSize, float32 x, float32 y){
 	//TODO find out if it's safe to delete fixture and bodydef here
 }
 
+void World::accelerate(int delta) {
+
+}
+
+void World::turn(int direction) {
+
+}
 
 

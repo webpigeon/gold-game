@@ -37,6 +37,33 @@ int main() {
 		SDL_Event event;
 		while(SDL_PollEvent(&event) != 0){
 			if(event.type == SDL_QUIT){ quit = true;}
+
+			//Detect SDL key presses
+	        if (event.type == SDL_KEYDOWN){
+	        	cout << "key pressed" << endl;
+	        	switch(event.key.keysym.sym) {
+	        		case SDLK_UP:
+	        			cout << "accerlate ship!" << endl;
+	        			world.accelerate(1);
+	        			break;
+
+	        		case SDLK_DOWN:
+	        			cout << "decelerate ship!" << endl;
+	        			world.accelerate(-1);
+	        			break;
+
+	        		case SDLK_LEFT:
+	        			cout << "Turn counterclockwise!" << endl;
+	        			world.turn(-1);
+	        			break;
+
+	        		case SDLK_RIGHT:
+	        			cout << "Turn clockwise!" << endl;
+	        			world.turn(1);
+	        			break;
+	        	}
+
+	        }
 		}
 
 		display.update(world);
