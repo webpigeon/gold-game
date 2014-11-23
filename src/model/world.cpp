@@ -18,10 +18,10 @@ World::World(){
 	physicsWorld = new b2World(gravity);
 
 	for(int i = 1; i < 5; i++){
-		addAsteroid(8, 40, i * 150, i * 150);
+		addAsteroid(8, 4, i * 50, i * 50);
 	}
 
-	ship = addShip(50, 50);
+	ship = addShip(5, 5);
 }
 
 void World::update(int delta) {
@@ -50,14 +50,32 @@ void World::addAsteroid(int points, float32 roughSize, float32 x, float32 y){
 }
 
 void World::accelerate(int delta) {
-
+	b2Vec2 speed(0, delta * 150);
+	b2Vec2 force = ship->GetWorldVector(speed);
+	ship->ApplyForce(force, ship->GetWorldCenter(), true);
 }
 
 void World::turn(int direction) {
+	float w = ship->GetAngularVelocity();
+	w += direction;
 
+	if (w > 2) w = 2;
+	if (w < -2) w = -2;
+
+	ship->SetAngularVelocity(w);
 }
 
-Ship* World::addShip(float32 x, float32 y){
+void World::fire(){
+	b2Vec2 loc = ship->GetPosition();
+	b2Vec2 offset = ship->GetWorldVector(b2Vec2(0, -1));
+
+	cout << ship->GetWorldVector(b2Vec2(0, 1)).x << "," << ship->GetWorldVector(b2Vec2(0, 1)).y;
+
+	b2Body* body = addBullet(loc.x + (offset.x * 5), loc.y + (offset.y * 5));
+	body->ApplyLinearImpulse(b2Vec2(offset.x * 500, offset.y * 500), body->GetWorldCenter(), true);
+}
+
+b2Body* World::addShip(float32 x, float32 y){
 	b2FixtureDef* fixture = buildShipFixtureDef();
 	b2BodyDef* bodyDef = buildShipBodyDef(x, y);
 	b2Body* body = physicsWorld -> CreateBody(bodyDef);
@@ -65,7 +83,21 @@ Ship* World::addShip(float32 x, float32 y){
 	Ship* temp = new Ship(body);
 	this -> entities.push_back(*temp);
 
-	return temp;
+	return body;
+}
+
+b2Body* World::addBullet(float32 x, float32 y) {
+	b2FixtureDef* fixture = buildShipFixtureDef();
+	b2BodyDef* bodyDef = buildShipBodyDef(x, y);
+	//bodyDef->bullet = true;
+
+	b2Body* body = physicsWorld->CreateBody(bodyDef);
+
+	body->CreateFixture(fixture);
+	Entity* tmp = new Entity(body);
+	this->entities.push_back(*tmp);
+
+	return body;
 }
 
 

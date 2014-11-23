@@ -25,18 +25,20 @@ class World {
 		float32 worldWidth;
 		float32 worldHeight;
 
-		Ship* ship;
+		b2Body* ship;
 	public:
 		World();
 		void update(int delta);
 		void draw(SDL_GLContext* context);
 
+		void fire();
 		void accelerate(int delta);
 		void turn(int direction);
 
 	private:
 		void addAsteroid(int points, float32 roughSize, float32 x, float32 y);
-		Ship* addShip(float32 x, float32 y);
+		b2Body* addShip(float32 x, float32 y);
+		b2Body* addBullet(float32 x, float32 y);
 };
 
 

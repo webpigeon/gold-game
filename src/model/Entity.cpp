@@ -8,6 +8,8 @@
 #include "Entity.h"
 #include <iostream>
 
+#define RAD_TO_DEG_FACTOR 57.2957795
+
 Entity::Entity(b2Body* body) {
 	this->body = body;
 }
@@ -18,7 +20,7 @@ Entity::~Entity() {
 
 void Entity::draw(SDL_GLContext* context){
 	b2Vec2 pos = body->GetWorldCenter();
-	float angle = body->GetAngle();
+	float angle = body->GetAngle() * RAD_TO_DEG_FACTOR;
 
 	//set shape
 	glColor3f(0, 1.0f, 0);

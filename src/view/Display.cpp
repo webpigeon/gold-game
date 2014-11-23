@@ -37,7 +37,7 @@ void Display::init(void) {
 	glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
 	//setup opengl stuff
 	glMatrixMode(GL_PROJECTION);
-	glOrtho( 0, 800, 640, 0, -1, 1 );
+	glOrtho( 0, 80, 64, 0, -1, 1 );
 }
 
 void Display::update(World &world) {
