@@ -12,8 +12,11 @@
 
 class Projectile: public Entity {
 public:
-	Projectile();
+	Projectile(b2Body* body);
 	virtual ~Projectile();
 };
+
+b2BodyDef* buildProjectileBodyDef(int x, int y);
+b2FixtureDef* buildProjectileFixtureDef(int size);
 
 #endif /* PROJECTILE_H_ */

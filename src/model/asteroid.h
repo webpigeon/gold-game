@@ -8,7 +8,6 @@
 #ifndef ASTEROID_H_
 #define ASTEROID_H_
 #include "Entity.h"
-#include <Box2D/Box2D.h>
 
 
 class Asteroid : public Entity {

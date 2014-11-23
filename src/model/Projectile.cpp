@@ -9,7 +9,7 @@
 
 static b2PolygonShape* buildProjectileShape(int points, int size);
 
-Projectile::Projectile() {
+Projectile::Projectile(b2Body* body) : Entity(body) {
 	// TODO Auto-generated constructor stub
 
 }
@@ -24,7 +24,6 @@ b2FixtureDef* buildProjectileFixtureDef(int size){
 	fixture->density = 1.0f;
 	fixture->friction = 0.0f;
 	return fixture;
-
 }
 
 b2BodyDef* buildProjectileBodyDef(int x, int y){

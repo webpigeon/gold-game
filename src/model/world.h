@@ -13,6 +13,7 @@
 #include "asteroid.h"
 #include "Ship.h"
 #include <vector>
+#include "Projectile.h"
 
 
 using namespace std;
@@ -35,6 +36,7 @@ class World {
 	private:
 		void addAsteroid(int points, float32 roughSize, float32 x, float32 y);
 		void addShip(float32 x, float32 y);
+		void addProjectile(float32 size, float32 x, float32 y);
 };
 
 
