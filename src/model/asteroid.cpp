@@ -42,7 +42,12 @@ b2PolygonShape* buildAsteroidShape(int points, int size) {
 		float x = cos(2 * M_PI * i / points);
 		float y = sin(2 * M_PI * i / points);
 
-		pointsArray[i] = b2Vec2(x * size, y * size);
+		float xMod = (rand() % 20 / 100.0) - 0.1;
+		float yMod = (rand() % 20 / 100.0) - 0.1;
+
+		cout << "x" << x << " xMod" << xMod << endl;
+
+		pointsArray[i] = b2Vec2((x + xMod) * size, (y + yMod) * size);
 		deg += 360.0f / points;
 	}
 
