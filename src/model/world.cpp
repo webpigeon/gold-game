@@ -28,7 +28,7 @@ World::World(){
 		addAsteroid(8, 4, x, y);
 	}
 
-	ship2 = addShip(5, 5);
+	ship2 = addShip(50, 50);
 }
 
 void World::addColliderCallback(b2ContactListener* callback) {
