@@ -6,10 +6,20 @@
  */
 
 #include "MapReader.h"
+#include <GL/gl.h>
+
+using namespace std;
 
 MapReader::MapReader() {
 	// TODO Auto-generated constructor stub
 
+}
+
+vector<Entity>* MapReader::loadMap(char* name){
+	Uint8* datBudd[2] = {NULL, NULL}; // Header Buffers
+	Uint8* pixels = NULL; // Pixel data
+
+	BITMAPFILEHEADER* bmpHeader;
 }
 
 MapReader::~MapReader() {
