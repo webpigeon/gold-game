@@ -18,8 +18,6 @@ MapReader::MapReader() {
 vector<Entity>* MapReader::loadMap(char* name){
 	Uint8* datBudd[2] = {NULL, NULL}; // Header Buffers
 	Uint8* pixels = NULL; // Pixel data
-
-	BITMAPFILEHEADER* bmpHeader;
 }
 
 MapReader::~MapReader() {
