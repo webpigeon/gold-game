@@ -12,6 +12,7 @@
 #define VEL_INTER 8
 #define POS_INTER 3
 #define DELTA_PER_SEC 1000.0
+#define WEAPON_COOLDOWN 500
 
 World::World(){
 	b2Vec2 gravity(0.0f, 0.0f);
@@ -138,9 +139,14 @@ void World::addProjectile(float32 size, float32 x, float32 y, b2Vec2 initialVelo
 }
 
 void World::fire(){
-	b2Vec2 loc = ship2->GetPosition();
-	b2Vec2 offset = ship2->GetWorldVector(b2Vec2(0, -1));
-	addProjectile(1, loc.x + (offset.x * 5), loc.y + (offset.y * 5), b2Vec2(offset.x * 500, offset.y * 500));
+	uint32 currentTime = SDL_GetTicks();
+	int delta = currentTime-weaponCooldown;
+	if(delta > WEAPON_COOLDOWN){
+		b2Vec2 loc = ship2->GetPosition();
+		b2Vec2 offset = ship2->GetWorldVector(b2Vec2(0, -1));
+		addProjectile(1, loc.x + (offset.x * 5), loc.y + (offset.y * 5), b2Vec2(offset.x * 500, offset.y * 500));
+		weaponCooldown = currentTime;
+	}
 }
 
 
