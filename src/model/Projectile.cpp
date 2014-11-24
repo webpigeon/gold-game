@@ -26,6 +26,10 @@ Projectile::~Projectile() {
 	// TODO Auto-generated destructor stub
 }
 
+int Projectile::getEntityType() {
+	return ENT_TYPE_BULLET;
+}
+
 b2FixtureDef* buildProjectileFixtureDef(int size){
 	b2FixtureDef* fixture = new b2FixtureDef();
 	fixture->shape = buildProjectileShape(8, size);

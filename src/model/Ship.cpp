@@ -18,6 +18,9 @@ b2Body* Ship::getBody(){
 	return this->body;
 }
 
+int Ship::getEntityType() {
+	return ENT_TYPE_SHIP;
+}
 
 b2FixtureDef* buildShipFixtureDef(){
 	b2FixtureDef* fixture = new b2FixtureDef();

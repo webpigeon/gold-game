@@ -14,6 +14,7 @@ class Projectile: public Entity {
 public:
 	Projectile(b2Body* body, b2Vec2 initialVelocity);
 	virtual ~Projectile();
+	int getEntityType();
 };
 
 b2BodyDef* buildProjectileBodyDef(int x, int y);

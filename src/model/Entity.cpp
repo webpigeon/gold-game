@@ -51,3 +51,7 @@ void Entity::draw(SDL_GLContext* context){
 	glPopMatrix();
 }
 
+int Entity::getEntityType() {
+	return ENT_TYPE_UNDEFINED;
+}
+

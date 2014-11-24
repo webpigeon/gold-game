@@ -21,6 +21,10 @@ Asteroid::Asteroid(b2Body* body) : Entity(body){
 	//(b2Vec2(50, 50), true);
 }
 
+int Asteroid::getEntityType() {
+	return ENT_TYPE_ASTEROID;
+}
+
 b2FixtureDef* buildAsteroidFixtureDef(int p, int size){
 	b2FixtureDef* fixture = new b2FixtureDef();
 	fixture->shape = buildAsteroidShape(p, size);

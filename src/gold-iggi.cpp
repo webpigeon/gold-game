@@ -9,6 +9,7 @@
 #include <iostream>
 #include "view/Display.h"
 #include "model/world.h"
+#include "model/Model.h"
 
 using namespace std;
 
@@ -22,6 +23,8 @@ int main() {
 	}
 
 	World world;
+	Model model(&world);
+	world.addColliderCallback(&model);
 
 	//create display
 	Display display;
