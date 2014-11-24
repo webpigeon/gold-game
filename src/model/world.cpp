@@ -15,6 +15,7 @@
 #define WEAPON_COOLDOWN 500
 
 World::World(){
+	weaponCooldown = 0;
 	b2Vec2 gravity(0.0f, 0.0f);
 	physicsWorld = new b2World(gravity);
 
