@@ -9,12 +9,14 @@
 #define MODEL_H_
 
 #include <Box2D/Box2D.h>
+#include "Audio.h"
 
 class Model : public b2ContactListener {
 public:
 	Model();
 	virtual ~Model();
 
+	Audio audio;
 	//callbacks for contact detection
 	void BeginContact(b2Contact* contact);
 	void EndContact(b2Contact* contact);

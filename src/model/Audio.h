@@ -9,15 +9,19 @@
 #define AUDIO_H_
 
 #include "SDL2/SDL_mixer.h"
+#include <iostream>
 
 class Audio {
 public:
 	Audio();
 	virtual ~Audio();
+	void playExplosion();
+	void playLaser();
 
 private:
 	Mix_Chunk* explosion = NULL;
 	Mix_Chunk* laser = NULL;
+	char* SOUND_FOLDER = "/Assets/Sounds/";
 
 };
 
