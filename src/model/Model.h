@@ -21,6 +21,7 @@ public:
 	void EndContact(b2Contact* contact);
 private:
 	World* world;
+	int score;
 };
 
 #endif /* MODEL_H_ */

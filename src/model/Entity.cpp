@@ -16,7 +16,7 @@ Entity::Entity(b2Body* body) {
 }
 
 Entity::~Entity() {
-	// TODO Auto-generated destructor stub
+	body->GetWorld()->DestroyBody( body );
 }
 
 void Entity::draw(SDL_GLContext* context){

@@ -31,11 +31,29 @@ void World::addColliderCallback(b2ContactListener* callback) {
 void World::update(int delta) {
 	//std::cout << "delta: " << delta / DELTA_PER_SEC << std::endl;
 	physicsWorld->Step(delta/DELTA_PER_SEC, VEL_INTER, POS_INTER);
+
+	//kill all dead entities
+	std::vector<Entity*>::iterator it = killList.begin();
+	std::vector<Entity*>::iterator end = killList.end();
+	for (; it!=end; ++it) {
+		Entity* entity = *it;
+
+		delete entity;
+		std::vector<Entity*>::iterator it = std::find(entities.begin(), entities.end(), entity);
+		if (it != entities.end()) {
+			entities.erase(it);
+		}
+	}
+
+	killList.clear();
 }
 
 void World::draw(SDL_GLContext* context){
-	for(uint i = 0; i < entities.size(); i++){
-		entities[i].draw(context);
+	std::vector<Entity*>::iterator it = entities.begin();
+	std::vector<Entity*>::iterator end = entities.end();
+	for (; it!=end; ++it) {
+		Entity* entity = *it;
+		entity->draw(context);
 	}
 }
 
@@ -48,9 +66,13 @@ void World::addAsteroid(int points, float32 roughSize, float32 x, float32 y){
 	b2Body* body = physicsWorld->CreateBody(bodyDef);
 	body->CreateFixture(fixture);
 	Asteroid* temp = new Asteroid(body);
-	this->entities.push_back(*temp);
+	this->entities.push_back(temp);
 
 	//TODO find out if it's safe to delete fixture and bodydef here
+}
+
+void World::remove(Entity* entity) {
+	killList.push_back(entity);
 }
 
 void World::accelerate(int delta) {
@@ -86,7 +108,7 @@ b2Body* World::addShip(float32 x, float32 y){
 	body -> CreateFixture(fixture);
 	Ship* temp = new Ship(body);
 	ship = temp;
-	this -> entities.push_back(*temp);
+	this ->entities.push_back(temp);
 
 	return body;
 }
@@ -101,7 +123,7 @@ b2Body* World::addBullet(float32 x, float32 y, float32 angle) {
 
 	body->CreateFixture(fixture);
 	Entity* tmp = new Entity(body);
-	this->entities.push_back(*tmp);
+	this->entities.push_back(tmp);
 
 	return body;
 }
@@ -112,7 +134,7 @@ void World::addProjectile(float32 size, float32 x, float32 y, b2Vec2 initialVelo
 	b2Body* body = physicsWorld -> CreateBody(bodyDef);
 	body -> CreateFixture(fixture);
 	Projectile* temp = new Projectile(body, initialVelocity);
-	this -> entities.push_back(*temp);
+	this -> entities.push_back(temp);
 }
 
 void World::fire(){

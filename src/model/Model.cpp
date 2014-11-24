@@ -29,11 +29,13 @@ void Model::BeginContact(b2Contact* contact){
 	void* userData1 = b1->GetUserData();
 	if (userData1) {
 		entity1 = static_cast<Entity*>(userData1);
+		world->remove(entity1);
 	}
 
 	void* userData2 = b2->GetUserData();
 	if (userData2) {
 		entity2 = static_cast<Entity*>(userData2);
+		world->remove(entity2);
 	}
 
 	std::cout << "collision detected " << entity1->getEntityType() << "," << entity2->getEntityType() << std::endl;
