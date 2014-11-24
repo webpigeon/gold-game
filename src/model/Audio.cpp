@@ -11,11 +11,14 @@ using namespace std;
 
 Audio::Audio() {
 	// TODO Auto-generated constructor stub
-	explosion = Mix_LoadWAV("/Assets/Sounds/explode.wav");
-	laser = Mix_LoadWAV("/Assets/Sounds/laser.wav");
+	explosion = Mix_LoadWAV("Assets/Sound/explode.wav");
+	laser = Mix_LoadWAV("Assets/Sound/laser.wav");
 
 	if(explosion == NULL){
 		cout << "Couldn't find explosion" << endl;
+	}
+	if(laser == NULL){
+		cout << "Couldn't find ma laser!" << endl;
 	}
 }
 

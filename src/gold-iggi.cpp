@@ -74,6 +74,8 @@ int main() {
 	        		case SDLK_SPACE:
 	        			cout << "Firing" << endl;
 	        			world.fire();
+	        			//TODO Don't really do this
+	        			model.audio.playExplosion();
 	        			break;
 	        	}
 

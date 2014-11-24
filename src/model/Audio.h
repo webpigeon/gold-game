@@ -21,7 +21,6 @@ public:
 private:
 	Mix_Chunk* explosion = NULL;
 	Mix_Chunk* laser = NULL;
-	char* SOUND_FOLDER = "/Assets/Sounds/";
 
 };
 
