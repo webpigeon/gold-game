@@ -43,6 +43,12 @@ void Model::BeginContact(b2Contact* contact){
 
 	entity2 = static_cast<Entity*>(userData2);
 	entity1 = static_cast<Entity*>(userData1);
+
+	//Walls should not die when stuff crashes into them
+	if (entity1->getEntityType() == ENT_TYPE_WALL || entity2->getEntityType() == ENT_TYPE_WALL) {
+		return;
+	}
+
 	if (entity1->getEntityType() != entity2->getEntityType()) {
 		world->remove(entity1);
 		world->remove(entity2);

@@ -44,13 +44,14 @@ void Display::init(void) {
 void Display::update(World &world, Entity *player) {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+	glPushMatrix();
 
     glClearColor ( 0.0, 0.0, 0.0, 1.0 );
     glClear ( GL_COLOR_BUFFER_BIT );
 
     if (player != NULL) {
     	b2Vec2 playerPos = player->getBody()->GetWorldCenter();
-    	glTranslatef(playerPos.x, playerPos.y, 0);
+    	glTranslatef(-playerPos.x + 40, -playerPos.y + 30, 0);
     }
 
     //Stage 1 - Game Updates
@@ -62,6 +63,7 @@ void Display::update(World &world, Entity *player) {
     //Stage 2 - rendering code
     world.draw(&context);
 
+    glPopMatrix();
     SDL_GL_SwapWindow(window);
 }
 

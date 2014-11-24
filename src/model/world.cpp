@@ -27,6 +27,7 @@ World::World(){
 	}
 
 	addWall(5, 20, 20);
+	addWall(5, 20, 30);
 }
 
 void World::addColliderCallback(b2ContactListener* callback) {
@@ -54,10 +55,9 @@ void World::update(int delta) {
 }
 
 void World::draw(SDL_GLContext* context){
+	glMatrixMode(GL_MODELVIEW);
 
 	//b2Vec2 shipPos = ship2->GetWorldCenter();
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
 	//glTranslatef(-shipPos.x + 40, -shipPos.y + 30, 0);
 
 	std::vector<Entity*>::iterator it = entities.begin();
