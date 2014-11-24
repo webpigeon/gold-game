@@ -28,6 +28,8 @@ World::World(){
 		addAsteroid(8, 4, x, y);
 	}
 
+
+	addWall(5, 20, 20);
 	ship2 = addShip(5, 5);
 }
 
@@ -159,6 +161,15 @@ void World::fire(){
 		addProjectile(1, loc.x + (offset.x * 5), loc.y + (offset.y * 5), b2Vec2(offset.x * 500, offset.y * 500));
 		weaponCooldown = currentTime;
 	}
+}
+
+void World::addWall(float32 size, float32 x, float32 y){
+	b2FixtureDef* fixture = buildWallFixtureDef(size);
+	b2BodyDef* bodyDef = buildWallBodyDef(x, y);
+	b2Body* body = physicsWorld -> CreateBody(bodyDef);
+	body -> CreateFixture(fixture);
+	Wall* temp = new Wall(body);
+	this   -> entities.push_back(temp);
 }
 
 

@@ -14,6 +14,7 @@
 #include "Ship.h"
 #include <vector>
 #include "Projectile.h"
+#include "Wall.h"
 
 
 using namespace std;
@@ -44,6 +45,7 @@ class World {
 		void addAsteroid(int points, float32 roughSize, float32 x, float32 y);
 		//void addShip(float32 x, float32 y);
 		void addProjectile(float32 size, float32 x, float32 y, b2Vec2 initialVelocity);
+		void addWall(float32 size, float32 x, float32 y);
 		b2Body* addShip(float32 x, float32 y);
 		b2Body* addBullet(float32 x, float32 y, float32 angle);
 };
