@@ -27,14 +27,19 @@ void Model::BeginContact(b2Contact* contact){
 	Entity* entity2 = NULL;
 
 	void* userData1 = b1->GetUserData();
-	if (userData1) {
-		entity1 = static_cast<Entity*>(userData1);
-		world->remove(entity1);
+	if (!userData1) {
+		return;
 	}
 
 	void* userData2 = b2->GetUserData();
-	if (userData2) {
-		entity2 = static_cast<Entity*>(userData2);
+	if (!userData2) {
+		return;
+	}
+
+	entity2 = static_cast<Entity*>(userData2);
+	entity1 = static_cast<Entity*>(userData1);
+	if (entity1->getEntityType() != entity2->getEntityType()) {
+		world->remove(entity1);
 		world->remove(entity2);
 	}
 
