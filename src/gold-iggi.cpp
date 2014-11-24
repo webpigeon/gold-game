@@ -75,7 +75,7 @@ int main() {
 	        			cout << "Firing" << endl;
 	        			world.fire();
 	        			//TODO Don't really do this
-	        			model.audio.playExplosion();
+	        			model.audio.playLaser();
 	        			break;
 	        	}
 
