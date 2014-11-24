@@ -28,9 +28,10 @@ World::World(){
 		addAsteroid(8, 4, x, y);
 	}
 
-
 	addWall(5, 20, 20);
-	ship2 = addShip(5, 5);
+
+	ship2 = addShip(50, 50);
+
 }
 
 void World::addColliderCallback(b2ContactListener* callback) {
@@ -105,16 +106,6 @@ void World::turn(int direction) {
 
 	ship2->SetAngularVelocity(w);
 }
-
-//void World::fire(){
-//	b2Vec2 loc = ship->GetPosition();
-//	b2Vec2 offset = ship->GetWorldVector(b2Vec2(0, -1));
-//
-//	cout << ship->GetWorldVector(b2Vec2(0, 1)).x << "," << ship->GetWorldVector(b2Vec2(0, 1)).y;
-//
-//	b2Body* body = addBullet(loc.x + (offset.x * 5), loc.y + (offset.y * 5));
-//	body->ApplyLinearImpulse(b2Vec2(offset.x * 500, offset.y * 500), body->GetWorldCenter(), true);
-//}
 
 b2Body* World::addShip(float32 x, float32 y){
 	b2FixtureDef* fixture = buildShipFixtureDef();

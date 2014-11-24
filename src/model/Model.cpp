@@ -13,6 +13,7 @@ using namespace std;
 
 Model::Model(World* world) {
 	this->world = world;
+	this->score = 0;
 }
 
 Model::~Model() {
@@ -27,15 +28,25 @@ void Model::BeginContact(b2Contact* contact){
 	Entity* entity2 = NULL;
 
 	void* userData1 = b1->GetUserData();
-	if (userData1) {
-		entity1 = static_cast<Entity*>(userData1);
-		world->remove(entity1);
+	if (!userData1) {
+		return;
 	}
 
 	void* userData2 = b2->GetUserData();
-	if (userData2) {
-		entity2 = static_cast<Entity*>(userData2);
+	if (!userData2) {
+		return;
+	}
+
+	entity2 = static_cast<Entity*>(userData2);
+	entity1 = static_cast<Entity*>(userData1);
+	if (entity1->getEntityType() != entity2->getEntityType()) {
+		world->remove(entity1);
 		world->remove(entity2);
+	}
+
+	if ( (entity1->getEntityType() == ENT_TYPE_BULLET && entity2->getEntityType()) == ENT_TYPE_ASTEROID || (entity2->getEntityType() == ENT_TYPE_BULLET && entity1->getEntityType() == ENT_TYPE_ASTEROID) ) {
+		score += 1;
+		std::cout << "score: " << score << std::endl;
 	}
 
 	std::cout << "collision detected " << entity1->getEntityType() << "," << entity2->getEntityType() << std::endl;
