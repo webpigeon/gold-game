@@ -41,15 +41,17 @@ void Display::init(void) {
 	glOrtho( 0, 80, 64, 0, -1, 1 );
 }
 
-void Display::update(World &world, Entity &player) {
+void Display::update(World &world, Entity *player) {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
     glClearColor ( 0.0, 0.0, 0.0, 1.0 );
     glClear ( GL_COLOR_BUFFER_BIT );
 
-    b2Vec2 playerPos = player.getBody()->GetWorldCenter();
-    glTranslatef(playerPos.x, playerPos.y, 0);
+    if (player != NULL) {
+    	b2Vec2 playerPos = player->getBody()->GetWorldCenter();
+    	glTranslatef(playerPos.x, playerPos.y, 0);
+    }
 
     //Stage 1 - Game Updates
     Uint32 currTime = SDL_GetTicks();
