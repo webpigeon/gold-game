@@ -40,16 +40,15 @@ int main() {
 
 			//Detect SDL key presses
 	        if (event.type == SDL_KEYDOWN){
-	        	cout << "key pressed" << endl;
 	        	switch(event.key.keysym.sym) {
 	        		case SDLK_UP:
 	        			cout << "accerlate ship!" << endl;
-	        			world.accelerate(1);
+	        			world.accelerate(-1);
 	        			break;
 
 	        		case SDLK_DOWN:
 	        			cout << "decelerate ship!" << endl;
-	        			world.accelerate(-1);
+	        			world.accelerate(1);
 	        			break;
 
 	        		case SDLK_LEFT:
@@ -61,8 +60,9 @@ int main() {
 	        			cout << "Turn clockwise!" << endl;
 	        			world.turn(1);
 	        			break;
+
 	        		case SDLK_SPACE:
-	        			cout << "Pressed Space" << endl;
+	        			cout << "Firing" << endl;
 	        			world.fire();
 	        			break;
 	        	}

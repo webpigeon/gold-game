@@ -18,11 +18,10 @@ World::World(){
 	physicsWorld = new b2World(gravity);
 
 	for(int i = 1; i < 5; i++){
-		addAsteroid(8, 40, i * 150, i * 150);
+		addAsteroid(8, 4, i * 50, i * 50);
 	}
-	addProjectile(5, 25, 25, b2Vec2(500, 500));
 
-	addShip(50, 50);
+	ship2 = addShip(5, 5);
 }
 
 void World::update(int delta) {
@@ -51,14 +50,32 @@ void World::addAsteroid(int points, float32 roughSize, float32 x, float32 y){
 }
 
 void World::accelerate(int delta) {
-
+	b2Vec2 speed(0, delta * 150);
+	b2Vec2 force = ship2->GetWorldVector(speed);
+	ship2->ApplyForce(force, ship2->GetWorldCenter(), true);
 }
 
 void World::turn(int direction) {
+	float w = ship2->GetAngularVelocity();
+	w += direction;
 
+	if (w > 2) w = 2;
+	if (w < -2) w = -2;
+
+	ship2->SetAngularVelocity(w);
 }
 
-void World::addShip(float32 x, float32 y){
+//void World::fire(){
+//	b2Vec2 loc = ship->GetPosition();
+//	b2Vec2 offset = ship->GetWorldVector(b2Vec2(0, -1));
+//
+//	cout << ship->GetWorldVector(b2Vec2(0, 1)).x << "," << ship->GetWorldVector(b2Vec2(0, 1)).y;
+//
+//	b2Body* body = addBullet(loc.x + (offset.x * 5), loc.y + (offset.y * 5));
+//	body->ApplyLinearImpulse(b2Vec2(offset.x * 500, offset.y * 500), body->GetWorldCenter(), true);
+//}
+
+b2Body* World::addShip(float32 x, float32 y){
 	b2FixtureDef* fixture = buildShipFixtureDef();
 	b2BodyDef* bodyDef = buildShipBodyDef(x, y);
 	b2Body* body = physicsWorld -> CreateBody(bodyDef);
@@ -66,6 +83,22 @@ void World::addShip(float32 x, float32 y){
 	Ship* temp = new Ship(body);
 	ship = temp;
 	this -> entities.push_back(*temp);
+
+	return body;
+}
+
+b2Body* World::addBullet(float32 x, float32 y) {
+	b2FixtureDef* fixture = buildShipFixtureDef();
+	b2BodyDef* bodyDef = buildShipBodyDef(x, y);
+	//bodyDef->bullet = true;
+
+	b2Body* body = physicsWorld->CreateBody(bodyDef);
+
+	body->CreateFixture(fixture);
+	Entity* tmp = new Entity(body);
+	this->entities.push_back(*tmp);
+
+	return body;
 }
 
 void World::addProjectile(float32 size, float32 x, float32 y, b2Vec2 initialVelocity){
@@ -78,16 +111,9 @@ void World::addProjectile(float32 size, float32 x, float32 y, b2Vec2 initialVelo
 }
 
 void World::fire(){
-	b2Body* body = ship->getBody();
-	// Get velocity of the ship for use as direction
-	b2Vec2 velocity = body->GetLinearVelocity();
-	velocity.Normalize();
-
-	velocity*= 5;
-	b2Vec2 startPosition = body->GetPosition();
-	startPosition += (velocity);
-	 // Rotate Velocity correctly
-	addProjectile(5, startPosition.x, startPosition.y, velocity);
+	b2Vec2 loc = ship2->GetPosition();
+	b2Vec2 offset = ship2->GetWorldVector(b2Vec2(0, -1));
+	addProjectile(1, loc.x + (offset.x * 5), loc.y + (offset.y * 5), b2Vec2(offset.x * 500, offset.y * 500));
 }
 
 
