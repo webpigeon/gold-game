@@ -13,6 +13,7 @@
 #include "asteroid.h"
 #include "Ship.h"
 #include <vector>
+#include "Projectile.h"
 
 
 using namespace std;
@@ -21,10 +22,11 @@ class World {
 	private:
 		b2World* physicsWorld;
 		vector<Entity> entities;
+		Ship* ship;
 
 		float32 worldWidth;
 		float32 worldHeight;
-		b2Body* ship;
+		b2Body* ship2;
 	public:
 		World();
 		void update(int delta);
@@ -36,6 +38,8 @@ class World {
 
 	private:
 		void addAsteroid(int points, float32 roughSize, float32 x, float32 y);
+		//void addShip(float32 x, float32 y);
+		void addProjectile(float32 size, float32 x, float32 y, b2Vec2 initialVelocity);
 		b2Body* addShip(float32 x, float32 y);
 		b2Body* addBullet(float32 x, float32 y, float32 angle);
 };
