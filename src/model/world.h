@@ -12,7 +12,6 @@
 #include <Box2D/Box2D.h>
 #include "asteroid.h"
 #include "Ship.h"
-#include "Model.h"
 #include <vector>
 #include "Projectile.h"
 
@@ -22,18 +21,20 @@ using namespace std;
 class World {
 	private:
 		b2World* physicsWorld;
-		vector<Entity> entities;
+		vector<Entity*> entities;
+		vector<Entity*> killList;
 		Ship* ship;
 
 		float32 worldWidth;
 		float32 worldHeight;
 		b2Body* ship2;
-		Model* model;
 	public:
 		World();
 		void update(int delta);
 		void draw(SDL_GLContext* context);
+		void remove(Entity* entity);
 
+		void addColliderCallback(b2ContactListener* callback);
 		void fire();
 		void accelerate(int delta);
 		void turn(int direction);

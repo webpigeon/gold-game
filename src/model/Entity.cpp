@@ -16,7 +16,7 @@ Entity::Entity(b2Body* body) {
 }
 
 Entity::~Entity() {
-	// TODO Auto-generated destructor stub
+	body->GetWorld()->DestroyBody( body );
 }
 
 void Entity::draw(SDL_GLContext* context){
@@ -49,5 +49,9 @@ void Entity::draw(SDL_GLContext* context){
 	glEnd();
 
 	glPopMatrix();
+}
+
+int Entity::getEntityType() {
+	return ENT_TYPE_UNDEFINED;
 }
 

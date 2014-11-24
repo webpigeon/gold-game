@@ -13,6 +13,7 @@
 class Asteroid : public Entity {
 public:
 	Asteroid(b2Body* body);
+	int getEntityType();
 };
 
 //utility (factory) functions
