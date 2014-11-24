@@ -19,7 +19,12 @@ World::World(){
 	physicsWorld = new b2World(gravity);
 
 	for(int i = 1; i < 5; i++){
-		addAsteroid(8, 4, i * 50, i * 50);
+		int x = rand() % 80;
+		int y = rand() % 60;
+
+		cout << "SPAWN: " << x << "," << y << endl;
+
+		addAsteroid(8, 4, x, y);
 	}
 
 	ship2 = addShip(5, 5);
