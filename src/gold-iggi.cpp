@@ -9,6 +9,7 @@
 #include <iostream>
 #include "view/Display.h"
 #include "model/world.h"
+#include "model/Audio.h"
 
 using namespace std;
 
@@ -18,6 +19,11 @@ int main() {
 	int errorCode = SDL_Init( SDL_INIT_EVERYTHING );
 	if (errorCode != 0) {
 		cout << "ERROR: " << SDL_GetError() << endl;
+		return EXIT_FAILURE;
+	}
+
+	if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096) == -1){
+		cout << "ERROR: Something musical went wrong" << endl;
 		return EXIT_FAILURE;
 	}
 

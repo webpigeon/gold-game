@@ -15,6 +15,10 @@ public:
 	Audio();
 	virtual ~Audio();
 
+private:
+	Mix_Chunk* explosion = NULL;
+	Mix_Chunk* laser = NULL;
+
 };
 
 #endif /* AUDIO_H_ */
