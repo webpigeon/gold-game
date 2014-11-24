@@ -17,6 +17,7 @@ class Entity {
 		Entity(b2Body* body);
 		virtual ~Entity();
 		virtual void draw(SDL_GLContext* context);
+		//virtual int getEntityType() = 0;
 
 	protected:
 		b2Body* body;

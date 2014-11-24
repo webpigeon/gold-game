@@ -12,6 +12,7 @@
 
 Entity::Entity(b2Body* body) {
 	this->body = body;
+	body->SetUserData(this);
 }
 
 Entity::~Entity() {

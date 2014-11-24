@@ -12,6 +12,7 @@
 #include <Box2D/Box2D.h>
 #include "asteroid.h"
 #include "Ship.h"
+#include "Model.h"
 #include <vector>
 #include "Projectile.h"
 
@@ -27,6 +28,7 @@ class World {
 		float32 worldWidth;
 		float32 worldHeight;
 		b2Body* ship2;
+		Model* model;
 	public:
 		World();
 		void update(int delta);

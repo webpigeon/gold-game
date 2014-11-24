@@ -17,6 +17,9 @@ World::World(){
 	b2Vec2 gravity(0.0f, 0.0f);
 	physicsWorld = new b2World(gravity);
 
+	model = new Model();
+	physicsWorld->SetContactListener(model);
+
 	for(int i = 1; i < 5; i++){
 		addAsteroid(8, 4, i * 50, i * 50);
 	}
