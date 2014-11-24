@@ -18,7 +18,7 @@ public:
 	Display();
 	virtual ~Display();
 	void init(void);
-	void update(World &world);
+	void update(World &world, Entity &center);
 	void close(void);
 
 private:

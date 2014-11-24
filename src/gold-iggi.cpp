@@ -30,7 +30,9 @@ int main() {
 	}
 
 	World world;
-	Model model(&world);
+	Entity* playerShip = world.addShip(50, 50);
+
+	Model model(&world, playerShip);
 	world.addColliderCallback(&model);
 
 	//create display
@@ -53,36 +55,34 @@ int main() {
 	        	switch(event.key.keysym.sym) {
 	        		case SDLK_UP:
 	        			cout << "accerlate ship!" << endl;
-	        			world.accelerate(-1);
+	        			model.accelerate(-1);
 	        			break;
 
 	        		case SDLK_DOWN:
 	        			cout << "decelerate ship!" << endl;
-	        			world.accelerate(1);
+	        			model.accelerate(1);
 	        			break;
 
 	        		case SDLK_LEFT:
 	        			cout << "Turn counterclockwise!" << endl;
-	        			world.turn(-1);
+	        			model.turn(-1);
 	        			break;
 
 	        		case SDLK_RIGHT:
 	        			cout << "Turn clockwise!" << endl;
-	        			world.turn(1);
+	        			model.turn(1);
 	        			break;
 
 	        		case SDLK_SPACE:
 	        			cout << "Firing" << endl;
-	        			world.fire();
-	        			//TODO Don't really do this
-	        			model.audio.playLaser();
+	        			model.fire();
 	        			break;
 	        	}
 
 	        }
 		}
 
-		display.update(world);
+		display.update(world, *playerShip);
 
 		//DEBUG - keep track of the deltas for finding delta drift
 	    Uint32 currTime = SDL_GetTicks();

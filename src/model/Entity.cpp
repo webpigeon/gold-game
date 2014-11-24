@@ -19,6 +19,10 @@ Entity::~Entity() {
 	body->GetWorld()->DestroyBody( body );
 }
 
+b2Body* Entity::getBody() {
+	return this->body;
+}
+
 void Entity::draw(SDL_GLContext* context){
 	b2Vec2 pos = body->GetWorldCenter();
 	float angle = body->GetAngle() * RAD_TO_DEG_FACTOR;

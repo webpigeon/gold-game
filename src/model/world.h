@@ -24,30 +24,21 @@ class World {
 		b2World* physicsWorld;
 		vector<Entity*> entities;
 		vector<Entity*> killList;
-		Ship* ship;
 
-		uint32 weaponCooldown;
 		float32 worldWidth;
 		float32 worldHeight;
-		b2Body* ship2;
+
 	public:
 		World();
 		void update(int delta);
 		void draw(SDL_GLContext* context);
 		void remove(Entity* entity);
-
 		void addColliderCallback(b2ContactListener* callback);
-		void fire();
-		void accelerate(int delta);
-		void turn(int direction);
-
-	private:
 		void addAsteroid(int points, float32 roughSize, float32 x, float32 y);
-		//void addShip(float32 x, float32 y);
 		void addProjectile(float32 size, float32 x, float32 y, b2Vec2 initialVelocity);
 		void addWall(float32 size, float32 x, float32 y);
-		b2Body* addShip(float32 x, float32 y);
-		b2Body* addBullet(float32 x, float32 y, float32 angle);
+		Entity* addShip(float32 x, float32 y);
+		Entity* addBullet(float32 x, float32 y, float32 angle);
 };
 
 

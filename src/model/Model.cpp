@@ -9,11 +9,15 @@
 #include "Entity.h"
 #include <iostream>
 
+#define WEAPON_COOLDOWN 500
+
 using namespace std;
 
-Model::Model(World* world) {
+Model::Model(World* world, Entity* player) {
 	this->world = world;
 	this->score = 0;
+	this->player = player;
+	this->weaponLastFired = 0;
 }
 
 Model::~Model() {
@@ -56,4 +60,35 @@ void Model::BeginContact(b2Contact* contact){
 void Model::EndContact(b2Contact* contact){
 
 
+}
+
+void Model::fire(){
+	b2Body* ship2 = this->player->getBody();
+	uint32 currentTime = SDL_GetTicks();
+	int delta = currentTime-weaponLastFired;
+	if(delta > WEAPON_COOLDOWN){
+		b2Vec2 loc = ship2->GetPosition();
+		b2Vec2 offset = ship2->GetWorldVector(b2Vec2(0, -1));
+		world->addProjectile(1, loc.x + (offset.x * 5), loc.y + (offset.y * 5), b2Vec2(offset.x * 500, offset.y * 500));
+		weaponLastFired = currentTime;
+		audio.playLaser();
+	}
+}
+
+void Model::accelerate(int delta) {
+	b2Body* ship2 = this->player->getBody();
+	b2Vec2 speed(0, delta * 150);
+	b2Vec2 force = ship2->GetWorldVector(speed);
+	ship2->ApplyForce(force, ship2->GetWorldCenter(), true);
+}
+
+void Model::turn(int direction) {
+	b2Body* ship2 = this->player->getBody();
+	float w = ship2->GetAngularVelocity();
+	w += direction;
+
+	if (w > 2) w = 2;
+	if (w < -2) w = -2;
+
+	ship2->SetAngularVelocity(w);
 }
