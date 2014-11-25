@@ -33,6 +33,13 @@ int main() {
 	World world;
 	Entity* playerShip = world.addShip(20, 20);
 
+	for(int i = 1; i < 5; i++){
+		int x = rand() % 80;
+		int y = rand() % 60;
+
+		world.addAsteroid(8, 4, x, y);
+	}
+
 	Model model(&world, playerShip);
 	world.addColliderCallback(&model);
 
