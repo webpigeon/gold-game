@@ -14,11 +14,25 @@
 using namespace std;
 
 class MapReader {
+private:
+	SDL_Texture* texture;
+	void* pixels;
+	Uint32* pixelData;
+	int pitch;
+	int width;
+	int height;
+
 public:
 	MapReader();
 	virtual ~MapReader();
 
-	vector<Entity>* loadMap(char* name);
+	void loadMap(char* name);
+
+private:
+	bool lockTexture();
+	bool unlockTexture();
+	void* getPixels();
+	int getPitch();
 };
 
 #endif /* MAPREADER_H_ */
