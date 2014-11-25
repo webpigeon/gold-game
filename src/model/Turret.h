@@ -9,6 +9,9 @@
 #define TURRET_H_
 
 #include "Entity.h"
+#include <vector>
+
+using namespace std;
 
 class Turret: public Entity {
 public:
@@ -32,7 +35,17 @@ private:
 
 	void calcCooldown(int delta);
 	void calcShotDelay(int delta);
+};
 
+// Linked to a turret, spots things in range
+class TurretRange : public Entity {
+public:
+	TurretRange(Turret turret);
+	virtual ~TurretRange();
+
+	void TurretRange::collidedWith(Entity* entity, Manager<Entity>* manager);
+private:
+	vector<Entity> entitiesInRange;
 };
 
 #endif /* TURRET_H_ */
