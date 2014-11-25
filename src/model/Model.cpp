@@ -24,6 +24,10 @@ Model::~Model() {
 	// TODO Auto-generated destructor stub
 }
 
+Entity* Model::getPlayer(){
+	return this->player;
+}
+
 void Model::BeginContact(b2Contact* contact){
 	b2Body* b1 = contact->GetFixtureA()->GetBody();
 	b2Body* b2 = contact->GetFixtureB()->GetBody();
@@ -59,6 +63,13 @@ void Model::BeginContact(b2Contact* contact){
 		std::cout << "score: " << score << std::endl;
 	}
 
+
+	//if either entity is the player, it's game over
+	if (entity1 == player || entity2 == player) {
+		player = NULL;
+		std::cout << "game over" << endl;
+	}
+
 	std::cout << "collision detected " << entity1->getEntityType() << "," << entity2->getEntityType() << std::endl;
 	audio.playExplosion();
 }
@@ -69,32 +80,38 @@ void Model::EndContact(b2Contact* contact){
 }
 
 void Model::fire(){
-	b2Body* ship2 = this->player->getBody();
-	uint32 currentTime = SDL_GetTicks();
-	int delta = currentTime-weaponLastFired;
-	if(delta > WEAPON_COOLDOWN){
-		b2Vec2 loc = ship2->GetPosition();
-		b2Vec2 offset = ship2->GetWorldVector(b2Vec2(0, -1));
-		world->addProjectile(1, loc.x + (offset.x * 5), loc.y + (offset.y * 5), b2Vec2(offset.x * 500, offset.y * 500));
-		weaponLastFired = currentTime;
-		audio.playLaser();
+	if (player != NULL) {
+		b2Body* ship2 = this->player->getBody();
+		uint32 currentTime = SDL_GetTicks();
+		int delta = currentTime-weaponLastFired;
+		if(delta > WEAPON_COOLDOWN){
+			b2Vec2 loc = ship2->GetPosition();
+			b2Vec2 offset = ship2->GetWorldVector(b2Vec2(0, -1));
+			world->addProjectile(1, loc.x + (offset.x * 5), loc.y + (offset.y * 5), b2Vec2(offset.x * 500, offset.y * 500));
+			weaponLastFired = currentTime;
+			audio.playLaser();
+		}
 	}
 }
 
 void Model::accelerate(int delta) {
-	b2Body* ship2 = this->player->getBody();
-	b2Vec2 speed(0, delta * 150);
-	b2Vec2 force = ship2->GetWorldVector(speed);
-	ship2->ApplyForce(force, ship2->GetWorldCenter(), true);
+	if (player != NULL) {
+		b2Body* ship2 = this->player->getBody();
+		b2Vec2 speed(0, delta * 150);
+		b2Vec2 force = ship2->GetWorldVector(speed);
+		ship2->ApplyForce(force, ship2->GetWorldCenter(), true);
+	}
 }
 
 void Model::turn(int direction) {
-	b2Body* ship2 = this->player->getBody();
-	float w = ship2->GetAngularVelocity();
-	w += direction;
+	if (player != NULL) {
+		b2Body* ship2 = this->player->getBody();
+		float w = ship2->GetAngularVelocity();
+		w += direction;
 
-	if (w > 2) w = 2;
-	if (w < -2) w = -2;
+		if (w > 2) w = 2;
+		if (w < -2) w = -2;
 
-	ship2->SetAngularVelocity(w);
+		ship2->SetAngularVelocity(w);
+	}
 }

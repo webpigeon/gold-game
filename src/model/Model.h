@@ -22,6 +22,8 @@ public:
 	void accelerate(int delta);
 	void turn(int direction);
 
+	Entity* getPlayer();
+
 	Audio audio;
 	//callbacks for contact detection
 	void BeginContact(b2Contact* contact);

@@ -82,7 +82,7 @@ int main() {
 	        }
 		}
 
-		display.update(world, playerShip);
+		display.update(world, model.getPlayer());
 
 		//DEBUG - keep track of the deltas for finding delta drift
 	    Uint32 currTime = SDL_GetTicks();
