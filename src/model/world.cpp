@@ -56,9 +56,6 @@ void World::update(int delta) {
 void World::draw(SDL_GLContext* context){
 	glMatrixMode(GL_MODELVIEW);
 
-	//b2Vec2 shipPos = ship2->GetWorldCenter();
-	//glTranslatef(-shipPos.x + 40, -shipPos.y + 30, 0);
-
 	std::vector<Entity*>::iterator it = entities.begin();
 	std::vector<Entity*>::iterator end = entities.end();
 	for (; it!=end; ++it) {

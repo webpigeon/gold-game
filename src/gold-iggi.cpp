@@ -79,11 +79,6 @@ int main() {
 
 		display.update(world, model.getPlayer());
 
-		//DEBUG - keep track of the deltas for finding delta drift
-	    Uint32 currTime = SDL_GetTicks();
-	    deltaSum += currTime - lastLoopTime;
-	    lastLoopTime = currTime;
-
 		fps++;
 		Uint32 currentTime = SDL_GetTicks();
 		if (currentTime >= lastUpdateTime + 1000)
