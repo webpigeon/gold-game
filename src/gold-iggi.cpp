@@ -8,10 +8,8 @@
 
 #include <iostream>
 #include "view/Display.h"
-#include "model/world.h"
 #include "model/Audio.h"
-#include "model/Model.h"
-#include "model/MapReader.h"
+#include "GamePlaying.h"
 
 
 using namespace std;
@@ -30,18 +28,13 @@ int main() {
 		return EXIT_FAILURE;
 	}
 
-	World world;
-	Entity* playerShip = world.addShip(20, 20);
-
-	Model model(&world, playerShip);
-	world.addColliderCallback(&model);
-
-	MapReader reader(&world);
-	reader.loadMap("Assets/Maps/map1.bmp");
+	GameState* game = new GamePlaying;
 
 	//create display
 	Display display;
 	display.init();
+
+	game->enterState();
 
 	int deltaSum = 0;
 	unsigned short fps = 0;
@@ -56,32 +49,11 @@ int main() {
 
 			//Detect SDL key presses
 	        if (event.type == SDL_KEYDOWN){
-	        	switch(event.key.keysym.sym) {
-	        		case SDLK_UP:
-	        			model.accelerate(-1);
-	        			break;
-
-	        		case SDLK_DOWN:
-	        			model.accelerate(1);
-	        			break;
-
-	        		case SDLK_LEFT:
-	        			model.turn(-1);
-	        			break;
-
-	        		case SDLK_RIGHT:
-	        			model.turn(1);
-	        			break;
-
-	        		case SDLK_SPACE:
-	        			model.fire();
-	        			break;
-	        	}
-
+        		game->keyPressed(event.key.keysym.sym);
 	        }
 		}
 
-		display.update(world, model.getPlayer());
+		display.update(game);
 
 		fps++;
 		Uint32 currentTime = SDL_GetTicks();

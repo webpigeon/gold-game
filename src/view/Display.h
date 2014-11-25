@@ -10,7 +10,7 @@
 
 #include <SDL2/SDL.h>
 #include <GL/gl.h>
-#include "../model/world.h"
+#include "../GameState.h"
 
 class Display {
 
@@ -18,7 +18,7 @@ public:
 	Display();
 	virtual ~Display();
 	void init(void);
-	void update(World &world, Entity *center);
+	void update(GameState* state);
 	void close(void);
 
 private:
