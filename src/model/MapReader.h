@@ -10,6 +10,7 @@
 
 #include <vector>
 #include "Entity.h"
+#include "world.h"
 
 using namespace std;
 
@@ -21,9 +22,10 @@ private:
 	int pitch;
 	int width;
 	int height;
+	World* world;
 
 public:
-	MapReader();
+	MapReader(World* world);
 	virtual ~MapReader();
 
 	void loadMap(char* name);

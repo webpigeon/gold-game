@@ -11,18 +11,23 @@
 
 using namespace std;
 
-MapReader::MapReader() {
+MapReader::MapReader(World* world) {
 	// TODO Auto-generated constructor stub
+	this->world = world;
 
 }
 
 void MapReader::loadMap(char* name){
+	cout << "Loading map: " << name << endl;
 	SDL_Texture* newTexture = NULL;
 
 	SDL_Surface* loadedSurface = IMG_Load(name);
 
+	cout << "Gets here" << endl;
+
 	width = loadedSurface->w;
 	height = loadedSurface->h;
+	cout << "Gets here" << endl;
 
 	if(loadedSurface == NULL){
 			cout << "Unable to load image " << name << endl;
@@ -30,16 +35,19 @@ void MapReader::loadMap(char* name){
 		// Lock texture, give it reference to pixels
 		SDL_LockTexture(newTexture, NULL, &pixels, &pitch);
 
+		cout << "Gets here" << width << " " << height << "Pitch: " << pitch << loadedSurface->pixels << endl;
 		// Put data into pixels
-		memcpy(pixels, loadedSurface->pixels, loadedSurface->pitch * loadedSurface->h);
+		//memcpy(pixels, loadedSurface->pixels, loadedSurface->pitch * height);
 
-		pixelData = (Uint32*)pixels;
+		cout << "Gets here" << endl;
+		pixelData = (Uint32*)loadedSurface->pixels;
 
 		//Iterate through the pixels!!
 		for(int i = 0; i < width * height; i++){
 			if(pixelData[i] == 0){
 				// Make wall
-				cout << "Wall: (X: " << i % width << " Y: " << (i / width) + 1 << endl;
+				cout << "Wall: (X: " << i % width << " Y: " << (i / width) << endl;
+				world->addWall(5, (i % width) * 10, (i / width) * 10);
 			}
 		}
 

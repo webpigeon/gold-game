@@ -11,6 +11,7 @@
 #include "model/world.h"
 #include "model/Audio.h"
 #include "model/Model.h"
+#include "model/MapReader.h"
 
 
 using namespace std;
@@ -30,10 +31,13 @@ int main() {
 	}
 
 	World world;
-	Entity* playerShip = world.addShip(50, 50);
+	Entity* playerShip = world.addShip(20, 20);
 
 	Model model(&world, playerShip);
 	world.addColliderCallback(&model);
+
+	MapReader reader(&world);
+	reader.loadMap("Assets/Maps/map1.bmp");
 
 	//create display
 	Display display;
