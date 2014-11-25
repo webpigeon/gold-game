@@ -33,7 +33,6 @@ void World::addColliderCallback(b2ContactListener* callback) {
 }
 
 void World::update(int delta) {
-	//std::cout << "delta: " << delta / DELTA_PER_SEC << std::endl;
 	physicsWorld->Step(delta/DELTA_PER_SEC, VEL_INTER, POS_INTER);
 
 	//kill all dead entities
@@ -64,20 +63,6 @@ void World::draw(SDL_GLContext* context){
 	}
 }
 
-void World::addAsteroid(int points, float32 roughSize, float32 x, float32 y){
-	//create the required components
-	b2FixtureDef* fixture = buildAsteroidFixtureDef(points, roughSize);
-	b2BodyDef* bodyDef = buildAsteroidBodyDef(x, y);
-
-	//create the asteroid and add it
-	b2Body* body = physicsWorld->CreateBody(bodyDef);
-	body->CreateFixture(fixture);
-	Asteroid* temp = new Asteroid(body);
-	this->entities.push_back(temp);
-
-	//TODO find out if it's safe to delete fixture and bodydef here
-}
-
 void World::add(Entity* entity) {
 	this->entities.push_back(entity);
 }
@@ -86,48 +71,35 @@ void World::remove(Entity* entity) {
 	killList.push_back(entity);
 }
 
-Entity* World::addShip(float32 x, float32 y){
-	b2FixtureDef* fixture = buildShipFixtureDef();
-	b2BodyDef* bodyDef = buildShipBodyDef(x, y);
+b2Body* World::buildBody(b2FixtureDef* fixture, b2BodyDef* bodyDef){
 	b2Body* body = physicsWorld -> CreateBody(bodyDef);
 	body -> CreateFixture(fixture);
-	Ship* temp = new Ship(body);
-	this->entities.push_back(temp);
-
-	return temp;
+	return body;
 }
 
-Entity* World::addBullet(float32 x, float32 y, float32 angle) {
-	b2FixtureDef* fixture = buildShipFixtureDef();
-	b2BodyDef* bodyDef = buildShipBodyDef(x, y);
-	bodyDef->bullet = true;
-	bodyDef->angle = angle;
+void World::addAsteroid(int points, float32 roughSize, float32 x, float32 y){
+	b2Body* body = buildBody(buildAsteroidFixtureDef(points, roughSize), buildAsteroidBodyDef(x, y));
+	Asteroid* asteroid = new Asteroid(body);
+	add(asteroid);
+}
 
-	b2Body* body = physicsWorld->CreateBody(bodyDef);
-
-	body->CreateFixture(fixture);
-	Entity* tmp = new Entity(body);
-	this->entities.push_back(tmp);
-
-	return tmp;
+Entity* World::addShip(float32 x, float32 y){
+	b2Body* body = buildBody(buildShipFixtureDef(), buildShipBodyDef(x, y));
+	Ship* ship = new Ship(body);
+	add(ship);
+	return ship;
 }
 
 void World::addProjectile(float32 size, float32 x, float32 y, b2Vec2 initialVelocity){
-	b2FixtureDef* fixture = buildProjectileFixtureDef(size);
-	b2BodyDef* bodyDef = buildProjectileBodyDef(x, y);
-	b2Body* body = physicsWorld -> CreateBody(bodyDef);
-	body -> CreateFixture(fixture);
-	Projectile* temp = new Projectile(body, initialVelocity);
-	this -> entities.push_back(temp);
+	b2Body* body = buildBody(buildProjectileFixtureDef(size), buildProjectileBodyDef(x, y));
+	Projectile* projectile = new Projectile(body, initialVelocity);
+	add(projectile);
 }
 
 void World::addWall(float32 size, float32 x, float32 y){
-	b2FixtureDef* fixture = buildWallFixtureDef(size);
-	b2BodyDef* bodyDef = buildWallBodyDef(x, y);
-	b2Body* body = physicsWorld -> CreateBody(bodyDef);
-	body -> CreateFixture(fixture);
-	Wall* temp = new Wall(body);
-	this   -> entities.push_back(temp);
+	b2Body* body = buildBody(buildWallFixtureDef(size), buildWallBodyDef(x, y));
+	Wall* wall = new Wall(body);
+	add(wall);
 }
 
 
