@@ -21,6 +21,11 @@ Asteroid::Asteroid(b2Body* body) : Entity(body){
 	//(b2Vec2(50, 50), true);
 }
 
+void Asteroid::collidedWith(Entity* entity, Manager<Entity>* manager) {
+	// when an asteroid is hit, distroy it
+	manager->remove(this);
+}
+
 int Asteroid::getEntityType() {
 	return ENT_TYPE_ASTEROID;
 }

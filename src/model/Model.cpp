@@ -48,21 +48,9 @@ void Model::BeginContact(b2Contact* contact){
 	entity2 = static_cast<Entity*>(userData2);
 	entity1 = static_cast<Entity*>(userData1);
 
-	//Walls should not die when stuff crashes into them
-	if (entity1->getEntityType() == ENT_TYPE_WALL || entity2->getEntityType() == ENT_TYPE_WALL) {
-		return;
-	}
-
-	if (entity1->getEntityType() != entity2->getEntityType()) {
-		world->remove(entity1);
-		world->remove(entity2);
-	}
-
-	if ( (entity1->getEntityType() == ENT_TYPE_BULLET && entity2->getEntityType()) == ENT_TYPE_ASTEROID || (entity2->getEntityType() == ENT_TYPE_BULLET && entity1->getEntityType() == ENT_TYPE_ASTEROID) ) {
-		score += 1;
-		std::cout << "score: " << score << std::endl;
-	}
-
+	//alert them that they collided with each other
+	entity1->collidedWith(entity2, world);
+	entity2->collidedWith(entity1, world);
 
 	//if either entity is the player, it's game over
 	if (entity1 == player || entity2 == player) {

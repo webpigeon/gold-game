@@ -21,8 +21,6 @@ World::World(){
 		int x = rand() % 80;
 		int y = rand() % 60;
 
-		cout << "SPAWN: " << x << "," << y << endl;
-
 		addAsteroid(8, 4, x, y);
 	}
 
@@ -44,11 +42,12 @@ void World::update(int delta) {
 	for (; it!=end; ++it) {
 		Entity* entity = *it;
 
-		delete entity;
 		std::vector<Entity*>::iterator it = std::find(entities.begin(), entities.end(), entity);
 		if (it != entities.end()) {
 			entities.erase(it);
 		}
+
+		delete entity;
 	}
 
 	killList.clear();
@@ -80,6 +79,10 @@ void World::addAsteroid(int points, float32 roughSize, float32 x, float32 y){
 	this->entities.push_back(temp);
 
 	//TODO find out if it's safe to delete fixture and bodydef here
+}
+
+void World::add(Entity* entity) {
+	this->entities.push_back(entity);
 }
 
 void World::remove(Entity* entity) {

@@ -14,6 +14,7 @@ class Bullet: public Entity {
 public:
 	Bullet();
 	virtual ~Bullet();
+	void collidedWith(Entity* entity, Manager<Entity>* manager);
 	int getEntityType();
 };
 

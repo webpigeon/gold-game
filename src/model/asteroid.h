@@ -13,6 +13,7 @@
 class Asteroid : public Entity {
 public:
 	Asteroid(b2Body* body);
+	void collidedWith(Entity* entity, Manager<Entity>* manager);
 	int getEntityType();
 };
 

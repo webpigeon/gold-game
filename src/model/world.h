@@ -15,15 +15,13 @@
 #include <vector>
 #include "Projectile.h"
 #include "Wall.h"
+#include "Manager.h"
 
-
-using namespace std;
-
-class World {
+class World : public Manager<Entity> {
 	private:
 		b2World* physicsWorld;
-		vector<Entity*> entities;
-		vector<Entity*> killList;
+		std::vector<Entity*> entities;
+		std::vector<Entity*> killList;
 
 		float32 worldWidth;
 		float32 worldHeight;
@@ -32,6 +30,7 @@ class World {
 		World();
 		void update(int delta);
 		void draw(SDL_GLContext* context);
+		void add(Entity* entity);
 		void remove(Entity* entity);
 		void addColliderCallback(b2ContactListener* callback);
 		void addAsteroid(int points, float32 roughSize, float32 x, float32 y);

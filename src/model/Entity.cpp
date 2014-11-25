@@ -55,6 +55,10 @@ void Entity::draw(SDL_GLContext* context){
 	glPopMatrix();
 }
 
+void Entity::collidedWith(Entity* entity, Manager<Entity>* manager) {
+	std::cout << "Entity collide method called" << std::endl;
+}
+
 int Entity::getEntityType() {
 	return ENT_TYPE_UNDEFINED;
 }
