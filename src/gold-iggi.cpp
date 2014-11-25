@@ -50,10 +50,8 @@ int main() {
 	Display display;
 	display.init();
 
-	int deltaSum = 0;
 	unsigned short fps = 0;
 	Uint32 lastUpdateTime = SDL_GetTicks();
-	Uint32 lastLoopTime = lastUpdateTime;
 
 	bool quit = false;
 	while(!quit) {
@@ -95,7 +93,6 @@ int main() {
 		if (currentTime >= lastUpdateTime + 1000)
 		{
 			lastUpdateTime = currentTime;
-			deltaSum = 0;
 			fps = 0;
 		}
 	}
