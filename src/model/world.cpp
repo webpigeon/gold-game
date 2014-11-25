@@ -21,11 +21,11 @@ World::World(){
 		int x = rand() % 80;
 		int y = rand() % 60;
 
-		addAsteroid(8, 4, x, y);
+		//addAsteroid(8, 4, x, y);
 	}
 
-	addWall(5, 20, 20);
-	addWall(5, 20, 30);
+	//addWall(5, 20, 20);
+	//addWall(5, 20, 30);
 }
 
 void World::addColliderCallback(b2ContactListener* callback) {
