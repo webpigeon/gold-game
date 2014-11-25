@@ -27,19 +27,19 @@ void Ship::init() {
 	b2PolygonShape shape;
 	//shape.SetAsBox(1, 1);
 	b2Vec2 points[4];
-	points[0] = b2Vec2(-0.5 * 2, 0.5 * 2);
-	points[1] = b2Vec2(-0.5 * 2, -0.5 * 2);
-	points[2] = b2Vec2(-0.75 * 2, -0.5 * 2);
-	points[3] = b2Vec2(-0.75 * 2, 0.5 * 2);
+	points[0] = b2Vec2(-0.5 * 2, 0.75 * 2);
+	points[1] = b2Vec2(-0.5 * 2, 0 * 2);
+	points[2] = b2Vec2(-0.75 * 2, 0 * 2);
+	points[3] = b2Vec2(-0.75 * 2, 0.75 * 2);
 	shape.Set(points, 4);
 	fixture.shape = &shape;
 	this->body->CreateFixture(&fixture);
 
 	//shape.SetAsBox(1, 1);
-	points[0] = b2Vec2(0.5 * 2, 0.5 * 2);
-	points[1] = b2Vec2(0.5 * 2, -0.5 * 2);
-	points[2] = b2Vec2(0.75 * 2, -0.5 * 2);
-	points[3] = b2Vec2(0.75 * 2, 0.5 * 2);
+	points[0] = b2Vec2(0.5 * 2, 0.75 * 2);
+	points[1] = b2Vec2(0.5 * 2, 0 * 2);
+	points[2] = b2Vec2(0.75 * 2, 0 * 2);
+	points[3] = b2Vec2(0.75 * 2, 0.75 * 2);
 	shape.Set(points, 4);
 	fixture.shape = &shape;
 	this->body->CreateFixture(&fixture);
@@ -69,8 +69,8 @@ b2BodyDef* buildShipBodyDef(int x, int y){
 	b2BodyDef* bodyDef = new b2BodyDef();
 	bodyDef -> type = b2_dynamicBody;
 	bodyDef -> position.Set(x, y);
-	bodyDef->linearDamping = 0.9f;
-	bodyDef->angularDamping = 0.9f;
+	bodyDef->linearDamping = 1.0f;
+	bodyDef->angularDamping = 1.0f;
 	return bodyDef;
 }
 
