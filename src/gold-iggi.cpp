@@ -54,27 +54,22 @@ int main() {
 	        if (event.type == SDL_KEYDOWN){
 	        	switch(event.key.keysym.sym) {
 	        		case SDLK_UP:
-	        			cout << "accerlate ship!" << endl;
 	        			model.accelerate(-1);
 	        			break;
 
 	        		case SDLK_DOWN:
-	        			cout << "decelerate ship!" << endl;
 	        			model.accelerate(1);
 	        			break;
 
 	        		case SDLK_LEFT:
-	        			cout << "Turn counterclockwise!" << endl;
 	        			model.turn(-1);
 	        			break;
 
 	        		case SDLK_RIGHT:
-	        			cout << "Turn clockwise!" << endl;
 	        			model.turn(1);
 	        			break;
 
 	        		case SDLK_SPACE:
-	        			cout << "Firing" << endl;
 	        			model.fire();
 	        			break;
 	        	}
