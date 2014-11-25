@@ -41,10 +41,10 @@ void Turret::calcCooldown(int delta){
 		if(heat <= 35){
 			tooHot = false;
 		}
-	}else{
-		if(heat > 0){
-			cooling = true;
-		}
+	}
+
+	if(heat > 0){
+		cooling = true;
 	}
 
 	// Regardless of cooling state , must not fire after this point
