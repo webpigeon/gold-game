@@ -58,7 +58,6 @@ void Model::BeginContact(b2Contact* contact){
 		std::cout << "game over" << endl;
 	}
 
-	std::cout << "collision detected " << entity1->getEntityType() << "," << entity2->getEntityType() << std::endl;
 	audio.playExplosion();
 }
 

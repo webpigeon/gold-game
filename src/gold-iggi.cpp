@@ -20,12 +20,12 @@ int main() {
 
 	int errorCode = SDL_Init( SDL_INIT_EVERYTHING );
 	if (errorCode != 0) {
-		cout << "ERROR: " << SDL_GetError() << endl;
+		cerr << "ERROR: " << SDL_GetError() << endl;
 		return EXIT_FAILURE;
 	}
 
 	if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096) == -1){
-		cout << "ERROR: Something musical went wrong" << endl;
+		cerr << "ERROR: Something musical went wrong" << endl;
 		return EXIT_FAILURE;
 	}
 
@@ -88,7 +88,6 @@ int main() {
 		Uint32 currentTime = SDL_GetTicks();
 		if (currentTime >= lastUpdateTime + 1000)
 		{
-			cout << fps <<  " deltaSum: " << deltaSum << endl;
 			lastUpdateTime = currentTime;
 			deltaSum = 0;
 			fps = 0;

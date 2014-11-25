@@ -28,7 +28,6 @@ Projectile::~Projectile() {
 }
 
 void Projectile::collidedWith(Entity* entity, Manager<Entity>* manager) {
-	std::cout << "I AM A BULLET! RAWR" << std::endl;
 	manager->remove(this);
 }
 

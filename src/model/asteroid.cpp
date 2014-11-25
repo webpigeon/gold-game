@@ -17,7 +17,6 @@ static b2PolygonShape* buildAsteroidShape(int points, int size);
 Asteroid::Asteroid(b2Body* body) : Entity(body){
 	body->ApplyLinearImpulse(b2Vec2(body->GetMass(), body->GetMass()), body->GetWorldCenter(), true);
 	body->ApplyAngularImpulse(body->GetMass() * 20, true);
-	std::cout << body->GetMass() << std::endl;
 	//(b2Vec2(50, 50), true);
 }
 
