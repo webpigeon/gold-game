@@ -21,6 +21,7 @@ Turret::Turret(b2Body* body) : Entity(body) {
 
 void Turret::update(int delta, Manager<Entity>* manager){
 	calcCooldown(delta);
+	calcShotDelay(delta);
 	if(canFire){
 		// Fire at something if its in range
 	}
@@ -45,6 +46,17 @@ void Turret::calcCooldown(int delta){
 	// Regardless of cooling state , must not fire after this point
 	if(heat >= maxHeat){
 		canFire = false;
+	}
+}
+
+void Turret::calcShotDelay(int delta){
+	if(delayed){
+		msTillWeCanShoot -= delta;
+
+		if(msTillWeCanShoot <= 0){
+			msTillWeCanShoot = 0;
+			delayed = false;
+		}
 	}
 }
 
