@@ -15,39 +15,29 @@
 #include <vector>
 #include "Projectile.h"
 #include "Wall.h"
+#include "Manager.h"
 
-
-using namespace std;
-
-class World {
+class World : public Manager<Entity> {
 	private:
 		b2World* physicsWorld;
-		vector<Entity*> entities;
-		vector<Entity*> killList;
-		Ship* ship;
+		std::vector<Entity*> entities;
+		std::vector<Entity*> killList;
 
-		uint32 weaponCooldown;
 		float32 worldWidth;
 		float32 worldHeight;
-		b2Body* ship2;
+
 	public:
 		World();
 		void update(int delta);
 		void draw(SDL_GLContext* context);
+		void add(Entity* entity);
 		void remove(Entity* entity);
-
 		void addColliderCallback(b2ContactListener* callback);
-		void fire();
-		void accelerate(int delta);
-		void turn(int direction);
-
-	private:
 		void addAsteroid(int points, float32 roughSize, float32 x, float32 y);
-		//void addShip(float32 x, float32 y);
 		void addProjectile(float32 size, float32 x, float32 y, b2Vec2 initialVelocity);
 		void addWall(float32 size, float32 x, float32 y);
-		b2Body* addShip(float32 x, float32 y);
-		b2Body* addBullet(float32 x, float32 y, float32 angle);
+		Entity* addShip(float32 x, float32 y);
+		Entity* addBullet(float32 x, float32 y, float32 angle);
 };
 
 

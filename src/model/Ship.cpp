@@ -14,6 +14,10 @@ Ship::Ship(b2Body* body) : Entity(body){
 	//body->ApplyAngularImpulse(body->GetMass() * 1000, true);
 }
 
+void Ship::collidedWith(Entity* entity, Manager<Entity>* manager){
+	manager->remove(this);
+}
+
 b2Body* Ship::getBody(){
 	return this->body;
 }

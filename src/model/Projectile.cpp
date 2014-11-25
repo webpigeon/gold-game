@@ -6,6 +6,7 @@
  */
 
 #include "Projectile.h"
+#include <iostream>
 
 static b2PolygonShape* buildProjectileShape(int points, int size);
 
@@ -24,6 +25,10 @@ Projectile::Projectile(b2Body* body, b2Vec2 initialVelocity) : Entity(body) {
 
 Projectile::~Projectile() {
 	// TODO Auto-generated destructor stub
+}
+
+void Projectile::collidedWith(Entity* entity, Manager<Entity>* manager) {
+	manager->remove(this);
 }
 
 int Projectile::getEntityType() {

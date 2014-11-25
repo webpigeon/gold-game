@@ -14,6 +14,7 @@ class Projectile: public Entity {
 public:
 	Projectile(b2Body* body, b2Vec2 initialVelocity);
 	virtual ~Projectile();
+	void collidedWith(Entity* entity, Manager<Entity>* manager);
 	int getEntityType();
 };
 
