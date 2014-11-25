@@ -7,6 +7,9 @@
 
 #include "Turret.h"
 
+static b2PolygonShape* buildTurretShape(int points, int size);
+static b2PolygonShape* buildTurretRangeShape(int points, int size);
+
 Turret::Turret(b2Body* body) : Entity(body) {
 	// TODO Auto-generated constructor stub
 	range = 35;
@@ -19,6 +22,8 @@ Turret::Turret(b2Body* body) : Entity(body) {
 	canFire = true;
 	tooHot = false;
 	delayed = false;
+	shotDelay = 500;
+	msTillWeCanShoot = 0;
 }
 
 void Turret::update(int delta, Manager<Entity>* manager){
@@ -68,3 +73,83 @@ Turret::~Turret() {
 	// TODO Auto-generated destructor stub
 }
 
+b2FixtureDef* buildTurretFixtureDef(int size){
+	b2FixtureDef* fixture = new b2FixtureDef();
+	fixture->shape = buildTurretShape(8, size);
+	fixture->density = 1.0f;
+	fixture->friction = 0.0f;
+	return fixture;
+}
+
+b2BodyDef* buildTurretBodyDef(int x, int y){
+	b2BodyDef* bodyDef = new b2BodyDef();
+	bodyDef->type=b2_staticBody;
+	bodyDef->bullet = false; //TODO do we need to set this
+	bodyDef->position.Set(x, y);
+	return bodyDef;
+}
+
+b2PolygonShape* buildTurretShape(int points, int size){
+	b2PolygonShape* shape = new b2PolygonShape();
+	b2Vec2 pointsArray[points];
+
+	float deg = 0;
+	for(int i = 0; i < points; i++){
+		float x = cos(2 * M_PI * i / points);
+		float y = sin(2 * M_PI * i / points);
+
+		pointsArray[i] = b2Vec2(x * size, y * size);
+		deg += 360.0f / points;
+	}
+
+	shape->Set(pointsArray, points);
+	return shape;
+}
+
+/**
+ ************************************
+ *********** TurretRange ************
+ ************************************
+ */
+
+TurretRange::TurretRange(Turret* turret, b2Body* body) : Entity(body){
+	this->turret = turret;
+}
+
+TurretRange::~TurretRange(){
+
+}
+
+b2FixtureDef* buildTurretRangeFixtureDef(int size){
+	b2FixtureDef* fixture = new b2FixtureDef();
+	fixture->shape = buildTurretRangeShape(8, size);
+	fixture->density = 1.0f;
+	fixture->friction = 0.0f;
+	return fixture;
+}
+
+b2BodyDef* buildTurretRangeBodyDef(int x, int y){
+	b2BodyDef* bodyDef = new b2BodyDef();
+	bodyDef->type = b2_dynamicBody;
+	bodyDef->bullet = false; // TODO Should this be true?
+	bodyDef->position.Set(x, y);
+	return bodyDef;
+}
+
+b2PolygonShape* buildTurretRangeShape(int points, int size){
+	b2PolygonShape* shape = new b2PolygonShape();
+
+	b2Vec2 pointsArray[points];
+
+	float deg = 0;
+	for(int i = 0; i < points; i++){
+		float x = cos(2 * M_PI * i / points);
+		float y = sin(2 * M_PI * i / points);
+
+		pointsArray[i] = b2Vec2(x * size, y * size);
+		deg += 360.0f / points;
+	}
+
+	shape->Set(pointsArray, points);
+	return shape;
+}

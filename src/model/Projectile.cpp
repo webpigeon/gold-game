@@ -54,17 +54,17 @@ b2BodyDef* buildProjectileBodyDef(int x, int y){
 b2PolygonShape* buildProjectileShape(int points, int size){
 	b2PolygonShape* shape = new b2PolygonShape();
 
-		b2Vec2 pointsArray[points];
+	b2Vec2 pointsArray[points];
 
-		float deg = 0;
-		for(int i = 0; i < points; i++){
-			float x = cos(2 * M_PI * i / points);
-			float y = sin(2 * M_PI * i / points);
+	float deg = 0;
+	for(int i = 0; i < points; i++){
+		float x = cos(2 * M_PI * i / points);
+		float y = sin(2 * M_PI * i / points);
 
-			pointsArray[i] = b2Vec2(x * size, y * size);
-			deg += 360.0f / points;
-		}
+		pointsArray[i] = b2Vec2(x * size, y * size);
+		deg += 360.0f / points;
+	}
 
-		shape->Set(pointsArray, points);
-		return shape;
+	shape->Set(pointsArray, points);
+	return shape;
 }
