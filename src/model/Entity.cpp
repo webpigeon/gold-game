@@ -19,6 +19,10 @@ Entity::~Entity() {
 	body->GetWorld()->DestroyBody( body );
 }
 
+b2Body* Entity::getBody() {
+	return this->body;
+}
+
 void Entity::draw(SDL_GLContext* context){
 	b2Vec2 pos = body->GetWorldCenter();
 	float angle = body->GetAngle() * RAD_TO_DEG_FACTOR;
@@ -49,6 +53,10 @@ void Entity::draw(SDL_GLContext* context){
 	glEnd();
 
 	glPopMatrix();
+}
+
+void Entity::collidedWith(Entity* entity, Manager<Entity>* manager) {
+	std::cout << "Entity collide method called" << std::endl;
 }
 
 int Entity::getEntityType() {

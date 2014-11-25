@@ -14,6 +14,7 @@ class Ship: public Entity {
 public:
 	Ship(b2Body* body);
 	b2Body* getBody();
+	void collidedWith(Entity* entity, Manager<Entity>* manager);
 	int getEntityType();
 };
 

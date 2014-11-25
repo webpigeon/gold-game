@@ -7,6 +7,7 @@
 
 #include "Display.h"
 #include <iostream>
+#include <Box2D/Box2D.h>
 
 Display::Display() {
 	window = SDL_CreateWindow("IGGI-Gold", 50, 50, 800, 640, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
@@ -40,9 +41,18 @@ void Display::init(void) {
 	glOrtho( 0, 80, 64, 0, -1, 1 );
 }
 
-void Display::update(World &world) {
+void Display::update(World &world, Entity *player) {
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glPushMatrix();
+
     glClearColor ( 0.0, 0.0, 0.0, 1.0 );
     glClear ( GL_COLOR_BUFFER_BIT );
+
+    if (player != NULL) {
+    	b2Vec2 playerPos = player->getBody()->GetWorldCenter();
+    	glTranslatef(-playerPos.x + 40, -playerPos.y + 30, 0);
+    }
 
     //Stage 1 - Game Updates
     Uint32 currTime = SDL_GetTicks();
@@ -53,6 +63,7 @@ void Display::update(World &world) {
     //Stage 2 - rendering code
     world.draw(&context);
 
+    glPopMatrix();
     SDL_GL_SwapWindow(window);
 }
 

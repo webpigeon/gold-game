@@ -15,8 +15,14 @@
 
 class Model : public b2ContactListener {
 public:
-	Model(World* world);
+	Model(World* world, Entity* player);
 	virtual ~Model();
+
+	void fire();
+	void accelerate(int delta);
+	void turn(int direction);
+
+	Entity* getPlayer();
 
 	Audio audio;
 	//callbacks for contact detection
@@ -25,6 +31,8 @@ public:
 private:
 	World* world;
 	int score;
+	uint32 weaponLastFired;
+	Entity* player;
 };
 
 #endif /* MODEL_H_ */

@@ -20,17 +20,19 @@ int main() {
 
 	int errorCode = SDL_Init( SDL_INIT_EVERYTHING );
 	if (errorCode != 0) {
-		cout << "ERROR: " << SDL_GetError() << endl;
+		cerr << "ERROR: " << SDL_GetError() << endl;
 		return EXIT_FAILURE;
 	}
 
 	if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096) == -1){
-		cout << "ERROR: Something musical went wrong" << endl;
+		cerr << "ERROR: Something musical went wrong" << endl;
 		return EXIT_FAILURE;
 	}
 
 	World world;
-	Model model(&world);
+	Entity* playerShip = world.addShip(50, 50);
+
+	Model model(&world, playerShip);
 	world.addColliderCallback(&model);
 
 	//create display
@@ -52,37 +54,30 @@ int main() {
 	        if (event.type == SDL_KEYDOWN){
 	        	switch(event.key.keysym.sym) {
 	        		case SDLK_UP:
-	        			cout << "accerlate ship!" << endl;
-	        			world.accelerate(-1);
+	        			model.accelerate(-1);
 	        			break;
 
 	        		case SDLK_DOWN:
-	        			cout << "decelerate ship!" << endl;
-	        			world.accelerate(1);
+	        			model.accelerate(1);
 	        			break;
 
 	        		case SDLK_LEFT:
-	        			cout << "Turn counterclockwise!" << endl;
-	        			world.turn(-1);
+	        			model.turn(-1);
 	        			break;
 
 	        		case SDLK_RIGHT:
-	        			cout << "Turn clockwise!" << endl;
-	        			world.turn(1);
+	        			model.turn(1);
 	        			break;
 
 	        		case SDLK_SPACE:
-	        			cout << "Firing" << endl;
-	        			world.fire();
-	        			//TODO Don't really do this
-	        			model.audio.playLaser();
+	        			model.fire();
 	        			break;
 	        	}
 
 	        }
 		}
 
-		display.update(world);
+		display.update(world, model.getPlayer());
 
 		//DEBUG - keep track of the deltas for finding delta drift
 	    Uint32 currTime = SDL_GetTicks();
@@ -93,7 +88,6 @@ int main() {
 		Uint32 currentTime = SDL_GetTicks();
 		if (currentTime >= lastUpdateTime + 1000)
 		{
-			cout << fps <<  " deltaSum: " << deltaSum << endl;
 			lastUpdateTime = currentTime;
 			deltaSum = 0;
 			fps = 0;

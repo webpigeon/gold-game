@@ -15,10 +15,10 @@ Audio::Audio() {
 	laser = Mix_LoadWAV("Assets/Sound/laser.wav");
 
 	if(explosion == NULL){
-		cout << "Couldn't find explosion" << endl;
+		cerr << "Couldn't find explosion" << endl;
 	}
 	if(laser == NULL){
-		cout << "Couldn't find ma laser!" << endl;
+		cerr << "Couldn't find ma laser!" << endl;
 	}
 }
 

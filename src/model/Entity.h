@@ -18,12 +18,16 @@
 #include <GL/gl.h>
 #include <Box2D/Box2D.h>
 
+#include "Manager.h"
+
 class Entity {
 	public:
 		Entity(b2Body* body);
 		virtual ~Entity();
 		virtual void draw(SDL_GLContext* context);
+		virtual void collidedWith(Entity* entity, Manager<Entity>* manager);
 		virtual int getEntityType();
+		b2Body* getBody();
 
 	protected:
 		b2Body* body;
