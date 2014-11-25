@@ -17,11 +17,16 @@ Turret::Turret(b2Body* body) : Entity(body) {
 	minHeat = 35;
 	cooling = false;
 	canFire = true;
+	tooHot = false;
+	delayed = false;
 }
 
 void Turret::update(int delta, Manager<Entity>* manager){
 	calcCooldown(delta);
 	calcShotDelay(delta);
+
+	// Can fire if we are not delayed and not tooHot
+	canFire = !(delayed || tooHot);
 	if(canFire){
 		// Fire at something if its in range
 	}
@@ -34,8 +39,7 @@ void Turret::calcCooldown(int delta){
 			heat = 0;
 		}
 		if(heat <= 35){
-			cooling = false;
-			canFire = true;
+			tooHot = false;
 		}
 	}else{
 		if(heat > 0){
@@ -45,7 +49,7 @@ void Turret::calcCooldown(int delta){
 
 	// Regardless of cooling state , must not fire after this point
 	if(heat >= maxHeat){
-		canFire = false;
+		tooHot = true;
 	}
 }
 

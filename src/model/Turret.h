@@ -24,6 +24,7 @@ private:
 	int maxHeat; // How hot can we be before stopping to fire
 	int minHeat; // When do we stop cooling down and can fire again
 	bool cooling; // Are we cooling down?
+	bool tooHot; // are we too hot to fire?
 	bool canFire; // Can we fire if there were something to shoot at?
 	bool delayed; // Are we waiting for shot delay
 	int shotDelay; // delay between shots in ms
