@@ -45,6 +45,10 @@ void Turret::update(int delta, Manager<Entity>* manager){
 	canFire = !(delayed || tooHot);
 	if(canFire){
 		// Fire at something if its in range
+		Entity* nearest;
+		vector<Entity*> inRange = manager->inRange(body->GetPosition(), range, *nearest);
+		// fire at nearest;
+
 	}
 }
 
