@@ -12,7 +12,7 @@
 
 class Projectile: public Entity {
 public:
-	Projectile(b2Body* body, b2Vec2 initialVelocity);
+	Projectile(b2Body* body, b2Vec2 initialVelocity, float32 size);
 	virtual ~Projectile();
 	void collidedWith(Entity* entity, Manager<Entity>* manager);
 	void draw();

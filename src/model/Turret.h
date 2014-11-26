@@ -10,6 +10,8 @@
 
 #include "Entity.h"
 #include <vector>
+#include <iostream>
+#include "Projectile.h"
 
 using namespace std;
 
@@ -18,6 +20,8 @@ public:
 	Turret(b2Body* body);
 	virtual ~Turret();
 	void update(int delta, Manager<Entity>* manager);
+	void collidedWith(Entity* entity, Manager<Entity>* manager);
+	int getEntityType();
 	float getRange();
 	vector<Entity>* entitiesInRange;
 
@@ -37,24 +41,11 @@ private:
 
 	void calcCooldown(int delta);
 	void calcShotDelay(int delta);
+	Projectile* fire(Entity* target);
 };
 
 b2BodyDef* buildTurretBodyDef(int x, int y);
 b2FixtureDef* buildTurretFixtureDef(int size);
 
-// Linked to a turret, spots things in range
-class TurretRange : public Entity {
-public:
-	TurretRange(Turret* turret, b2Body* body);
-	virtual ~TurretRange();
-	void update(int delta, Manager<Entity>* manager);
-
-	void collidedWith(Entity* entity, Manager<Entity>* manager);
-private:
-	Turret* turret;
-};
-
-b2BodyDef* buildTurretRangeBodyDef(int x, int y);
-b2FixtureDef* buildTurretRangeFixtureDef(int size);
 
 #endif /* TURRET_H_ */

@@ -14,9 +14,11 @@
 #include "Ship.h"
 #include <vector>
 #include <set>
+#include <cmath>
 #include "Projectile.h"
 #include "Wall.h"
 #include "Manager.h"
+#include "Turret.h"
 
 class World : public Manager<Entity> {
 	private:
@@ -32,6 +34,7 @@ class World : public Manager<Entity> {
 		void update(int delta);
 		void draw();
 		void add(Entity* entity);
+		vector<Entity*>* inRange(b2Vec2 location, float32 range, Entity* nearest);
 		b2Body* buildBody(b2FixtureDef* fixture, b2BodyDef* bodyDef);
 		b2Body* buildBody(b2BodyDef* bodyDef);
 		void remove(Entity* entity);
