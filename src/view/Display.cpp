@@ -50,7 +50,11 @@ void Display::init(void) {
 	//set OpenGL to vsync mode
 	SDL_GL_SetSwapInterval(1);
 
+
+	//Make things play nicely with Box2D
 	glPolygonMode( GL_FRONT, GL_LINE );
+	glFrontFace( GL_CW );
+
 	//setup opengl stuff
 	glMatrixMode(GL_PROJECTION);
 	glOrtho( 0, 80, 64, 0, -1, 1 );
@@ -61,6 +65,7 @@ void Display::update(World &world, Entity *player) {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho( 0, 80, 64, 0, -1, 1 );
+	glPolygonMode( GL_FRONT, GL_LINE );
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -92,6 +97,7 @@ void Display::update(World &world, Entity *player) {
 
 	//Render the GUI in device space
 	glMatrixMode(GL_MODELVIEW);
+	glPolygonMode( GL_FRONT, GL_FILL );
 
     if (font != NULL) {
     	renderText(font, 0, 0, "Score: 0");
