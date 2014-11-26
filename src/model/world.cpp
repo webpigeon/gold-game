@@ -17,13 +17,6 @@ World::World(){
 	b2Vec2 gravity(0.0f, 0.0f);
 	physicsWorld = new b2World(gravity);
 
-	for(int i = 1; i < 5; i++){
-		int x = rand() % 80;
-		int y = rand() % 60;
-
-		//addAsteroid(8, 4, x, y);
-	}
-
 	//addWall(5, 20, 20);
 	//addWall(5, 20, 30);
 }
@@ -87,6 +80,8 @@ Entity* World::addShip(float32 x, float32 y){
 	b2Body* body = buildBody(buildShipFixtureDef(), buildShipBodyDef(x, y));
 	Ship* ship = new Ship(body);
 	add(ship);
+
+	ship->init();
 	return ship;
 }
 

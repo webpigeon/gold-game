@@ -24,6 +24,7 @@ class Entity {
 	public:
 		Entity(b2Body* body);
 		virtual ~Entity();
+		virtual void init();
 		virtual void draw(SDL_GLContext* context);
 		virtual void collidedWith(Entity* entity, Manager<Entity>* manager);
 		virtual int getEntityType();
