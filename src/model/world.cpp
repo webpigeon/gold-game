@@ -36,14 +36,14 @@ void World::update(int delta) {
 	physicsWorld->Step(delta/DELTA_PER_SEC, VEL_INTER, POS_INTER);
 
 	//kill all dead entities
-	std::vector<Entity*>::iterator it = killList.begin();
-	std::vector<Entity*>::iterator end = killList.end();
+	std::set<Entity*>::iterator it = killList.begin();
+	std::set<Entity*>::iterator end = killList.end();
 	for (; it!=end; ++it) {
 		Entity* entity = *it;
 
-		std::vector<Entity*>::iterator it = std::find(entities.begin(), entities.end(), entity);
-		if (it != entities.end()) {
-			entities.erase(it);
+		std::vector<Entity*>::iterator deleteIt = std::find(entities.begin(), entities.end(), entity);
+		if (deleteIt != entities.end()) {
+			entities.erase(deleteIt);
 		}
 
 		delete entity;
@@ -68,7 +68,7 @@ void World::add(Entity* entity) {
 }
 
 void World::remove(Entity* entity) {
-	killList.push_back(entity);
+	killList.insert(entity);
 }
 
 b2Body* World::buildBody(b2FixtureDef* fixture, b2BodyDef* bodyDef){

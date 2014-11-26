@@ -10,7 +10,7 @@
 #include "view/Display.h"
 #include "model/Audio.h"
 #include "GamePlaying.h"
-
+#include "GameOver.h"
 
 using namespace std;
 
@@ -29,6 +29,7 @@ int main() {
 	}
 
 	GameState* game = new GamePlaying;
+	// GameState* game = new GameOver;
 
 	//create display
 	Display display;
