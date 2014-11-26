@@ -51,15 +51,15 @@ void Turret::update(int delta, Manager<Entity>* manager){
 		cout << "Number in range: " << inRange->size() << endl;
 		if(nearest != NULL){
 			cout << "Nearest: " << nearest->getEntityType() << endl;
+
+			// fire at nearest;
+			b2Vec2 loc = body->GetPosition();
+			b2Vec2 offset = body->GetWorldVector(b2Vec2(0, -1));
+
+			b2BodyDef* projBodyDef = buildProjectileBodyDef(loc.x + (offset.x * 10), loc.y + (offset.y * 10));
+			Projectile* proj = new Projectile(manager->buildBody(projBodyDef),b2Vec2(offset.x * 500, offset.y * 500), 1);
+			manager->add(proj);
 		}
-		// fire at nearest;
-		b2Vec2 loc = body->GetPosition();
-		b2Vec2 offset = body->GetWorldVector(b2Vec2(0, -1));
-
-		b2BodyDef* projBodyDef = buildProjectileBodyDef(loc.x + (offset.x * 10), loc.y + (offset.y * 10));
-		Projectile* proj = new Projectile(manager->buildBody(projBodyDef),b2Vec2(offset.x * 500, offset.y * 500), 1);
-		manager->add(proj);
-
 		delete inRange;
 	}
 }
