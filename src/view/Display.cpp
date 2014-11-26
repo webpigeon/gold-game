@@ -6,8 +6,6 @@
  */
 
 #include "Display.h"
-#include <iostream>
-#include <Box2D/Box2D.h>
 
 Display::Display() {
 	window = SDL_CreateWindow("IGGI-Gold", 50, 50, 800, 640, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
@@ -60,7 +58,7 @@ void Display::init(void) {
 	glOrtho( 0, 80, 64, 0, -1, 1 );
 }
 
-void Display::update(World &world, Entity *player) {
+void Display::update(GameState* state) {
 	// let the game render in world space
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -74,19 +72,14 @@ void Display::update(World &world, Entity *player) {
     glClearColor ( 0.0, 0.0, 0.0, 1.0 );
     glClear ( GL_COLOR_BUFFER_BIT );
 
-    if (player != NULL) {
-    	b2Vec2 playerPos = player->getBody()->GetWorldCenter();
-    	glTranslatef(-playerPos.x + 40, -playerPos.y + 30, 0);
-    }
-
     //Stage 1 - Game Updates
     Uint32 currTime = SDL_GetTicks();
     int delta = currTime - lastLoop;
     lastLoop = currTime;
-    world.update(delta);
+    this->state->update(delta);
 
     //Stage 2 - rendering code
-    world.draw(&context);
+    this->state->render(this);
 
     glPopMatrix();
 
@@ -99,15 +92,19 @@ void Display::update(World &world, Entity *player) {
 	glMatrixMode(GL_MODELVIEW);
 	glPolygonMode( GL_FRONT, GL_FILL );
 
-    if (font != NULL) {
-    	renderText(font, 0, 0, "Score: 0");
-    }
+	this->state->renderGUI(this);
 
     SDL_GL_SwapWindow(window);
 
 }
 
-void Display::renderText(const TTF_Font *font, float32 x, float32 y, const std::string& text) {
+void Display::onKeyDown(int keyCode) {
+	if (state != NULL) {
+		state->keyPressed(keyCode);
+	}
+}
+
+void Display::renderText(float32 x, float32 y, const std::string& text) {
 	SDL_Color colour = {255, 255, 255};
 	SDL_Surface *message = TTF_RenderText_Blended(const_cast<TTF_Font*>(font), text.c_str(), colour);
 	unsigned int texture = 0;
@@ -121,7 +118,6 @@ void Display::renderText(const TTF_Font *font, float32 x, float32 y, const std::
 
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, message->w, message->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, message->pixels);
 
-		/*Draw this texture on a quad with the given xyz coordinates.*/
 		glColor3f(1.0f, 1.0f, 1.0f);
 		glBegin(GL_QUADS);
 			glTexCoord2d(0, 0); glVertex3d(x, y, 0);
@@ -136,6 +132,16 @@ void Display::renderText(const TTF_Font *font, float32 x, float32 y, const std::
 }
 
 void Display::close(void) {
+}
+
+void Display::addState(std::string name, GameState* state) {
+	states[name] = state;
+}
+
+void Display::changeState(std::string name) {
+	GameState* state = states.at(name);
+	this->state = state;
+	this->state->enterState(this);
 }
 
 Display::~Display() {

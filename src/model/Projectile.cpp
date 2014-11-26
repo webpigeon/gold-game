@@ -42,7 +42,7 @@ int Projectile::getEntityType() {
 	return ENT_TYPE_BULLET;
 }
 
-void Projectile::draw(SDL_GLContext* context){
+void Projectile::draw(){
 	b2Vec2 pos = body->GetWorldCenter();
 
 	glColor3f(1.0f, 0, 0);
