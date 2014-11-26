@@ -27,6 +27,10 @@ Turret::Turret(b2Body* body) : Entity(body) {
 	msTillWeCanShoot = 0;
 }
 
+float Turret::getRange(){
+	return range;
+}
+
 void Turret::update(int delta, Manager<Entity>* manager){
 	calcCooldown(delta);
 	calcShotDelay(delta);
@@ -118,7 +122,8 @@ TurretRange::TurretRange(Turret* turret, b2Body* body) : Entity(body){
 }
 
 void TurretRange::collidedWith(Entity* entity, Manager<Entity>* manager){
-	// TODO Add the entering unit to the turrets list
+	// TODO Check the entity is something we want to shoot for now
+	entitiesInRange.push_back(*entity);
 }
 
 void TurretRange::update(int delta, Manager<Entity>* manager){
@@ -129,6 +134,9 @@ void TurretRange::update(int delta, Manager<Entity>* manager){
 	for(; itr != entitiesInRange.end(); ++itr){
 		b2Vec2 entLoc = itr->getBody()->GetPosition();
 		float distance = sqrt(pow(entLoc.x - curLoc.x, 2) + pow(entLoc.y - curLoc.y, 2));
+		if(distance > turret->getRange()){
+			entitiesInRange.erase(itr);
+		}
 	}
 }
 

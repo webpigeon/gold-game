@@ -18,6 +18,7 @@ public:
 	Turret(b2Body* body);
 	virtual ~Turret();
 	void update(int delta, Manager<Entity>* manager);
+	float getRange();
 
 private:
 	float range; // Radius of range of turret in meters
