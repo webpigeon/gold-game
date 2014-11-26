@@ -46,7 +46,7 @@ void Ship::init() {
 }
 
 void Ship::collidedWith(Entity* entity, Manager<Entity>* manager){
-	//manager->remove(this);
+	manager->remove(this);
 }
 
 b2Body* Ship::getBody(){
