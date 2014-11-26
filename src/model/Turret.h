@@ -19,6 +19,7 @@ public:
 	virtual ~Turret();
 	void update(int delta, Manager<Entity>* manager);
 	float getRange();
+	vector<Entity>* entitiesInRange;
 
 private:
 	float range; // Radius of range of turret in meters
@@ -50,7 +51,6 @@ public:
 
 	void collidedWith(Entity* entity, Manager<Entity>* manager);
 private:
-	vector<Entity> entitiesInRange;
 	Turret* turret;
 };
 

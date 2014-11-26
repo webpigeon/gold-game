@@ -25,6 +25,8 @@ Turret::Turret(b2Body* body) : Entity(body) {
 	delayed = false;
 	shotDelay = 500;
 	msTillWeCanShoot = 0;
+
+	entitiesInRange = new vector<Entity>();
 }
 
 float Turret::getRange(){
@@ -124,20 +126,19 @@ TurretRange::TurretRange(Turret* turret, b2Body* body) : Entity(body){
 void TurretRange::collidedWith(Entity* entity, Manager<Entity>* manager){
 	// Shoot only at Ships OR Asteroids
 	if(entity->getEntityType() == ENT_TYPE_SHIP || entity->getEntityType() == ENT_TYPE_ASTEROID){
-		entitiesInRange.push_back(*entity);
+		turret->entitiesInRange->push_back(*entity);
 	}
 }
 
 void TurretRange::update(int delta, Manager<Entity>* manager){
-	// TODO Check all objects in range if they still are
 	b2Vec2 curLoc = body->GetPosition();
 
-	vector<Entity>::iterator itr = entitiesInRange.begin();
-	for(; itr != entitiesInRange.end(); ++itr){
+	vector<Entity>::iterator itr = turret->entitiesInRange->begin();
+	for(; itr != turret->entitiesInRange->end(); ++itr){
 		b2Vec2 entLoc = itr->getBody()->GetPosition();
 		float distance = sqrt(pow(entLoc.x - curLoc.x, 2) + pow(entLoc.y - curLoc.y, 2));
 		if(distance > turret->getRange()){
-			entitiesInRange.erase(itr);
+			turret->entitiesInRange->erase(itr);
 		}
 	}
 }
