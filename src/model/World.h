@@ -10,7 +10,7 @@
 
 #include <SDL2/SDL.h>
 #include <Box2D/Box2D.h>
-#include "asteroid.h"
+#include "Asteroid.h"
 #include "Ship.h"
 #include <vector>
 #include <set>

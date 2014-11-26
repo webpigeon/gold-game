@@ -6,7 +6,7 @@
  *      Author: piers
  */
 
-#include "world.h"
+#include "World.h"
 #include <iostream>
 
 #define VEL_INTER 8

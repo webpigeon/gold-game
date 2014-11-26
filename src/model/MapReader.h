@@ -10,7 +10,7 @@
 
 #include <vector>
 #include "Entity.h"
-#include "world.h"
+#include "World.h"
 #include "Manager.h"
 
 using namespace std;

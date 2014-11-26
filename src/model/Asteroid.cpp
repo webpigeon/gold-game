@@ -4,7 +4,7 @@
  *  Created on: 19 Nov 2014
  *      Author: piers
  */
-#include "asteroid.h"
+#include "Asteroid.h"
 #include <assert.h>
 #include <iostream>
 
