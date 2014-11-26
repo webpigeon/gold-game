@@ -15,7 +15,7 @@ public:
 	Projectile(b2Body* body, b2Vec2 initialVelocity);
 	virtual ~Projectile();
 	void collidedWith(Entity* entity, Manager<Entity>* manager);
-	void draw(SDL_GLContext* context);
+	void draw();
 	int getEntityType();
 private:
 	int pointsLength;

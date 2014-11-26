@@ -30,7 +30,7 @@ class World : public Manager<Entity> {
 	public:
 		World();
 		void update(int delta);
-		void draw(SDL_GLContext* context);
+		void draw();
 		void add(Entity* entity);
 		b2Body* buildBody(b2FixtureDef* fixture, b2BodyDef* bodyDef);
 		void remove(Entity* entity);

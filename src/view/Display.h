@@ -27,7 +27,7 @@ public:
 	virtual ~Display();
 	void init(void);
 	void update(GameState* state);
-	void renderText(const TTF_Font* font, float32 x, float32 y, const std::string& Text);
+	void renderText(float32 x, float32 y, const std::string& Text);
 	void close(void);
 
 private:

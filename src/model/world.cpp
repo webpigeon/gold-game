@@ -45,14 +45,14 @@ void World::update(int delta) {
 	killList.clear();
 }
 
-void World::draw(SDL_GLContext* context){
+void World::draw(){
 	glMatrixMode(GL_MODELVIEW);
 
 	std::vector<Entity*>::iterator it = entities.begin();
 	std::vector<Entity*>::iterator end = entities.end();
 	for (; it!=end; ++it) {
 		Entity* entity = *it;
-		entity->draw(context);
+		entity->draw();
 	}
 }
 

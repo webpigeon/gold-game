@@ -55,18 +55,18 @@ void GamePlaying::update(int delta){
     world->update(delta);
 }
 
-void GamePlaying::render(SDL_GLContext* context){
+void GamePlaying::render(DisplayUtils* context){
 
     if (player != NULL) {
     	b2Vec2 playerPos = player->getBody()->GetWorldCenter();
     	glTranslatef(-playerPos.x + 40, -playerPos.y + 30, 0);
     }
 
-    world->draw(context);
+    world->draw();
 }
 
-void GamePlaying::renderText(SDL_GLContext* context){
-
+void GamePlaying::renderGUI(DisplayUtils* context){
+	context->renderText(0, 0, "Score: 0");
 }
 
 GamePlaying::~GamePlaying() {

@@ -10,13 +10,14 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
+#include <Box2D/Box2D.h>
 
 #include <string>
 
 class DisplayUtils {
 public:
 	virtual ~DisplayUtils() {};
-	virtual void renderText(const TTF_Font* font, float32 x, float32 y, const std::string& Text) = 0;
+	virtual void renderText(float32 x, float32 y, const std::string& Text) = 0;
 };
 
 #endif /* DISPLAYUTILS_H_ */

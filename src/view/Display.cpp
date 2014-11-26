@@ -79,7 +79,7 @@ void Display::update(GameState* state) {
     state->update(delta);
 
     //Stage 2 - rendering code
-    state->render(&context);
+    state->render(this);
 
     glPopMatrix();
 
@@ -92,15 +92,13 @@ void Display::update(GameState* state) {
 	glMatrixMode(GL_MODELVIEW);
 	glPolygonMode( GL_FRONT, GL_FILL );
 
-    if (font != NULL) {
-    	renderText(font, 0, 0, "Score: 0");
-    }
+	state->renderGUI(this);
 
     SDL_GL_SwapWindow(window);
 
 }
 
-void Display::renderText(const TTF_Font* font, float32 x, float32 y, const std::string& text) {
+void Display::renderText(float32 x, float32 y, const std::string& text) {
 	SDL_Color colour = {255, 255, 255};
 	SDL_Surface *message = TTF_RenderText_Blended(const_cast<TTF_Font*>(font), text.c_str(), colour);
 	unsigned int texture = 0;
@@ -114,7 +112,6 @@ void Display::renderText(const TTF_Font* font, float32 x, float32 y, const std::
 
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, message->w, message->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, message->pixels);
 
-		/*Draw this texture on a quad with the given xyz coordinates.*/
 		glColor3f(1.0f, 1.0f, 1.0f);
 		glBegin(GL_QUADS);
 			glTexCoord2d(0, 0); glVertex3d(x, y, 0);
