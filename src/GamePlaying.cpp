@@ -8,6 +8,8 @@
 #include "GamePlaying.h"
 #include "model/MapReader.h"
 
+#include <cstdlib>
+
 GamePlaying::GamePlaying() {
 	// TODO Auto-generated constructor stub
 }
@@ -70,7 +72,10 @@ void GamePlaying::render(DisplayUtils* context){
 }
 
 void GamePlaying::renderGUI(DisplayUtils* context){
-	context->renderText(0, 0, "Score: 0");
+	char scoreStr[40];
+	sprintf ( scoreStr, "score: %d", model->getScore() );
+
+	context->renderText(0, 0, string(scoreStr));
 }
 
 GamePlaying::~GamePlaying() {

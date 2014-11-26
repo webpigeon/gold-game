@@ -22,7 +22,8 @@ void GameOver::render(DisplayUtils* context){
 }
 
 void GameOver::renderGUI(DisplayUtils* context) {
-	context->renderText(360, 300, "Game Over");
+	context->renderText(360, 200, "Game Over");
+	context->renderText(320, 370, "Press space to restart");
 }
 
 void GameOver::keyPressed(int keyCode){

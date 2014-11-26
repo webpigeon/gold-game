@@ -24,6 +24,7 @@ public:
 
 	Entity* getPlayer();
 	bool isPlayerAlive();
+	int getScore();
 
 	Audio audio;
 	//callbacks for contact detection
