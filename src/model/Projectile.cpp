@@ -94,10 +94,10 @@ b2BodyDef* buildProjectileBodyDef(int x, int y){
 	return bodyDef;
 }
 
+
 b2CircleShape* buildProjectileShape(int points, int size){
 	b2CircleShape* shape = new b2CircleShape();
 	shape->m_p.Set(0, 0);
 	shape->m_radius = size;
-
 	return shape;
 }

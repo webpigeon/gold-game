@@ -93,6 +93,7 @@ int main() {
 		if (currentTime >= lastUpdateTime + 1000)
 		{
 			lastUpdateTime = currentTime;
+			cout << "FPS: " << fps << endl;
 			fps = 0;
 		}
 	}
