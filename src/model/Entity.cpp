@@ -31,7 +31,7 @@ void Entity::update(int delta, Manager<Entity>* manager){
 
 }
 
-void Entity::draw(SDL_GLContext* context){
+void Entity::draw(){
 	b2Vec2 pos = body->GetWorldCenter();
 	float angle = body->GetAngle() * RAD_TO_DEG_FACTOR;
 

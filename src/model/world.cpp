@@ -34,9 +34,9 @@ void World::update(int delta) {
 	for (; it!=end; ++it) {
 		Entity* entity = *it;
 
-		std::vector<Entity*>::iterator it = std::find(entities.begin(), entities.end(), entity);
-		if (it != entities.end()) {
-			entities.erase(it);
+		std::vector<Entity*>::iterator deleteIt = std::find(entities.begin(), entities.end(), entity);
+		if (deleteIt != entities.end()) {
+			entities.erase(deleteIt);
 		}
 
 		delete entity;
@@ -45,14 +45,14 @@ void World::update(int delta) {
 	killList.clear();
 }
 
-void World::draw(SDL_GLContext* context){
+void World::draw(){
 	glMatrixMode(GL_MODELVIEW);
 
 	std::vector<Entity*>::iterator it = entities.begin();
 	std::vector<Entity*>::iterator end = entities.end();
 	for (; it!=end; ++it) {
 		Entity* entity = *it;
-		entity->draw(context);
+		entity->draw();
 	}
 }
 

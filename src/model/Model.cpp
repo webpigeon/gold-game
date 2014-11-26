@@ -58,6 +58,7 @@ void Model::BeginContact(b2Contact* contact){
 		std::cout << "game over" << endl;
 	}
 
+	score += 1;
 	audio.playExplosion();
 }
 
@@ -79,6 +80,14 @@ void Model::fire(){
 			audio.playLaser();
 		}
 	}
+}
+
+bool Model::isPlayerAlive() {
+	return this->player != NULL;
+}
+
+int Model::getScore() {
+	return this->score;
 }
 
 void Model::accelerate(int delta) {
