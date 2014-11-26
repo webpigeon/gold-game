@@ -94,7 +94,7 @@ void Model::turn(int direction) {
 	if (player != NULL) {
 		b2Body* ship2 = this->player->getBody();
 		float w = ship2->GetAngularVelocity();
-		w += direction;
+		w += (direction * 0.5);
 
 		if (w > 2) w = 2;
 		if (w < -2) w = -2;

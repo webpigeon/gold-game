@@ -13,6 +13,7 @@
 #include "asteroid.h"
 #include "Ship.h"
 #include <vector>
+#include <set>
 #include "Projectile.h"
 #include "Wall.h"
 #include "Manager.h"
@@ -21,7 +22,7 @@ class World : public Manager<Entity> {
 	private:
 		b2World* physicsWorld;
 		std::vector<Entity*> entities;
-		std::vector<Entity*> killList;
+		std::set<Entity*> killList;
 
 		float32 worldWidth;
 		float32 worldHeight;

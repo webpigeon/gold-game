@@ -33,6 +33,13 @@ int main() {
 	World world;
 	Entity* playerShip = world.addShip(20, 20);
 
+	for(int i = 1; i < 5; i++){
+		int x = rand() % 80;
+		int y = rand() % 60;
+
+		world.addAsteroid(8, 4, x, y);
+	}
+
 	Model model(&world, playerShip);
 	world.addColliderCallback(&model);
 
@@ -43,10 +50,8 @@ int main() {
 	Display display;
 	display.init();
 
-	int deltaSum = 0;
 	unsigned short fps = 0;
 	Uint32 lastUpdateTime = SDL_GetTicks();
-	Uint32 lastLoopTime = lastUpdateTime;
 
 	bool quit = false;
 	while(!quit) {
@@ -88,7 +93,6 @@ int main() {
 		if (currentTime >= lastUpdateTime + 1000)
 		{
 			lastUpdateTime = currentTime;
-			deltaSum = 0;
 			fps = 0;
 		}
 	}
