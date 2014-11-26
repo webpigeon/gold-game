@@ -6,6 +6,7 @@
  */
 
 #include "Turret.h"
+#include <cmath>
 
 static b2PolygonShape* buildTurretShape(int points, int size);
 static b2PolygonShape* buildTurretRangeShape(int points, int size);
@@ -116,9 +117,25 @@ TurretRange::TurretRange(Turret* turret, b2Body* body) : Entity(body){
 	this->turret = turret;
 }
 
+void TurretRange::collidedWith(Entity* entity, Manager<Entity>* manager){
+	// TODO Add the entering unit to the turrets list
+}
+
+void TurretRange::update(int delta, Manager<Entity>* manager){
+	// TODO Check all objects in range if they still are
+	b2Vec2 curLoc = body->GetPosition();
+
+	vector<Entity>::iterator itr = entitiesInRange.begin();
+	for(; itr != entitiesInRange.end(); ++itr){
+		b2Vec2 entLoc = itr->getBody()->GetPosition();
+		float distance = sqrt(pow(entLoc.x - curLoc.x, 2) + pow(entLoc.y - curLoc.y, 2));
+	}
+}
+
 TurretRange::~TurretRange(){
 
 }
+
 
 b2FixtureDef* buildTurretRangeFixtureDef(int size){
 	b2FixtureDef* fixture = new b2FixtureDef();

@@ -45,6 +45,7 @@ class TurretRange : public Entity {
 public:
 	TurretRange(Turret* turret, b2Body* body);
 	virtual ~TurretRange();
+	void update(int delta, Manager<Entity>* manager);
 
 	void collidedWith(Entity* entity, Manager<Entity>* manager);
 private:
