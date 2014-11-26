@@ -16,10 +16,11 @@
 #include <string>
 #include <iostream>
 
+#include "DisplayUtils.h"
 #include "../GameState.h"
 
 
-class Display {
+class Display : public DisplayUtils {
 
 public:
 	Display();

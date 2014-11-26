@@ -18,6 +18,7 @@ public:
 	void enterState();
 	void update(int delta);
 	void render(SDL_GLContext* context);
+	void renderText(SDL_GLContext* context);
 	void keyPressed(int keyCode);
 	virtual ~GamePlaying();
 

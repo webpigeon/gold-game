@@ -17,6 +17,7 @@ public:
 	virtual void enterState() = 0;
 	virtual void update(int delta) = 0;
 	virtual void render(SDL_GLContext* context) = 0;
+	virtual void renderText(SDL_GLContext* context) = 0;
 	virtual void keyPressed(int keyCode) = 0;
 	virtual ~GameState();
 };

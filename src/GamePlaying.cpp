@@ -16,8 +16,8 @@ GamePlaying::GamePlaying() {
 	model = new Model(world, player);
 	world->addColliderCallback(model);
 
-	MapReader reader(world);
-	reader.loadMap("Assets/Maps/map1.bmp");
+	MapReader reader;
+	reader.loadMap("Assets/Maps/map1.bmp", world);
 }
 
 void GamePlaying::enterState(){
@@ -63,6 +63,10 @@ void GamePlaying::render(SDL_GLContext* context){
     }
 
     world->draw(context);
+}
+
+void GamePlaying::renderText(SDL_GLContext* context){
+
 }
 
 GamePlaying::~GamePlaying() {
