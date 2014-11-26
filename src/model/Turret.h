@@ -10,6 +10,7 @@
 
 #include "Entity.h"
 #include <vector>
+#include <iostream>
 
 using namespace std;
 
@@ -18,6 +19,8 @@ public:
 	Turret(b2Body* body);
 	virtual ~Turret();
 	void update(int delta, Manager<Entity>* manager);
+	void collidedWith(Entity* entity, Manager<Entity>* manager);
+	int getEntityType();
 	float getRange();
 	vector<Entity>* entitiesInRange;
 
@@ -48,7 +51,7 @@ public:
 	TurretRange(Turret* turret, b2Body* body);
 	virtual ~TurretRange();
 	void update(int delta, Manager<Entity>* manager);
-
+	int getEntityType();
 	void collidedWith(Entity* entity, Manager<Entity>* manager);
 private:
 	Turret* turret;

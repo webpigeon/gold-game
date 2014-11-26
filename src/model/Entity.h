@@ -13,6 +13,8 @@
 #define ENT_TYPE_SHIP 2
 #define ENT_TYPE_BULLET 3
 #define ENT_TYPE_WALL 4
+#define ENT_TYPE_TURRET 5
+#define ENT_TYPE_TURRET_SENSOR 6
 
 #include <SDL2/SDL.h>
 #include <GL/gl.h>

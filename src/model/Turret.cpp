@@ -29,6 +29,10 @@ Turret::Turret(b2Body* body) : Entity(body) {
 	entitiesInRange = new vector<Entity>();
 }
 
+int Turret::getEntityType(){
+	return ENT_TYPE_TURRET;
+}
+
 float Turret::getRange(){
 	return range;
 }
@@ -42,6 +46,10 @@ void Turret::update(int delta, Manager<Entity>* manager){
 	if(canFire){
 		// Fire at something if its in range
 	}
+}
+
+void Turret::collidedWith(Entity* entity, Manager<Entity>* manager){
+	cout << "Turret collided with: " << entity->getEntityType() << endl;
 }
 
 void Turret::calcCooldown(int delta){
@@ -121,6 +129,10 @@ b2PolygonShape* buildTurretShape(int points, int size){
 
 TurretRange::TurretRange(Turret* turret, b2Body* body) : Entity(body){
 	this->turret = turret;
+}
+
+int TurretRange::getEntityType(){
+	return ENT_TYPE_TURRET_SENSOR;
 }
 
 void TurretRange::collidedWith(Entity* entity, Manager<Entity>* manager){

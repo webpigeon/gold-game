@@ -17,6 +17,7 @@ World::World(){
 	b2Vec2 gravity(0.0f, 0.0f);
 	physicsWorld = new b2World(gravity);
 
+	addTurret(4, 35, 35, 8);
 }
 
 void World::addColliderCallback(b2ContactListener* callback) {
