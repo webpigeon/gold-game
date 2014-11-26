@@ -122,8 +122,10 @@ TurretRange::TurretRange(Turret* turret, b2Body* body) : Entity(body){
 }
 
 void TurretRange::collidedWith(Entity* entity, Manager<Entity>* manager){
-	// TODO Check the entity is something we want to shoot for now
-	entitiesInRange.push_back(*entity);
+	// Shoot only at Ships OR Asteroids
+	if(entity->getEntityType() == ENT_TYPE_SHIP || entity->getEntityType() == ENT_TYPE_ASTEROID){
+		entitiesInRange.push_back(*entity);
+	}
 }
 
 void TurretRange::update(int delta, Manager<Entity>* manager){
