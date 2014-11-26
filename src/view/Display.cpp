@@ -31,7 +31,7 @@ void Display::init(void) {
 
     // Render a black background on the screen
 	this->lastLoop = SDL_GetTicks();
-	font = TTF_OpenFont("Data/Fonts/FreeSerif.ttf",20);
+	font = TTF_OpenFont("Assets/Fonts/FreeSerif.ttf",20);
 	if(!font) {
 	    std::cerr << "TTF_OpenFont: " << TTF_GetError() << std::endl;
 	}
@@ -45,17 +45,23 @@ void Display::init(void) {
 	// Enable openGL textures and blending
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	//set OpenGL to vsync mode
 	SDL_GL_SetSwapInterval(1);
 
-	glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+	glPolygonMode( GL_FRONT, GL_LINE );
 	//setup opengl stuff
 	glMatrixMode(GL_PROJECTION);
 	glOrtho( 0, 80, 64, 0, -1, 1 );
 }
 
 void Display::update(World &world, Entity *player) {
+	// let the game render in world space
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho( 0, 80, 64, 0, -1, 1 );
+
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	glPushMatrix();
@@ -79,10 +85,20 @@ void Display::update(World &world, Entity *player) {
 
     glPopMatrix();
 
+    //Render the GUI in device space
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho( 0, 800, 640, 0, -1, 1 );
+
+	//Render the GUI in device space
+	glMatrixMode(GL_MODELVIEW);
+
     if (font != NULL) {
-    	renderText(font, 0, 0, "Hello, world!");
+    	renderText(font, 0, 0, "Score: 0");
     }
+
     SDL_GL_SwapWindow(window);
+
 }
 
 void Display::renderText(const TTF_Font *font, float32 x, float32 y, const std::string& text) {
@@ -100,6 +116,7 @@ void Display::renderText(const TTF_Font *font, float32 x, float32 y, const std::
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, message->w, message->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, message->pixels);
 
 		/*Draw this texture on a quad with the given xyz coordinates.*/
+		glColor3f(1.0f, 1.0f, 1.0f);
 		glBegin(GL_QUADS);
 			glTexCoord2d(0, 0); glVertex3d(x, y, 0);
 			glTexCoord2d(1, 0); glVertex3d(x+message->w, y, 0);
