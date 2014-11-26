@@ -22,13 +22,12 @@ private:
 	int pitch;
 	int width;
 	int height;
-	World* world;
 
 public:
-	MapReader(World* world);
+	MapReader();
 	virtual ~MapReader();
 
-	void loadMap(char* name);
+	void loadMap(char* name, World* world);
 
 private:
 	bool lockTexture();

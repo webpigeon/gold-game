@@ -43,8 +43,8 @@ int main() {
 	Model model(&world, playerShip);
 	world.addColliderCallback(&model);
 
-	MapReader reader(&world);
-	reader.loadMap("Assets/Maps/map1.bmp");
+	MapReader reader;
+	reader.loadMap("Assets/Maps/map1.bmp", &world);
 
 	//create display
 	Display display;

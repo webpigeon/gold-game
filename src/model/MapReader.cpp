@@ -11,13 +11,12 @@
 
 using namespace std;
 
-MapReader::MapReader(World* world) {
+MapReader::MapReader() {
 	// TODO Auto-generated constructor stub
-	this->world = world;
 
 }
 
-void MapReader::loadMap(char* name){
+void MapReader::loadMap(char* name, World* world){
 	cout << "Loading map: " << name << endl;
 	SDL_Texture* newTexture = NULL;
 
