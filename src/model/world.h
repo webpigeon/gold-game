@@ -14,6 +14,7 @@
 #include "Ship.h"
 #include <vector>
 #include <set>
+#include <cmath>
 #include "Projectile.h"
 #include "Wall.h"
 #include "Manager.h"
@@ -33,6 +34,7 @@ class World : public Manager<Entity> {
 		void update(int delta);
 		void draw(SDL_GLContext* context);
 		void add(Entity* entity);
+		vector<Entity*> inRange(b2Vec2 location, float32 range);
 		b2Body* buildBody(b2FixtureDef* fixture, b2BodyDef* bodyDef);
 		void remove(Entity* entity);
 		void addColliderCallback(b2ContactListener* callback);

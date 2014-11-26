@@ -10,12 +10,15 @@
 #ifndef MANAGER_H_
 #define MANAGER_H_
 
+#include <vector>
+
 template<typename T>
 class Manager {
 public:
 	virtual ~Manager() {};
 	virtual void add(T* element) = 0;
 	virtual void remove(T* element) = 0;
+	virtual std::vector<T*> inRange(b2Vec2 location, float32 range) = 0;
 };
 
 #endif /* MANAGER_H_ */

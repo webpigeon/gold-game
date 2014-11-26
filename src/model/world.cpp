@@ -59,6 +59,18 @@ void World::add(Entity* entity) {
 	this->entities.push_back(entity);
 }
 
+vector<Entity*> World::inRange(b2Vec2 location, float32 range){
+	vector<Entity*> results;
+
+	for(vector<Entity*>::iterator itr = entities.begin(); itr != entities.end(); ++itr){
+		b2Vec2 entLoc = (*itr)->getBody()->GetPosition();
+		float32 distance = std::sqrt(std::pow(entLoc.x + location.x, 2) + std::pow(entLoc.y + location.y, 2));
+		if(distance <= range) results.push_back(*itr);
+	}
+
+	return results;
+}
+
 void World::remove(Entity* entity) {
 	killList.insert(entity);
 }
