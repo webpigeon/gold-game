@@ -5,13 +5,9 @@
  *  Created on: 18 Nov 2014
  *      Author: piers
  */
-
-<<<<<<< Updated upstream:src/model/world.cpp
-#include "world.h"
-=======
 #include "World.h"
 #include "Turret.h"
->>>>>>> Stashed changes:src/model/World.cpp
+
 #include <iostream>
 
 #define VEL_INTER 8
@@ -77,7 +73,7 @@ vector<Entity*>* World::inRange(b2Vec2 location, float32 range, Entity* nearest)
 	vector<Entity*>* results = new vector<Entity*>();
 
 	float32 minDistance = range+1;
-	cout << "Minimum Distance" << minDistance << endl;
+	//cout << "Minimum Distance" << minDistance << endl;
 	Entity* minEntity;
 	for(vector<Entity*>::iterator itr = entities.begin(); itr != entities.end(); ++itr){
 		b2Vec2 entLoc = (*itr)->getBody()->GetPosition();

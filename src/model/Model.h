@@ -11,7 +11,7 @@
 #include <Box2D/Box2D.h>
 
 #include "Audio.h"
-#include "world.h"
+#include "World.h"
 
 class Model : public b2ContactListener {
 public:

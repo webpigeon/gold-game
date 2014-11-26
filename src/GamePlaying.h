@@ -9,7 +9,7 @@
 #define GAMEPLAYING_H_
 
 #include "GameState.h"
-#include "model/world.h"
+#include "model/World.h"
 #include "model/Model.h"
 
 class GamePlaying: public GameState {
