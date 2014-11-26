@@ -16,16 +16,12 @@
 World::World(){
 	b2Vec2 gravity(0.0f, 0.0f);
 	physicsWorld = new b2World(gravity);
-
 	for(int i = 1; i < 5; i++){
 		int x = rand() % 80;
 		int y = rand() % 60;
 
 		//addAsteroid(8, 4, x, y);
 	}
-
-	//addWall(5, 20, 20);
-	//addWall(5, 20, 30);
 }
 
 void World::addColliderCallback(b2ContactListener* callback) {
@@ -100,6 +96,18 @@ void World::addWall(float32 size, float32 x, float32 y){
 	b2Body* body = buildBody(buildWallFixtureDef(size), buildWallBodyDef(x, y));
 	Wall* wall = new Wall(body);
 	add(wall);
+}
+
+void World::addTurret(float32 size, float32 x, float32 y, float32 radius){
+	b2Body* turretBody = buildBody(buildTurretFixtureDef(size), buildTurretBodyDef(x, y));
+
+	Turret* turret = new Turret(turretBody);
+
+	b2Body* turretRangeBody = buildBody(buildTurretRangeFixtureDef(radius), buildTurretRangeBodyDef(x, y));
+	TurretRange* range = new TurretRange(turret, turretRangeBody);
+
+	add(turret);
+	add(range);
 }
 
 

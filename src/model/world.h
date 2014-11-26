@@ -16,6 +16,7 @@
 #include "Projectile.h"
 #include "Wall.h"
 #include "Manager.h"
+#include "Turret.h"
 
 class World : public Manager<Entity> {
 	private:
@@ -37,6 +38,7 @@ class World : public Manager<Entity> {
 		void addAsteroid(int points, float32 roughSize, float32 x, float32 y);
 		void addProjectile(float32 size, float32 x, float32 y, b2Vec2 initialVelocity);
 		void addWall(float32 size, float32 x, float32 y);
+		void addTurret(float32 size, float32 x, float32 y, float32 radius);
 		Entity* addShip(float32 x, float32 y);
 };
 
