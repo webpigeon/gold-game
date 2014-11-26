@@ -26,7 +26,7 @@ Turret::Turret(b2Body* body) : Entity(body) {
 	shotDelay = 500;
 	msTillWeCanShoot = 0;
 
-	entitiesInRange = new vector<Entity>();
+	body->CreateFixture(buildTurretFixtureDef(1));
 }
 
 int Turret::getEntityType(){

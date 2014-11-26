@@ -23,7 +23,6 @@ public:
 	void collidedWith(Entity* entity, Manager<Entity>* manager);
 	int getEntityType();
 	float getRange();
-	vector<Entity>* entitiesInRange;
 
 private:
 	float range; // Radius of range of turret in meters
