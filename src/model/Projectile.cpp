@@ -12,8 +12,10 @@ static b2CircleShape* buildProjectileShape(int points, int size);
 
 
 
-Projectile::Projectile(b2Body* body, b2Vec2 initialVelocity) : Entity(body) {
+Projectile::Projectile(b2Body* body, b2Vec2 initialVelocity, float32 size) : Entity(body) {
 	// TODO Auto-generated constructor stub
+
+	body->CreateFixture(buildProjectileFixtureDef(size));
 
 	// Normalise it to remove magnitude
 	initialVelocity.Normalize();

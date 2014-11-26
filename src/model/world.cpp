@@ -17,7 +17,7 @@ World::World(){
 	b2Vec2 gravity(0.0f, 0.0f);
 	physicsWorld = new b2World(gravity);
 
-	addTurret(4, 35, 35, 8);
+	addTurret(4, 35, 35, 800);
 }
 
 void World::addColliderCallback(b2ContactListener* callback) {
@@ -26,6 +26,11 @@ void World::addColliderCallback(b2ContactListener* callback) {
 
 void World::update(int delta) {
 	physicsWorld->Step(delta/DELTA_PER_SEC, VEL_INTER, POS_INTER);
+
+	// Update everything
+	for(vector<Entity*>::iterator itr = entities.begin(); itr != entities.end(); ++itr){
+		(*itr)->update(delta, this);
+	}
 
 	//kill all dead entities
 	std::set<Entity*>::iterator it = killList.begin();
@@ -59,8 +64,8 @@ void World::add(Entity* entity) {
 	this->entities.push_back(entity);
 }
 
-vector<Entity*> World::inRange(b2Vec2 location, float32 range, Entity& nearest){
-	vector<Entity*> results;
+vector<Entity*>* World::inRange(b2Vec2 location, float32 range, Entity* nearest){
+	vector<Entity*>* results = new vector<Entity*>();
 
 	float32 minDistance = range+1;
 	Entity* minEntity;
@@ -68,7 +73,7 @@ vector<Entity*> World::inRange(b2Vec2 location, float32 range, Entity& nearest){
 		b2Vec2 entLoc = (*itr)->getBody()->GetPosition();
 		float32 distance = std::sqrt(std::pow(entLoc.x + location.x, 2) + std::pow(entLoc.y + location.y, 2));
 		if(distance <= range){
-			results.push_back(*itr);
+			results->push_back(*itr);
 			if(distance < minDistance){
 				minEntity = (*itr);
 				minDistance = distance;
@@ -76,7 +81,7 @@ vector<Entity*> World::inRange(b2Vec2 location, float32 range, Entity& nearest){
 		}
 	}
 
-	nearest = *minEntity;
+	nearest = minEntity;
 	return results;
 }
 
@@ -87,6 +92,11 @@ void World::remove(Entity* entity) {
 b2Body* World::buildBody(b2FixtureDef* fixture, b2BodyDef* bodyDef){
 	b2Body* body = physicsWorld -> CreateBody(bodyDef);
 	body -> CreateFixture(fixture);
+	return body;
+}
+
+b2Body* World::buildBody(b2BodyDef* bodyDef){
+	b2Body* body = physicsWorld -> CreateBody(bodyDef);
 	return body;
 }
 
@@ -106,8 +116,8 @@ Entity* World::addShip(float32 x, float32 y){
 }
 
 void World::addProjectile(float32 size, float32 x, float32 y, b2Vec2 initialVelocity){
-	b2Body* body = buildBody(buildProjectileFixtureDef(size), buildProjectileBodyDef(x, y));
-	Projectile* projectile = new Projectile(body, initialVelocity);
+	b2Body* body = buildBody(buildProjectileBodyDef(x, y));
+	Projectile* projectile = new Projectile(body, initialVelocity, size);
 	add(projectile);
 }
 

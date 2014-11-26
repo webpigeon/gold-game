@@ -11,6 +11,7 @@
 #include "Entity.h"
 #include <vector>
 #include <iostream>
+#include "Projectile.h"
 
 using namespace std;
 
@@ -40,6 +41,7 @@ private:
 
 	void calcCooldown(int delta);
 	void calcShotDelay(int delta);
+	Projectile* fire(Entity* target);
 };
 
 b2BodyDef* buildTurretBodyDef(int x, int y);

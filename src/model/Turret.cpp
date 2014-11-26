@@ -40,17 +40,30 @@ float Turret::getRange(){
 void Turret::update(int delta, Manager<Entity>* manager){
 	calcCooldown(delta);
 	calcShotDelay(delta);
+	cout << "Updating turret" << endl;
 
 	// Can fire if we are not delayed and not tooHot
 	canFire = !(delayed || tooHot);
 	if(canFire){
 		// Fire at something if its in range
-		Entity* nearest;
-		vector<Entity*> inRange = manager->inRange(body->GetPosition(), range, *nearest);
+		Entity* nearest = NULL;
+		vector<Entity*>* inRange = manager->inRange(body->GetPosition(), range, nearest);
+		cout << "Number in range: " << inRange->size() << endl;
+		if(nearest != NULL){
+			cout << "Nearest: " << nearest->getEntityType() << endl;
+		}
 		// fire at nearest;
+		b2Vec2 loc = body->GetPosition();
+		b2Vec2 offset = body->GetWorldVector(b2Vec2(0, -1));
 
+		b2BodyDef* projBodyDef = buildProjectileBodyDef(loc.x + (offset.x * 10), loc.y + (offset.y * 10));
+		Projectile* proj = new Projectile(manager->buildBody(projBodyDef),b2Vec2(offset.x * 500, offset.y * 500), 1);
+		manager->add(proj);
+
+		delete inRange;
 	}
 }
+
 
 void Turret::collidedWith(Entity* entity, Manager<Entity>* manager){
 	cout << "Turret collided with: " << entity->getEntityType() << endl;
