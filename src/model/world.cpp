@@ -119,14 +119,8 @@ void World::addWall(float32 size, float32 x, float32 y){
 
 void World::addTurret(float32 size, float32 x, float32 y, float32 radius){
 	b2Body* turretBody = buildBody(buildTurretFixtureDef(size), buildTurretBodyDef(x, y));
-
 	Turret* turret = new Turret(turretBody);
-
-	b2Body* turretRangeBody = buildBody(buildTurretRangeFixtureDef(radius), buildTurretRangeBodyDef(x, y));
-	TurretRange* range = new TurretRange(turret, turretRangeBody);
-
 	add(turret);
-	add(range);
 }
 
 
