@@ -12,14 +12,14 @@
 
 class Asteroid : public Entity {
 public:
-	Asteroid(b2Body* body);
+	Asteroid(b2Body* body, float32 size);
 	void collidedWith(Entity* entity, Manager<Entity>* manager);
 	int getEntityType();
 };
 
 //utility (factory) functions
-b2BodyDef* buildAsteroidBodyDef(int sides, int size);
-b2FixtureDef* buildAsteroidFixtureDef(int x, int y);
+b2BodyDef* buildAsteroidBodyDef(int x, int y);
+b2FixtureDef* buildAsteroidFixtureDef(float32 size);
 
 
 #endif /* ASTEROID_H_ */

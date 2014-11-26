@@ -7,6 +7,7 @@
 
 #include "MapReader.h"
 #include "SDL2/SDL_image.h"
+
 #include <iostream>
 
 using namespace std;
@@ -16,7 +17,7 @@ MapReader::MapReader() {
 
 }
 
-void MapReader::loadMap(char* name, World* world){
+void MapReader::loadMap(char* name, Manager<Entity>* world){
 	cout << "Loading map: " << name << endl;
 	SDL_Texture* newTexture = NULL;
 
@@ -34,11 +35,6 @@ void MapReader::loadMap(char* name, World* world){
 		// Lock texture, give it reference to pixels
 		SDL_LockTexture(newTexture, NULL, &pixels, &pitch);
 
-//		cout << "Gets here" << width << " " << height << "Pitch: " << pitch << loadedSurface->pixels << endl;
-		// Put data into pixels
-		//memcpy(pixels, loadedSurface->pixels, loadedSurface->pitch * height);
-
-//		cout << "Gets here" << endl;
 		pixelData = (Uint32*)loadedSurface->pixels;
 
 		//Iterate through the pixels!!
@@ -46,7 +42,8 @@ void MapReader::loadMap(char* name, World* world){
 			if(pixelData[i] == 0){
 				// Make wall
 //				cout << "Wall: (X: " << i % width << " Y: " << (i / width) << endl;
-				world->addWall(5, (i % width) * 10, (i / width) * 10);
+				b2Body* wallBody  = world->buildBody(buildWallBodyDef((i % width) * 10, (i / width) * 10));
+				world->add(new Wall(wallBody, 5));
 			}
 		}
 

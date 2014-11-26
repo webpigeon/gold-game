@@ -12,7 +12,7 @@
 
 class Wall : public Entity {
 public:
-	Wall(b2Body* body);
+	Wall(b2Body* body, float32 size);
 	virtual ~Wall();
 	int getEntityType();
 };

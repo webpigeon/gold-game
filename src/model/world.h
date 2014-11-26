@@ -33,11 +33,9 @@ class World : public Manager<Entity> {
 		void draw();
 		void add(Entity* entity);
 		b2Body* buildBody(b2FixtureDef* fixture, b2BodyDef* bodyDef);
+		b2Body* buildBody(b2BodyDef* bodyDef);
 		void remove(Entity* entity);
 		void addColliderCallback(b2ContactListener* callback);
-		void addAsteroid(int points, float32 roughSize, float32 x, float32 y);
-		void addProjectile(float32 size, float32 x, float32 y, b2Vec2 initialVelocity);
-		void addWall(float32 size, float32 x, float32 y);
 		Entity* addShip(float32 x, float32 y);
 };
 

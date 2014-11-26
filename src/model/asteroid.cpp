@@ -12,9 +12,10 @@
 
 using namespace std;
 
-static b2PolygonShape* buildAsteroidShape(int points, int size);
+static b2PolygonShape* buildAsteroidShape(int points, float32 size);
 
-Asteroid::Asteroid(b2Body* body) : Entity(body){
+Asteroid::Asteroid(b2Body* body, float32 size) : Entity(body){
+	body->CreateFixture(buildAsteroidFixtureDef(size));
 	body->ApplyLinearImpulse(b2Vec2(body->GetMass(), body->GetMass()), body->GetWorldCenter(), true);
 	body->ApplyAngularImpulse(body->GetMass() * 20, true);
 	//(b2Vec2(50, 50), true);
@@ -29,9 +30,9 @@ int Asteroid::getEntityType() {
 	return ENT_TYPE_ASTEROID;
 }
 
-b2FixtureDef* buildAsteroidFixtureDef(int p, int size){
+b2FixtureDef* buildAsteroidFixtureDef(float32 size){
 	b2FixtureDef* fixture = new b2FixtureDef();
-	fixture->shape = buildAsteroidShape(p, size);
+	fixture->shape = buildAsteroidShape(8, size);
 	fixture->density = 1.0f;
 	fixture->friction = 0.0f;
 	return fixture;
@@ -44,12 +45,11 @@ b2BodyDef* buildAsteroidBodyDef(int x, int y){
 	return bodyDef;
 }
 
-b2PolygonShape* buildAsteroidShape(int points, int size) {
+b2PolygonShape* buildAsteroidShape(int points, float32 size) {
 	b2PolygonShape* shape = new b2PolygonShape();
 
 	b2Vec2 pointsArray[points];
 
-	float deg = 0;
 	for(int i = 0; i < points; i++){
 		float x = cos(2 * M_PI * i / points);
 		float y = sin(2 * M_PI * i / points);
@@ -58,7 +58,6 @@ b2PolygonShape* buildAsteroidShape(int points, int size) {
 		float yMod = (rand() % 20 / 100.0) - 0.1;
 
 		pointsArray[i] = b2Vec2((x + xMod) * size, (y + yMod) * size);
-		deg += 360.0f / points;
 	}
 
 	shape->Set(pointsArray, points);

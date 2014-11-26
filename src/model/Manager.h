@@ -16,6 +16,8 @@ public:
 	virtual ~Manager() {};
 	virtual void add(T* element) = 0;
 	virtual void remove(T* element) = 0;
+
+	virtual b2Body* buildBody(b2BodyDef* bodyDef) = 0;
 };
 
 #endif /* MANAGER_H_ */

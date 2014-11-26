@@ -7,6 +7,7 @@
 
 #include "Model.h"
 #include "Entity.h"
+#include "Projectile.h"
 #include <iostream>
 
 #define WEAPON_COOLDOWN 500
@@ -75,7 +76,11 @@ void Model::fire(){
 		if(delta > WEAPON_COOLDOWN){
 			b2Vec2 loc = ship2->GetPosition();
 			b2Vec2 offset = ship2->GetWorldVector(b2Vec2(0, -1));
-			world->addProjectile(1, loc.x + (offset.x * 5), loc.y + (offset.y * 5), b2Vec2(offset.x * 500, offset.y * 500));
+
+			b2Body projBody = world->buildBody(buildProjectileBodyDef(loc.x + (offset.x * 5), loc.y + (offset.y * 5)));
+			Projectile* proj = new Projectile(projBody, b2Vec2(offset.x * 500, offset.y * 500), 1);
+			world->add(proj);
+
 			weaponLastFired = currentTime;
 			audio.playLaser();
 		}

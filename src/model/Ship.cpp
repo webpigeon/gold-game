@@ -11,6 +11,7 @@ static b2PolygonShape* buildShipShape();
 
 Ship::Ship(b2Body* body) : Entity(body){
 	// TODO Auto-generated constructor stub
+	body->CreateFixture(buildShipFixtureDef());
 	//body->ApplyAngularImpulse(body->GetMass() * 1000, true);
 }
 

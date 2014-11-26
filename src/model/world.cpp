@@ -57,6 +57,7 @@ void World::draw(){
 }
 
 void World::add(Entity* entity) {
+	entity->init();
 	this->entities.push_back(entity);
 }
 
@@ -70,31 +71,17 @@ b2Body* World::buildBody(b2FixtureDef* fixture, b2BodyDef* bodyDef){
 	return body;
 }
 
-void World::addAsteroid(int points, float32 roughSize, float32 x, float32 y){
-	b2Body* body = buildBody(buildAsteroidFixtureDef(points, roughSize), buildAsteroidBodyDef(x, y));
-	Asteroid* asteroid = new Asteroid(body);
-	add(asteroid);
+b2Body* World::buildBody(b2BodyDef* bodyDef){
+	b2Body* body = physicsWorld -> CreateBody(bodyDef);
+	return body;
 }
 
 Entity* World::addShip(float32 x, float32 y){
-	b2Body* body = buildBody(buildShipFixtureDef(), buildShipBodyDef(x, y));
+	b2Body* body = buildBody(buildShipBodyDef(x, y));
 	Ship* ship = new Ship(body);
 	add(ship);
 
-	ship->init();
 	return ship;
-}
-
-void World::addProjectile(float32 size, float32 x, float32 y, b2Vec2 initialVelocity){
-	b2Body* body = buildBody(buildProjectileFixtureDef(size), buildProjectileBodyDef(x, y));
-	Projectile* projectile = new Projectile(body, initialVelocity);
-	add(projectile);
-}
-
-void World::addWall(float32 size, float32 x, float32 y){
-	b2Body* body = buildBody(buildWallFixtureDef(size), buildWallBodyDef(x, y));
-	Wall* wall = new Wall(body);
-	add(wall);
 }
 
 

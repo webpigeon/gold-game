@@ -11,6 +11,7 @@
 #include <vector>
 #include "Entity.h"
 #include "world.h"
+#include "Manager.h"
 
 using namespace std;
 
@@ -27,7 +28,7 @@ public:
 	MapReader();
 	virtual ~MapReader();
 
-	void loadMap(char* name, World* world);
+	void loadMap(char* name, Manager<Entity>* world);
 
 private:
 	bool lockTexture();
