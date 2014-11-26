@@ -28,14 +28,14 @@ int main() {
 		return EXIT_FAILURE;
 	}
 
-	GameState* game = new GamePlaying;
-	// GameState* game = new GameOver;
-
 	//create display
 	Display display;
+	display.addState("playing", new GamePlaying);
+	display.addState("gameover", new GameOver);
+
 	display.init();
 
-	game->enterState();
+	display.changeState("gameover");
 
 	unsigned short fps = 0;
 	Uint32 lastUpdateTime = SDL_GetTicks();
@@ -48,11 +48,11 @@ int main() {
 
 			//Detect SDL key presses
 	        if (event.type == SDL_KEYDOWN){
-        		game->keyPressed(event.key.keysym.sym);
+	        	display.onKeyDown(event.key.keysym.sym);
 	        }
 		}
 
-		display.update(game);
+		display.update(NULL);
 
 		fps++;
 		Uint32 currentTime = SDL_GetTicks();

@@ -13,6 +13,7 @@
 #include <GL/gl.h>
 #include <Box2D/Box2D.h>
 
+#include <map>
 #include <string>
 #include <iostream>
 
@@ -30,11 +31,17 @@ public:
 	void renderText(float32 x, float32 y, const std::string& Text);
 	void close(void);
 
+	void addState(std::string name, GameState* state);
+	void changeState(std::string name);
+	void onKeyDown(int keyCode);
+
 private:
 	SDL_Window* window;
 	SDL_GLContext context;
 	Uint32 lastLoop;
 	TTF_Font* font;
+	GameState* state;
+	std::map<std::string, GameState*> states;
 
 };
 

@@ -23,6 +23,7 @@ public:
 	void turn(int direction);
 
 	Entity* getPlayer();
+	bool isPlayerAlive();
 
 	Audio audio;
 	//callbacks for contact detection

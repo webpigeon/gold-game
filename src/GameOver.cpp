@@ -12,12 +12,23 @@ GameOver::GameOver() {
 
 }
 
-void GameOver::enterState(){}
-void GameOver::update(int delta){}
-void GameOver::render(SDL_GLContext* context){
+void GameOver::enterState(DisplayUtils* utils){
+	this->utils = utils;
 }
+
+void GameOver::update(int delta){}
+
+void GameOver::render(DisplayUtils* context){
+}
+
+void GameOver::renderGUI(DisplayUtils* context) {
+	context->renderText(360, 300, "Game Over");
+}
+
 void GameOver::keyPressed(int keyCode){
-	//if (SDL_)
+	if (keyCode == SDLK_SPACE){
+		utils->changeState("playing");
+	}
 }
 
 GameOver::~GameOver() {

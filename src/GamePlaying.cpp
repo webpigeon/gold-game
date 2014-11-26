@@ -10,6 +10,10 @@
 
 GamePlaying::GamePlaying() {
 	// TODO Auto-generated constructor stub
+}
+
+void GamePlaying::enterState(DisplayUtils* utils){
+	this->utils = utils;
 	world = new World;
 	player = world->addShip(20, 20);
 
@@ -18,10 +22,6 @@ GamePlaying::GamePlaying() {
 
 	MapReader reader;
 	reader.loadMap("Assets/Maps/map1.bmp", world);
-}
-
-void GamePlaying::enterState(){
-
 }
 
 void GamePlaying::keyPressed(int keyCode) {
@@ -53,6 +53,10 @@ void GamePlaying::keyPressed(int keyCode) {
 
 void GamePlaying::update(int delta){
     world->update(delta);
+
+    if (!model->isPlayerAlive()){
+    	utils->changeState("gameover");
+    }
 }
 
 void GamePlaying::render(DisplayUtils* context){

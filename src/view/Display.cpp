@@ -76,10 +76,10 @@ void Display::update(GameState* state) {
     Uint32 currTime = SDL_GetTicks();
     int delta = currTime - lastLoop;
     lastLoop = currTime;
-    state->update(delta);
+    this->state->update(delta);
 
     //Stage 2 - rendering code
-    state->render(this);
+    this->state->render(this);
 
     glPopMatrix();
 
@@ -92,10 +92,16 @@ void Display::update(GameState* state) {
 	glMatrixMode(GL_MODELVIEW);
 	glPolygonMode( GL_FRONT, GL_FILL );
 
-	state->renderGUI(this);
+	this->state->renderGUI(this);
 
     SDL_GL_SwapWindow(window);
 
+}
+
+void Display::onKeyDown(int keyCode) {
+	if (state != NULL) {
+		state->keyPressed(keyCode);
+	}
 }
 
 void Display::renderText(float32 x, float32 y, const std::string& text) {
@@ -126,6 +132,16 @@ void Display::renderText(float32 x, float32 y, const std::string& text) {
 }
 
 void Display::close(void) {
+}
+
+void Display::addState(std::string name, GameState* state) {
+	states[name] = state;
+}
+
+void Display::changeState(std::string name) {
+	GameState* state = states.at(name);
+	this->state = state;
+	this->state->enterState(this);
 }
 
 Display::~Display() {

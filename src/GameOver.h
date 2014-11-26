@@ -13,11 +13,15 @@
 class GameOver : public GameState {
 public:
 	GameOver();
-	void enterState();
+	void enterState(DisplayUtils* utils);
 	void update(int delta);
-	void render(SDL_GLContext* context);
+	void render(DisplayUtils* context);
+	void renderGUI(DisplayUtils* context);
 	void keyPressed(int keyCode);
 	virtual ~GameOver();
+
+private:
+	DisplayUtils* utils;
 };
 
 #endif /* GAMEOVER_H_ */

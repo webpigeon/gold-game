@@ -81,6 +81,10 @@ void Model::fire(){
 	}
 }
 
+bool Model::isPlayerAlive() {
+	return this->player != NULL;
+}
+
 void Model::accelerate(int delta) {
 	if (player != NULL) {
 		b2Body* ship2 = this->player->getBody();

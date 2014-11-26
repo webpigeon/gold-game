@@ -15,7 +15,7 @@
 class GamePlaying: public GameState {
 public:
 	GamePlaying();
-	void enterState();
+	void enterState(DisplayUtils* utils);
 	void update(int delta);
 	void render(DisplayUtils* context);
 	void renderGUI(DisplayUtils* context);
@@ -26,6 +26,7 @@ private:
 	World* world;
 	Entity* player;
 	Model* model;
+	DisplayUtils* utils;
 };
 
 #endif /* GAMEPLAYING_H_ */

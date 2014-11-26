@@ -17,6 +17,7 @@
 class DisplayUtils {
 public:
 	virtual ~DisplayUtils() {};
+	virtual void changeState(std::string name) = 0;
 	virtual void renderText(float32 x, float32 y, const std::string& Text) = 0;
 };
 

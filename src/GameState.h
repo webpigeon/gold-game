@@ -16,7 +16,7 @@
 class GameState {
 public:
 	GameState();
-	virtual void enterState() = 0;
+	virtual void enterState(DisplayUtils* utils) = 0;
 	virtual void update(int delta) = 0;
 	virtual void render(DisplayUtils* utils) = 0;
 	virtual void renderGUI(DisplayUtils* utils) = 0;
