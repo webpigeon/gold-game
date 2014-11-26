@@ -8,7 +8,8 @@
 #include "Projectile.h"
 #include <iostream>
 
-static b2PolygonShape* buildProjectileShape(int points, int size);
+static b2CircleShape* buildProjectileShape(int points, int size);
+
 
 
 Projectile::Projectile(b2Body* body, b2Vec2 initialVelocity) : Entity(body) {
@@ -21,10 +22,14 @@ Projectile::Projectile(b2Body* body, b2Vec2 initialVelocity) : Entity(body) {
 	body ->ApplyLinearImpulse(initialVelocity, body->GetWorldCenter(), true);
 	//body->ApplyAngularImpulse(5000, true);
 
+	if(!generated){
+		generatePoints();
+	}
 }
 
 Projectile::~Projectile() {
 	// TODO Auto-generated destructor stub
+	delete[] pointsArray;
 }
 
 void Projectile::collidedWith(Entity* entity, Manager<Entity>* manager) {
@@ -33,6 +38,44 @@ void Projectile::collidedWith(Entity* entity, Manager<Entity>* manager) {
 
 int Projectile::getEntityType() {
 	return ENT_TYPE_BULLET;
+}
+
+void Projectile::draw(SDL_GLContext* context){
+	b2Vec2 pos = body->GetWorldCenter();
+
+	glColor3f(1.0f, 0, 0);
+	glPushMatrix();
+
+	glTranslatef(pos.x, pos.y, 0);
+
+	b2Fixture* fixtures = body->GetFixtureList();
+
+	glBegin(GL_POLYGON);
+	while(fixtures){
+		b2CircleShape* shape = (b2CircleShape*)fixtures->GetShape();
+		float radius = shape->m_radius;
+		b2Vec2 offset = shape->m_p;
+
+		for(int i = 0; i < pointsLength; ++i){
+			glVertex2f((pointsArray[i].x + offset.x) * radius, (pointsArray[i].y + offset.y) * radius);
+		}
+
+		fixtures = fixtures->GetNext();
+	}
+
+	glEnd();
+	glPopMatrix();
+
+}
+
+void Projectile::generatePoints(){
+	pointsLength = 32;
+	pointsArray = new b2Vec2[pointsLength];
+	for(int i = 0; i < pointsLength; i++){
+		float x = cos(2 * M_PI * i / pointsLength);
+		float y = sin(2 * M_PI * i / pointsLength);
+		pointsArray[i] = b2Vec2(x, y);
+	}
 }
 
 b2FixtureDef* buildProjectileFixtureDef(int size){
@@ -51,20 +94,10 @@ b2BodyDef* buildProjectileBodyDef(int x, int y){
 	return bodyDef;
 }
 
-b2PolygonShape* buildProjectileShape(int points, int size){
-	b2PolygonShape* shape = new b2PolygonShape();
 
-	b2Vec2 pointsArray[points];
-
-	float deg = 0;
-	for(int i = 0; i < points; i++){
-		float x = cos(2 * M_PI * i / points);
-		float y = sin(2 * M_PI * i / points);
-
-		pointsArray[i] = b2Vec2(x * size, y * size);
-		deg += 360.0f / points;
-	}
-
-	shape->Set(pointsArray, points);
+b2CircleShape* buildProjectileShape(int points, int size){
+	b2CircleShape* shape = new b2CircleShape();
+	shape->m_p.Set(0, 0);
+	shape->m_radius = size;
 	return shape;
 }

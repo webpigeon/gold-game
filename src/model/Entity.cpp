@@ -19,6 +19,10 @@ Entity::~Entity() {
 	body->GetWorld()->DestroyBody( body );
 }
 
+void Entity::init() {
+
+}
+
 b2Body* Entity::getBody() {
 	return this->body;
 }
@@ -42,19 +46,19 @@ void Entity::draw(SDL_GLContext* context){
 	// now we start drawing stuff
 
 	b2Fixture* f = body->GetFixtureList();
-	glBegin(GL_POLYGON);
 	while (f) {
 		b2PolygonShape* shape = (b2PolygonShape*)f->GetShape();
 		int vertexCount = shape->GetVertexCount();
 
+		glBegin(GL_POLYGON);
 		for (int i=0; i<vertexCount; ++i) {
 			b2Vec2 vertex = shape->GetVertex(i);
 			glVertex2f(vertex.x, vertex.y);
 		}
+		glEnd();
 
 		f = f->GetNext();
 	}
-	glEnd();
 
 	glPopMatrix();
 }

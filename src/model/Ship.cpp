@@ -14,6 +14,37 @@ Ship::Ship(b2Body* body) : Entity(body){
 	//body->ApplyAngularImpulse(body->GetMass() * 1000, true);
 }
 
+void Ship::init() {
+
+	//create ship body
+	b2FixtureDef fixture;
+	fixture.shape = buildShipShape();
+	fixture.density = 1.0f;
+	fixture.friction = 0.0f;
+	/*this->body->CreateFixture(&fixture);*/
+
+	//create ship left engine
+	b2PolygonShape shape;
+	//shape.SetAsBox(1, 1);
+	b2Vec2 points[4];
+	points[0] = b2Vec2(-0.5 * 2, 0.75 * 2);
+	points[1] = b2Vec2(-0.5 * 2, 0 * 2);
+	points[2] = b2Vec2(-0.75 * 2, 0 * 2);
+	points[3] = b2Vec2(-0.75 * 2, 0.75 * 2);
+	shape.Set(points, 4);
+	fixture.shape = &shape;
+	this->body->CreateFixture(&fixture);
+
+	//shape.SetAsBox(1, 1);
+	points[0] = b2Vec2(0.5 * 2, 0.75 * 2);
+	points[1] = b2Vec2(0.5 * 2, 0 * 2);
+	points[2] = b2Vec2(0.75 * 2, 0 * 2);
+	points[3] = b2Vec2(0.75 * 2, 0.75 * 2);
+	shape.Set(points, 4);
+	fixture.shape = &shape;
+	this->body->CreateFixture(&fixture);
+}
+
 void Ship::collidedWith(Entity* entity, Manager<Entity>* manager){
 	manager->remove(this);
 }
@@ -38,22 +69,23 @@ b2BodyDef* buildShipBodyDef(int x, int y){
 	b2BodyDef* bodyDef = new b2BodyDef();
 	bodyDef -> type = b2_dynamicBody;
 	bodyDef -> position.Set(x, y);
-	bodyDef->linearDamping = 0.9f;
-	bodyDef->angularDamping = 0.9f;
+	bodyDef->linearDamping = 1.0f;
+	bodyDef->angularDamping = 1.0f;
 	return bodyDef;
 }
 
 b2PolygonShape* buildShipShape(){
 	b2PolygonShape* shape = new b2PolygonShape();
-	b2Vec2 pointsArray[3];
+	b2Vec2 pointsArray[4];
 
-	float size = 2;
+	float size = 2;	glEnd();
 
-	pointsArray[0] = b2Vec2(0 * size, -1 * size);
-	pointsArray[1] = b2Vec2(-0.5 * size, 1 * size);
-	pointsArray[2] = b2Vec2(0.5 * size, 1 * size);
+	pointsArray[0] = b2Vec2(-0.5 * size, 1 * size);
+	pointsArray[1] = b2Vec2(-0.5 * size, -1 * size);
+	pointsArray[2] = b2Vec2(0.5 * size, -1 * size);
+	pointsArray[3] = b2Vec2(0.5 * size, 1 * size);
 
-	shape -> Set(pointsArray, 3);
+	shape -> Set(pointsArray, 4);
 	return shape;
 
 }
