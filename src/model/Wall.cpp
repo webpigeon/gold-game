@@ -9,8 +9,10 @@
 
 static b2PolygonShape* buildWallShape(float32 size);
 
-Wall::Wall(float32 x, float32 y, float32 size) : Entity(x, y, size){
+Wall::Wall(float32 x, float32 y, float32 size, bool distructable) : Entity(x, y, size){
 	// TODO Auto-generated constructor stub
+	this->distructable = distructable;
+	this->health = 1000;
 }
 
 void Wall::init(Manager<Entity>* manager) {
@@ -26,6 +28,13 @@ int Wall::getEntityType(){
 
 void Wall::collidedWith(Entity* entity, Manager<Entity>* manager){
 	// Specifically must do nothing with collision
+	if (distructable && entity->getEntityType() == ENT_TYPE_BULLET) {
+		health -= entity->getHealth();
+		if (health <= 0) {
+			manager->remove(this);
+		}
+	}
+
 }
 
 Wall::~Wall() {

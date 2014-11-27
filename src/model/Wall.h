@@ -12,11 +12,14 @@
 
 class Wall : public Entity {
 public:
-	Wall(float32 x, float32 y, float32 size);
+	Wall(float32 x, float32 y, float32 size, bool distructable=false);
 	void init(Manager<Entity>* manager);
 	virtual ~Wall();
 	int getEntityType();
 	void collidedWith(Entity* entity, Manager<Entity>* manager);
+
+private:
+	bool distructable;
 };
 
 b2FixtureDef* buildWallFixtureDef(float32 size);
