@@ -15,6 +15,7 @@ public:
 	Projectile(float32 x, float32 y, b2Vec2 initialVelocity, float32 size);
 	void init(Manager<Entity>* manager);
 	virtual ~Projectile();
+	void update(int delta, Manager<Entity>* manager);
 	void collidedWith(Entity* entity, Manager<Entity>* manager);
 	void draw();
 	int getEntityType();

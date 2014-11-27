@@ -41,6 +41,13 @@ int Projectile::getEntityType() {
 	return ENT_TYPE_BULLET;
 }
 
+void Projectile::update(int delta, Manager<Entity>* manager){
+	health -= 0.5;
+	if (health <= 0) {
+		manager->remove(this);
+	}
+}
+
 void Projectile::draw(){
 	b2Vec2 pos = body->GetWorldCenter();
 
