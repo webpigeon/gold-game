@@ -17,7 +17,8 @@ using namespace std;
 
 class Turret: public Entity {
 public:
-	Turret(b2Body* body);
+	Turret(float32 x, float32 y, float32 size);
+	void init(Manager<Entity>* manager);
 	virtual ~Turret();
 	void update(int delta, Manager<Entity>* manager);
 	void collidedWith(Entity* entity, Manager<Entity>* manager);

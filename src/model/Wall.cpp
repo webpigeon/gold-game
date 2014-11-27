@@ -9,10 +9,14 @@
 
 static b2PolygonShape* buildWallShape(float32 size);
 
-Wall::Wall(b2Body* body, float32 size) : Entity(body){
+Wall::Wall(float32 x, float32 y, float32 size) : Entity(x, y, size){
 	// TODO Auto-generated constructor stub
-	body->CreateFixture(buildWallFixtureDef(size));
+}
 
+void Wall::init(Manager<Entity>* manager) {
+	body = manager->buildBody(buildWallBodyDef(initPos.x, initPos.y));
+	body->SetUserData(this);
+	body->CreateFixture(buildWallFixtureDef(size));
 }
 
 int Wall::getEntityType(){

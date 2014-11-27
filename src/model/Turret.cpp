@@ -11,7 +11,7 @@
 static b2PolygonShape* buildTurretShape(int points, int size);
 static b2PolygonShape* buildTurretRangeShape(int points, int size);
 
-Turret::Turret(b2Body* body) : Entity(body) {
+Turret::Turret(float32 x, float32 y, float32 size) : Entity(x, y, size) {
 	// TODO Auto-generated constructor stub
 	range = 35;
 	heat = 0;
@@ -25,8 +25,13 @@ Turret::Turret(b2Body* body) : Entity(body) {
 	delayed = false;
 	shotDelay = 500;
 	msTillWeCanShoot = 0;
+}
 
+void Turret::init(Manager<Entity>* manager) {
+	body = manager->buildBody(buildTurretBodyDef(initPos.x, initPos.y));
+	body->SetUserData(this);
 	body->CreateFixture(buildTurretFixtureDef(1));
+	manager->add(this);
 }
 
 int Turret::getEntityType(){
@@ -56,8 +61,9 @@ void Turret::update(int delta, Manager<Entity>* manager){
 			b2Vec2 loc = body->GetPosition();
 			b2Vec2 offset = body->GetWorldVector(b2Vec2(0, -1));
 
-			b2BodyDef* projBodyDef = buildProjectileBodyDef(loc.x + (offset.x * 10), loc.y + (offset.y * 10));
-			Projectile* proj = new Projectile(manager->buildBody(projBodyDef),b2Vec2(offset.x * 500, offset.y * 500), 1);
+			b2Vec2 position(loc.x + (offset.x * 10), loc.y + (offset.y * 10));
+			b2Vec2 speed(offset.x * 500, offset.y * 500);
+			Projectile* proj = new Projectile(position.x, position.y,speed, 1);
 			manager->add(proj);
 		}
 		delete inRange;

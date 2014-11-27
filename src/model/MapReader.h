@@ -12,6 +12,7 @@
 #include "Entity.h"
 #include "World.h"
 #include "Manager.h"
+#include "Asteroid.h"
 
 using namespace std;
 

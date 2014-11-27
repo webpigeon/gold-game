@@ -12,7 +12,8 @@
 
 class Asteroid : public Entity {
 public:
-	Asteroid(b2Body* body, float32 size);
+	Asteroid(float32 x, float32 y, float32 size);
+	void init(Manager<Entity>* manager);
 	void collidedWith(Entity* entity, Manager<Entity>* manager);
 	int getEntityType();
 };

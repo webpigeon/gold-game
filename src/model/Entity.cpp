@@ -10,18 +10,15 @@
 
 #define RAD_TO_DEG_FACTOR 57.2957795
 
-Entity::Entity(b2Body* body) {
-	this->body = body;
-	body->SetUserData(this);
+Entity::Entity(float32 x, float32 y, float32 size) : initPos(x, y) {
+	this->body = NULL;
+	this->size = size;
 }
 
 Entity::~Entity() {
 	body->GetWorld()->DestroyBody( body );
 }
 
-void Entity::init() {
-
-}
 
 b2Body* Entity::getBody() {
 	return this->body;

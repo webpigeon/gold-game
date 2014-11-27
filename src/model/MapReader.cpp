@@ -42,9 +42,17 @@ void MapReader::loadMap(char* name, Manager<Entity>* world){
 			if(pixelData[i] == 0){
 				// Make wall
 //				cout << "Wall: (X: " << i % width << " Y: " << (i / width) << endl;
-				b2Body* wallBody  = world->buildBody(buildWallBodyDef((i % width) * 10, (i / width) * 10));
-				world->add(new Wall(wallBody, 5));
+				float32 x = (i % width) * 10;
+				float32 y = (i / width) * 10;
+				world->add(new Wall(x, y, 5));
 			}
+		}
+
+		// build some asteroids
+		for(int i=1; i<2; i++){
+			float x = i * 60;
+			float y = i * 60;
+			world->add(new Asteroid(x, y, 10));
 		}
 
 		// Unlock texture, it now has its own copy of pixels
@@ -56,6 +64,7 @@ void MapReader::loadMap(char* name, Manager<Entity>* world){
 		// Free the surface
 		SDL_FreeSurface(loadedSurface);
 	}
+	cout << "DEBUG: world has been loaded." << endl;
 }
 
 bool MapReader::lockTexture(){

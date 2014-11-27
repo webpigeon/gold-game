@@ -9,20 +9,20 @@
 
 static b2PolygonShape* buildShipShape();
 
-Ship::Ship(b2Body* body) : Entity(body){
+Ship::Ship(float32 x, float32 y, float32 size) : Entity(x, y, size){
 	// TODO Auto-generated constructor stub
-	body->CreateFixture(buildShipFixtureDef());
-	//body->ApplyAngularImpulse(body->GetMass() * 1000, true);
 }
 
-void Ship::init() {
+void Ship::init(Manager<Entity>* manager) {
+	body = manager->buildBody(buildShipBodyDef(initPos.x, initPos.y));
+	body->SetUserData(this);
 
 	//create ship body
 	b2FixtureDef fixture;
 	fixture.shape = buildShipShape();
 	fixture.density = 1.0f;
 	fixture.friction = 0.0f;
-	/*this->body->CreateFixture(&fixture);*/
+	this->body->CreateFixture(&fixture);
 
 	//create ship left engine
 	b2PolygonShape shape;

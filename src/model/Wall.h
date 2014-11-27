@@ -12,7 +12,8 @@
 
 class Wall : public Entity {
 public:
-	Wall(b2Body* body, float32 size);
+	Wall(float32 x, float32 y, float32 size);
+	void init(Manager<Entity>* manager);
 	virtual ~Wall();
 	int getEntityType();
 };

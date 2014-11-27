@@ -12,8 +12,8 @@
 
 class Ship: public Entity {
 public:
-	Ship(b2Body* body);
-	void init();
+	Ship(float32 x, float32 y, float32 size);
+	void init(Manager<Entity>* manager);
 	b2Body* getBody();
 	void collidedWith(Entity* entity, Manager<Entity>* manager);
 	int getEntityType();

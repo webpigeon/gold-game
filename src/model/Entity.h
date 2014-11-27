@@ -24,9 +24,9 @@
 
 class Entity {
 	public:
-		Entity(b2Body* body);
+		Entity(float32 x, float32 y, float32 size);
 		virtual ~Entity();
-		virtual void init();
+		virtual void init(Manager<Entity>* manager) = 0;
 		virtual void update(int delta, Manager<Entity>* manager);
 		virtual void draw();
 		virtual void collidedWith(Entity* entity, Manager<Entity>* manager);
@@ -35,6 +35,8 @@ class Entity {
 
 	protected:
 		b2Body* body;
+		b2Vec2 initPos;
+		float32 size;
 };
 
 #endif /* ENTITY_H_ */

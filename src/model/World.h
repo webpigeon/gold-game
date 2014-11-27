@@ -24,6 +24,7 @@ class World : public Manager<Entity> {
 	private:
 		b2World* physicsWorld;
 		std::vector<Entity*> entities;
+		std::set<Entity*> addList;
 		std::set<Entity*> killList;
 
 		float32 worldWidth;

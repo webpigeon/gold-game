@@ -14,16 +14,32 @@ using namespace std;
 
 static b2PolygonShape* buildAsteroidShape(int points, float32 size);
 
-Asteroid::Asteroid(b2Body* body, float32 size) : Entity(body){
+Asteroid::Asteroid(float32 x, float32 y, float32 size) : Entity(x, y, size){
+}
+
+void Asteroid::init(Manager<Entity>* manager) {
+	//build the entity
+	body = manager->buildBody(buildAsteroidBodyDef(initPos.x, initPos.y));
 	body->CreateFixture(buildAsteroidFixtureDef(size));
+	body->SetUserData(this);
+	manager->add(this);
+
 	body->ApplyLinearImpulse(b2Vec2(body->GetMass(), body->GetMass()), body->GetWorldCenter(), true);
 	body->ApplyAngularImpulse(body->GetMass() * 20, true);
-	//(b2Vec2(50, 50), true);
 }
 
 void Asteroid::collidedWith(Entity* entity, Manager<Entity>* manager) {
 	// when an asteroid is hit, distroy it
 	manager->remove(this);
+	b2Vec2 myPos = body->GetWorldCenter();
+
+	//b2Body* part1Body = manager->buildBody(buildAsteroidBodyDef(myPos.x + 5, myPos.y + 5));
+	//Asteroid* part1 = new Asteroid(part1Body, 2);
+	//manager->add(part1);
+
+	//b2Body* part2Body = manager->buildBody(buildAsteroidBodyDef(myPos.x - 5, myPos.y - 5));
+	//Asteroid* part2 = new Asteroid(part2Body, 2);
+	//manager->add(part2);
 }
 
 int Asteroid::getEntityType() {

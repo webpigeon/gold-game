@@ -69,7 +69,7 @@ void Model::EndContact(b2Contact* contact){
 }
 
 void Model::fire(){
-	if (player != NULL) {
+	if (isPlayerAlive()) {
 		b2Body* ship2 = this->player->getBody();
 		uint32 currentTime = SDL_GetTicks();
 		int delta = currentTime-weaponLastFired;
@@ -77,8 +77,10 @@ void Model::fire(){
 			b2Vec2 loc = ship2->GetPosition();
 			b2Vec2 offset = ship2->GetWorldVector(b2Vec2(0, -1));
 
-			b2Body* projBody = world->buildBody(buildProjectileBodyDef(loc.x + (offset.x * 5), loc.y + (offset.y * 5)));
-			Projectile* proj = new Projectile(projBody, b2Vec2(offset.x * 500, offset.y * 500), 1);
+			b2Vec2 location(loc.x + (offset.x * 5), loc.y + (offset.y * 5));
+			b2Vec2 speed(offset.x * 500, offset.y * 500);
+
+			Projectile* proj = new Projectile(location.x, location.y, speed, 1);
 			world->add(proj);
 
 			weaponLastFired = currentTime;
@@ -88,7 +90,7 @@ void Model::fire(){
 }
 
 bool Model::isPlayerAlive() {
-	return this->player != NULL;
+	return player != NULL && player->getBody() != NULL;
 }
 
 int Model::getScore() {
@@ -96,7 +98,7 @@ int Model::getScore() {
 }
 
 void Model::accelerate(int delta) {
-	if (player != NULL) {
+	if (isPlayerAlive()) {
 		b2Body* ship2 = this->player->getBody();
 		b2Vec2 speed(0, delta * 150);
 		b2Vec2 force = ship2->GetWorldVector(speed);
@@ -105,7 +107,7 @@ void Model::accelerate(int delta) {
 }
 
 void Model::turn(int direction) {
-	if (player != NULL) {
+	if (isPlayerAlive()) {
 		b2Body* ship2 = this->player->getBody();
 		float w = ship2->GetAngularVelocity();
 		w += (direction * 0.5);

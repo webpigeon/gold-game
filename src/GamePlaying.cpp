@@ -56,14 +56,14 @@ void GamePlaying::keyPressed(int keyCode) {
 void GamePlaying::update(int delta){
     world->update(delta);
 
-    if (!model->isPlayerAlive()){
+    /*if (!model->isPlayerAlive()){
     	utils->changeState("gameover");
-    }
+    }*/
 }
 
 void GamePlaying::render(DisplayUtils* context){
 
-    if (player != NULL) {
+    if (player != NULL && player->getBody() != NULL) {
     	b2Vec2 playerPos = player->getBody()->GetWorldCenter();
     	glTranslatef(-playerPos.x + 40, -playerPos.y + 30, 0);
     }

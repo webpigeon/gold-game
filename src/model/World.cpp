@@ -19,9 +19,8 @@ World::World(){
 	physicsWorld = new b2World(gravity);
 
 	//Build a turret
-	b2Body* body = buildBody(buildTurretBodyDef(15, 15));
-	Turret* turret = new Turret(body);
-	add(turret);
+	//Turret* turret = new Turret(15, 15, 1);
+	//add(turret);
 }
 
 void World::addColliderCallback(b2ContactListener* callback) {
@@ -36,6 +35,16 @@ void World::update(int delta) {
 		(*itr)->update(delta, this);
 	}
 
+	// add any new entities
+	std::set<Entity*>::iterator addIt = addList.begin();
+	std::set<Entity*>::iterator addEnd = addList.end();
+	for (; addIt!=addEnd; ++addIt) {
+		Entity* entity = *addIt;
+		entity->init(this);
+		this->entities.push_back(entity);
+	}
+	addList.clear();
+
 	//kill all dead entities
 	std::set<Entity*>::iterator it = killList.begin();
 	std::set<Entity*>::iterator end = killList.end();
@@ -49,7 +58,6 @@ void World::update(int delta) {
 
 		delete entity;
 	}
-
 	killList.clear();
 }
 
@@ -65,15 +73,13 @@ void World::draw(){
 }
 
 void World::add(Entity* entity) {
-	entity->init();
-	this->entities.push_back(entity);
+	addList.insert(entity);
 }
 
 vector<Entity*>* World::inRange(b2Vec2 location, float32 range, Entity* nearest){
 	vector<Entity*>* results = new vector<Entity*>();
 
 	float32 minDistance = range+1;
-	//cout << "Minimum Distance" << minDistance << endl;
 	Entity* minEntity;
 	for(vector<Entity*>::iterator itr = entities.begin(); itr != entities.end(); ++itr){
 		b2Vec2 entLoc = (*itr)->getBody()->GetPosition();
@@ -108,8 +114,7 @@ b2Body* World::buildBody(b2BodyDef* bodyDef){
 }
 
 Entity* World::addShip(float32 x, float32 y){
-	b2Body* body = buildBody(buildShipBodyDef(x, y));
-	Ship* ship = new Ship(body);
+	Ship* ship = new Ship(x, y, 1);
 	add(ship);
 
 	return ship;

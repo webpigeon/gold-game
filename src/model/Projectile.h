@@ -12,12 +12,14 @@
 
 class Projectile: public Entity {
 public:
-	Projectile(b2Body* body, b2Vec2 initialVelocity, float32 size);
+	Projectile(float32 x, float32 y, b2Vec2 initialVelocity, float32 size);
+	void init(Manager<Entity>* manager);
 	virtual ~Projectile();
 	void collidedWith(Entity* entity, Manager<Entity>* manager);
 	void draw();
 	int getEntityType();
 private:
+	b2Vec2 initVelocity;
 	int pointsLength;
 	b2Vec2* pointsArray;
 	void generatePoints();

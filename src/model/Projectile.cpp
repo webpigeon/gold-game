@@ -12,21 +12,27 @@ static b2CircleShape* buildProjectileShape(int points, int size);
 
 
 
-Projectile::Projectile(b2Body* body, b2Vec2 initialVelocity, float32 size) : Entity(body) {
+Projectile::Projectile(float32 x, float32 y, b2Vec2 initialVelocity, float32 size) : initVelocity(initialVelocity), Entity(x, y, size) {
 	// TODO Auto-generated constructor stub
 
-	body->CreateFixture(buildProjectileFixtureDef(size));
-
 	// Normalise it to remove magnitude
-	initialVelocity.Normalize();
-	// Apply magnitude
-	initialVelocity *= 1000.0f;
-	body ->ApplyLinearImpulse(initialVelocity, body->GetWorldCenter(), true);
+	initVelocity.Normalize();
+	initVelocity *= 1000.0f;
 	//body->ApplyAngularImpulse(5000, true);
 
 	if(!generated){
 		generatePoints();
 	}
+}
+
+void Projectile::init(Manager<Entity>* manager) {
+	//build the projectile
+	body = manager->buildBody(buildProjectileBodyDef(initPos.x, initPos.y));
+	body->CreateFixture(buildProjectileFixtureDef(size));
+	body->SetUserData(this);
+	manager->add(this);
+
+	body->ApplyLinearImpulse(initVelocity, body->GetWorldCenter(), true);
 }
 
 Projectile::~Projectile() {
