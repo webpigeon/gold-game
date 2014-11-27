@@ -40,14 +40,6 @@ void Asteroid::collidedWith(Entity* entity, Manager<Entity>* manager) {
 			manager->add(new Asteroid(myPos.x - 5, myPos.y - 5, newSize));
 		}
 	}
-
-	//b2Body* part1Body = manager->buildBody(buildAsteroidBodyDef(myPos.x + 5, myPos.y + 5));
-	//Asteroid* part1 = new Asteroid(part1Body, 2);
-	//manager->add(part1);
-
-	//b2Body* part2Body = manager->buildBody(buildAsteroidBodyDef(myPos.x - 5, myPos.y - 5));
-	//Asteroid* part2 = new Asteroid(part2Body, 2);
-	//manager->add(part2);
 }
 
 int Asteroid::getEntityType() {

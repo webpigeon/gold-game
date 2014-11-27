@@ -56,9 +56,9 @@ void GamePlaying::keyPressed(int keyCode) {
 void GamePlaying::update(int delta){
     world->update(delta);
 
-    /*if (!model->isPlayerAlive()){
+    if (!model->isPlayerAlive()){
     	utils->changeState("gameover");
-    }*/
+    }
 }
 
 void GamePlaying::render(DisplayUtils* context){
