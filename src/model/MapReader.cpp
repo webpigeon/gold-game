@@ -46,20 +46,21 @@ void MapReader::loadMap(const char* name, Manager<Entity>* world, b2Vec2& player
 			uint r = (pixelData[i] >> 24) & 255;
 			uint g = (pixelData[i] >> 16) & 255;
 			uint b = (pixelData[i] >> 8) & 255;
-			cout << "Blue: " << g << endl;
+
 			float32 x = (i % width) * 10;
 			float32 y = (i / width) * 10;
 			if(pixelData[i] == 0){
 				world->add(new Wall(x, y, 5));
-			}else if(g == 255 && r == 255 && b == 0){
+			}else if(r == 0 && g == 255 && b == 0){
 				// Build asteroid
 				world->add(new Asteroid(x, y, 4));
 			}else if(r == 255 && g == 0 && b == 0){
 				world->add(new Turret(x, y, 2));
 			}else if(r == 0 && g == 255 && b == 255){
 				playerPosition.Set(x, y);
-			}else if(r == 255 & g == 255 & b == 0){
+			}else if(r == 255 && g == 255 && b == 0){
 				world->add(new GoalObject(x, y, 1));
+				cout << "Building Goal State" << endl;
 			}
 		}
 
