@@ -16,6 +16,7 @@
 #include "GoalObject.h"
 #include "Turret.h"
 #include "Projectile.h"
+#include "GoalObject.h"
 
 
 using namespace std;
