@@ -13,6 +13,7 @@
 Entity::Entity(float32 x, float32 y, float32 size) : initPos(x, y) {
 	this->body = NULL;
 	this->size = size;
+	health = 100;
 }
 
 Entity::~Entity() {
@@ -22,6 +23,10 @@ Entity::~Entity() {
 
 b2Body* Entity::getBody() {
 	return this->body;
+}
+
+float Entity::getHealth(){
+	return health;
 }
 
 void Entity::update(int delta, Manager<Entity>* manager){
@@ -62,6 +67,13 @@ void Entity::draw(){
 
 void Entity::collidedWith(Entity* entity, Manager<Entity>* manager) {
 	std::cout << "Entity collide method called" << std::endl;
+
+	if(entity->getEntityType() == ENT_TYPE_BULLET){
+		health -= entity->getHealth();
+		if(health <= 0){
+			manager->remove(this);
+		}
+	}
 }
 
 int Entity::getEntityType() {

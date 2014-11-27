@@ -16,6 +16,7 @@ public:
 	void init(Manager<Entity>* manager);
 	virtual ~Wall();
 	int getEntityType();
+	void collidedWith(Entity* entity, Manager<Entity>* manager);
 };
 
 b2FixtureDef* buildWallFixtureDef(float32 size);
