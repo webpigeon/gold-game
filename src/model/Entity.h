@@ -21,7 +21,10 @@
 #include <GL/gl.h>
 #include <Box2D/Box2D.h>
 
+#include <vector>
+
 #include "Manager.h"
+#include "Component.h"
 
 class Entity {
 	public:
@@ -34,8 +37,10 @@ class Entity {
 		virtual int getEntityType();
 		b2Body* getBody();
 		virtual float getHealth();
+		void addComponent(Component<Entity>* component);
 
 	protected:
+		std::vector< Component<Entity>* > components;
 		b2Body* body;
 		b2Vec2 initPos;
 		float32 size;

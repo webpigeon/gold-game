@@ -44,23 +44,43 @@ void GamePlaying::keyPressed(int keyCode) {
 	switch(keyCode) {
 
 		        		case SDLK_UP:
-		        			model->accelerate(-1);
+		        			model->accelerateStarted(-1);
 		        			break;
 
 		        		case SDLK_DOWN:
-		        			model->accelerate(1);
+		        			model->accelerateStarted(1);
 		        			break;
 
 		        		case SDLK_LEFT:
-		        			model->turn(-1);
+		        			model->turnStarted(-1);
 		        			break;
 
 		        		case SDLK_RIGHT:
-		        			model->turn(1);
+		        			model->turnStarted(1);
 		        			break;
 
 		        		case SDLK_SPACE:
-		        			model->fire();
+		        			model->fireStarted();
+		        			break;
+		        	}
+
+
+}
+
+void GamePlaying::keyReleased(int keyCode) {
+	switch(keyCode) {
+						case SDLK_DOWN:
+		        		case SDLK_UP:
+		        			model->accelerateStarted(0);
+		        			break;
+
+		        		case SDLK_RIGHT:
+		        		case SDLK_LEFT:
+		        			model->turnStarted(0);
+		        			break;
+
+		        		case SDLK_SPACE:
+		        			//model->fireStarted();
 		        			break;
 		        	}
 

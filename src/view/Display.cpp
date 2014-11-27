@@ -104,6 +104,12 @@ void Display::onKeyDown(int keyCode) {
 	}
 }
 
+void Display::onKeyUp(int keyCode) {
+	if (state != NULL) {
+		state->keyReleased(keyCode);
+	}
+}
+
 void Display::renderText(float32 x, float32 y, const std::string& text) {
 	SDL_Color colour = {255, 255, 255};
 	SDL_Surface *message = TTF_RenderText_Blended(const_cast<TTF_Font*>(font), text.c_str(), colour);

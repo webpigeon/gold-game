@@ -20,6 +20,8 @@ Model::Model(World* world, Entity* player) {
 	this->player = player;
 	this->weaponLastFired = 0;
 	this->goalsLeft = 1;
+	this->controller = new PlayerController();
+	player->addComponent(controller);
 }
 
 Model::~Model() {
@@ -79,7 +81,7 @@ void Model::EndContact(b2Contact* contact){
 
 }
 
-void Model::fire(){
+void Model::fireStarted(){
 	if (isPlayerAlive()) {
 		b2Body* ship2 = this->player->getBody();
 		uint32 currentTime = SDL_GetTicks();
@@ -112,24 +114,14 @@ int Model::getScore() {
 	return this->score;
 }
 
-void Model::accelerate(int delta) {
+void Model::accelerateStarted(int delta) {
 	if (isPlayerAlive()) {
-		b2Body* ship2 = this->player->getBody();
-		b2Vec2 speed(0, delta * 150);
-		b2Vec2 force = ship2->GetWorldVector(speed);
-		ship2->ApplyForce(force, ship2->GetWorldCenter(), true);
+		controller->setAccelerating(delta);
 	}
 }
 
-void Model::turn(int direction) {
+void Model::turnStarted(int direction) {
 	if (isPlayerAlive()) {
-		b2Body* ship2 = this->player->getBody();
-		float w = ship2->GetAngularVelocity();
-		w += (direction * 0.5);
-
-		if (w > 2) w = 2;
-		if (w < -2) w = -2;
-
-		ship2->SetAngularVelocity(w);
+		controller->setTurning(direction);
 	}
 }

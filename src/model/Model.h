@@ -12,15 +12,21 @@
 
 #include "Audio.h"
 #include "World.h"
+#include "PlayerController.h"
 
 class Model : public b2ContactListener {
 public:
 	Model(World* world, Entity* player);
 	virtual ~Model();
 
-	void fire();
-	void accelerate(int delta);
-	void turn(int direction);
+	void fireStarted();
+	void fireStopped();
+
+	void accelerateStarted(int delta);
+	void accelerateStopped();
+
+	void turnStarted(int direction);
+	void turnStopped();
 
 	Entity* getPlayer();
 	bool hasPlayerWon();
@@ -32,6 +38,7 @@ public:
 	void BeginContact(b2Contact* contact);
 	void EndContact(b2Contact* contact);
 private:
+	PlayerController* controller;
 	World* world;
 	int score;
 	int goalsLeft;

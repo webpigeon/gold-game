@@ -31,6 +31,8 @@ void GameMessage::keyPressed(int keyCode){
 	}
 }
 
+void GameMessage::keyReleased(int keyCode){}
+
 GameMessage::~GameMessage() {
 	// TODO Auto-generated destructor stub
 }

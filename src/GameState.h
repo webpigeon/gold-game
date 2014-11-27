@@ -21,6 +21,7 @@ public:
 	virtual void render(DisplayUtils* utils) = 0;
 	virtual void renderGUI(DisplayUtils* utils) = 0;
 	virtual void keyPressed(int keyCode) = 0;
+	virtual void keyReleased(int keyCode) = 0;
 	virtual ~GameState();
 };
 
