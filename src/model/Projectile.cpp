@@ -34,7 +34,7 @@ Projectile::~Projectile() {
 }
 
 void Projectile::collidedWith(Entity* entity, Manager<Entity>* manager) {
-//	manager->remove(this);
+	manager->remove(this);
 }
 
 int Projectile::getEntityType() {
