@@ -14,6 +14,7 @@
 #include "Manager.h"
 #include "Asteroid.h"
 #include "Turret.h"
+#include "Projectile.h"
 
 using namespace std;
 

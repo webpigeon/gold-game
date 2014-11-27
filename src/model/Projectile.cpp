@@ -12,13 +12,8 @@ static b2CircleShape* buildProjectileShape(int points, int size);
 
 
 
-Projectile::Projectile(float32 x, float32 y, b2Vec2 initialVelocity, float32 size) : initVelocity(initialVelocity), Entity(x, y, size) {
+Projectile::Projectile(float32 x, float32 y, b2Vec2 initialVelocity, float32 size) :  Entity(x, y, size), initVelocity(initialVelocity) {
 	// TODO Auto-generated constructor stub
-
-	// Normalise it to remove magnitude
-	initVelocity.Normalize();
-	initVelocity *= 1000.0f;
-	//body->ApplyAngularImpulse(5000, true);
 	health = 10;
 
 	if(!generated){
@@ -42,7 +37,7 @@ Projectile::~Projectile() {
 }
 
 void Projectile::collidedWith(Entity* entity, Manager<Entity>* manager) {
-	manager->remove(this);
+//	manager->remove(this);
 }
 
 int Projectile::getEntityType() {

@@ -59,7 +59,7 @@ void Turret::update(int delta, Manager<Entity>* manager){
 			float minDistance = range + 1;
 			Entity* minEntity = NULL;
 			for(vector<Entity*>::iterator  itr = inRange->begin(); itr != inRange->end(); ++itr){
-				if((*itr)->getEntityType() != ENT_TYPE_WALL){
+				if((*itr)->getEntityType() != ENT_TYPE_WALL && (*itr)->getEntityType() != ENT_TYPE_BULLET){
 					b2Vec2 entLoc = (*itr)->getBody()->GetWorldCenter();
 					float32 distance = sqrt(pow(entLoc.x - location.x, 2) + pow(entLoc.y - location.y, 2));
 					if(distance < minDistance){
@@ -70,17 +70,17 @@ void Turret::update(int delta, Manager<Entity>* manager){
 			}
 			if(minEntity != NULL){
 				b2Vec2 loc = body->GetWorldCenter();
-				b2Vec2 offset = body->GetWorldVector(b2Vec2(0, -1));
 
-				b2Vec2 target = (minEntity->getBody()->GetWorldCenter()) - loc;
-				float32 desiredAngle = atan2f(target.x, -target.y);
-				body->SetTransform(body->GetWorldCenter(), desiredAngle);
+				b2Vec2 target = (minEntity->getBody()->GetPosition()) - loc;
+				target.Normalize();
 
-				b2Vec2 position(loc.x + (offset.x * 10), loc.y + (offset.y * 10));
-				b2Vec2 speed(offset.x * 500, offset.y * 500);
+				b2Vec2 position(loc.x + (target.x), loc.y + (target.y));
+
+				b2Vec2 speed(target.x * 25, target.y * 25);
 				Projectile* proj = new Projectile(position.x, position.y,speed, 1);
 				manager->add(proj);
 				heat+=heatFromFiring;
+				msTillWeCanShoot += shotDelay;
 			}
 		}
 	}
@@ -97,8 +97,9 @@ void Turret::calcCooldown(int delta){
 		if(heat <= 0){
 			heat = 0;
 		}
-		if(heat <= 35){
+		if(tooHot && heat <= 35){
 			tooHot = false;
+			cout << "Turret cooled down" << endl;
 		}
 	}
 
@@ -109,10 +110,12 @@ void Turret::calcCooldown(int delta){
 	// Regardless of cooling state , must not fire after this point
 	if(heat >= maxHeat){
 		tooHot = true;
+		cout << "Turret too  hot" << endl;
 	}
 }
 
 void Turret::calcShotDelay(int delta){
+	if(msTillWeCanShoot > 0) delayed = true;
 	if(delayed){
 		msTillWeCanShoot -= delta;
 
