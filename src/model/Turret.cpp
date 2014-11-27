@@ -9,7 +9,6 @@
 #include <cmath>
 
 static b2PolygonShape* buildTurretShape(int points, int size);
-static b2PolygonShape* buildTurretRangeShape(int points, int size);
 
 Turret::Turret(float32 x, float32 y, float32 size) : Entity(x, y, size) {
 	// TODO Auto-generated constructor stub
@@ -26,6 +25,8 @@ Turret::Turret(float32 x, float32 y, float32 size) : Entity(x, y, size) {
 	delayed = false;
 	shotDelay = 250;
 	msTillWeCanShoot = 0;
+	damagePerProjectile = 100;
+	sizeOfProjectile = 0.50;
 	color[1] = 1.0;
 }
 
@@ -85,7 +86,7 @@ void Turret::update(int delta, Manager<Entity>* manager){
 				b2Vec2 position(loc.x + (target.x*(size+1)), loc.y + (target.y*(size+1)));
 
 				b2Vec2 speed(target.x * 250, target.y * 250);
-				Projectile* proj = new Projectile(position.x, position.y,speed, 0.25);
+				Projectile* proj = new Projectile(position.x, position.y,speed, sizeOfProjectile, damagePerProjectile);
 				manager->add(proj);
 				heat+=heatFromFiring;
 				msTillWeCanShoot += shotDelay;
@@ -96,11 +97,12 @@ void Turret::update(int delta, Manager<Entity>* manager){
 
 void Turret::calcCooldown(int delta){
 	if(cooling){
-		heat -= (coolPerSecond * delta) / 1000.0f;
+		heat -= (coolPerSecond / 1000.0f) * delta;
 		if(heat <= 0){
 			heat = 0;
+			cooling = false;
 		}
-		if(tooHot && heat <= 35){
+		if(tooHot && heat <= minHeat){
 			tooHot = false;
 			cout << "Turret cooled down" << endl;
 		}
@@ -164,4 +166,15 @@ b2PolygonShape* buildTurretShape(int points, int size){
 
 	shape->Set(pointsArray, points);
 	return shape;
+}
+
+TurretMiniGun::TurretMiniGun(float32 x, float32 y, float32 size) : Turret(x, y, size){
+	shotDelay = 100;
+	damagePerProjectile = 10;
+	sizeOfProjectile = 0.1;
+
+	heatFromFiring = 15;
+	maxHeat = 150;
+	minHeat = 5;
+	coolPerSecond = 145 / 2.0f;
 }
