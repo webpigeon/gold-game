@@ -1,5 +1,6 @@
 Pixel Values:
 
 Wall: 0x000000
-Turret: 0x10xxxx G value = sight radius, B value = damage dealt
+Turret: 0xFFxxxx G value = sight radius, B value = damage dealt
 
+Asteroid: 0xxxFFxx R value = size, B value ignored
