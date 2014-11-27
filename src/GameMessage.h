@@ -10,18 +10,19 @@
 #ifndef GAMEOVER_H_
 #define GAMEOVER_H_
 
-class GameOver : public GameState {
+class GameMessage : public GameState {
 public:
-	GameOver();
+	GameMessage(std::string message);
 	void enterState(DisplayUtils* utils);
 	void update(int delta);
 	void render(DisplayUtils* context);
 	void renderGUI(DisplayUtils* context);
 	void keyPressed(int keyCode);
-	virtual ~GameOver();
+	virtual ~GameMessage();
 
 private:
 	DisplayUtils* utils;
+	std::string message;
 };
 
 #endif /* GAMEOVER_H_ */

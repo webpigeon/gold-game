@@ -26,6 +26,11 @@ void GamePlaying::enterState(DisplayUtils* utils){
 	model = new Model(world, player);
 	world->addColliderCallback(model);
 
+	// we have no more levels
+	if (level >= levelCount) {
+		exit(0);
+	}
+
 	MapReader reader;
 	std::string mapName = levels[level];
 	reader.loadMap(mapName.c_str(), world);
@@ -62,16 +67,16 @@ void GamePlaying::update(int delta){
     world->update(delta);
 
     if (!model->isPlayerAlive()){
-    	utils->changeState("gameover");
+    	utils->changeState("gameover-lose");
     }
 
     if (model->hasPlayerWon()) {
     	level++;
     	if (level < levelCount) {
-    		utils->changeState("playing");
+    		utils->changeState("complete");
     	} else {
     		std::cout << "all maps complete" << std::endl;
-    		utils->changeState("gameover");
+    		utils->changeState("gameover-win");
     	}
     }
 }
