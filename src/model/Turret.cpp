@@ -53,7 +53,7 @@ void Turret::update(int delta, Manager<Entity>* manager){
 		// Fire at something if its in range
 
 		b2Vec2 location = body->GetWorldCenter();
-		cout << location.x << ":" << location.y << " Turret is here" << endl;
+//		cout << location.x << ":" << location.y << " Turret is here" << endl;
 		vector<Entity*>* inRange = manager->inRange(location, range);
 //		cout << "Number in range: " << inRange->size() << endl;
 
@@ -71,7 +71,18 @@ void Turret::update(int delta, Manager<Entity>* manager){
 				}
 			}
 			if(minEntity != NULL){
-//				cout << "Nearest: " << minEntity->getEntityType() << endl;
+				b2Vec2 loc = body->GetWorldCenter();
+				b2Vec2 offset = body->GetWorldVector(b2Vec2(0, -1));
+
+				b2Vec2 target = (minEntity->getBody()->GetWorldCenter()) - loc;
+				float32 desiredAngle = atan2f(target.x, -target.y);
+				body->SetTransform(body->GetWorldCenter(), desiredAngle);
+
+				b2Vec2 position(loc.x + (offset.x * 10), loc.y + (offset.y * 10));
+				b2Vec2 speed(offset.x * 500, offset.y * 500);
+				Projectile* proj = new Projectile(position.x, position.y,speed, 1);
+				manager->add(proj);
+				heat+=heatFromFiring;
 			}
 		}
 //		if((*nearest) != NULL){
@@ -81,11 +92,7 @@ void Turret::update(int delta, Manager<Entity>* manager){
 //			b2Vec2 loc = body->GetPosition();
 //			b2Vec2 offset = body->GetWorldVector(b2Vec2(0, -1));
 //
-//			b2Vec2 position(loc.x + (offset.x * 10), loc.y + (offset.y * 10));
-//			b2Vec2 speed(offset.x * 500, offset.y * 500);
-//			Projectile* proj = new Projectile(position.x, position.y,speed, 1);
-//			manager->add(proj);
-//			heat+=heatFromFiring;
+//
 //		}
 		//delete inRange;
 	}
