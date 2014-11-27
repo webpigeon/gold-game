@@ -22,7 +22,7 @@ void GameMessage::render(DisplayUtils* context){
 
 void GameMessage::renderGUI(DisplayUtils* context) {
 	context->renderText(-1, 200, message);
-	context->renderText(-1, 370, "Press space to restart");
+	context->renderText(-1, 370, "Press space to continue");
 }
 
 void GameMessage::keyPressed(int keyCode){
