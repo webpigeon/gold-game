@@ -19,6 +19,7 @@ Projectile::Projectile(float32 x, float32 y, b2Vec2 initialVelocity, float32 siz
 	initVelocity.Normalize();
 	initVelocity *= 1000.0f;
 	//body->ApplyAngularImpulse(5000, true);
+	health = 10;
 
 	if(!generated){
 		generatePoints();

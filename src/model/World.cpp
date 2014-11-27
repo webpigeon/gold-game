@@ -19,8 +19,8 @@ World::World(){
 	physicsWorld = new b2World(gravity);
 
 	//Build a turret
-	//Turret* turret = new Turret(15, 15, 1);
-	//add(turret);
+	Turret* turret = new Turret(15, 15, 1);
+	add(turret);
 }
 
 void World::addColliderCallback(b2ContactListener* callback) {
@@ -76,25 +76,24 @@ void World::add(Entity* entity) {
 	addList.insert(entity);
 }
 
-vector<Entity*>* World::inRange(b2Vec2 location, float32 range, Entity* nearest){
+vector<Entity*>* World::inRange(b2Vec2 location, float32 range){
 	vector<Entity*>* results = new vector<Entity*>();
-
-	float32 minDistance = range+1;
-	Entity* minEntity;
 	for(vector<Entity*>::iterator itr = entities.begin(); itr != entities.end(); ++itr){
-		b2Vec2 entLoc = (*itr)->getBody()->GetPosition();
-		float32 distance = std::sqrt(std::pow(entLoc.x + location.x, 2) + std::pow(entLoc.y + location.y, 2));
+		b2Vec2 entLoc = (*itr)->getBody()->GetWorldCenter();
 
-		if(distance <= range){
-			results->push_back(*itr);
-			if(distance < minDistance){
-				minEntity = (*itr);
-				minDistance = distance;
+		if(!(entLoc.x == location.x && entLoc.y == location.y)){
+			float32 distance = std::sqrt(std::pow(entLoc.x - location.x, 2) + std::pow(entLoc.y - location.y, 2));
+
+			if((*itr)->getEntityType() == ENT_TYPE_SHIP){
+//				cout << "Ship is: " << distance << " things away" << endl;
+//				cout << entLoc.x << ":" << entLoc.y << " Is far away: " << distance << endl;
+			}
+			if(distance <= range){
+				results->push_back(*itr);
+//				cout << entLoc.x << ":" << entLoc.y << " Is far away: " << distance << endl;
 			}
 		}
 	}
-
-	nearest = minEntity;
 	return results;
 }
 

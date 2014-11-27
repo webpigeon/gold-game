@@ -45,28 +45,49 @@ float Turret::getRange(){
 void Turret::update(int delta, Manager<Entity>* manager){
 	calcCooldown(delta);
 	calcShotDelay(delta);
-	cout << "Updating turret" << endl;
+//	cout << "Updating turret" << endl;
 
 	// Can fire if we are not delayed and not tooHot
 	canFire = !(delayed || tooHot);
 	if(canFire){
 		// Fire at something if its in range
-		Entity* nearest = NULL;
-		vector<Entity*>* inRange = manager->inRange(body->GetPosition(), range, nearest);
-		cout << "Number in range: " << inRange->size() << endl;
-		if(nearest != NULL){
-			cout << "Nearest: " << nearest->getEntityType() << endl;
 
-			// fire at nearest;
-			b2Vec2 loc = body->GetPosition();
-			b2Vec2 offset = body->GetWorldVector(b2Vec2(0, -1));
+		b2Vec2 location = body->GetWorldCenter();
+		cout << location.x << ":" << location.y << " Turret is here" << endl;
+		vector<Entity*>* inRange = manager->inRange(location, range);
+//		cout << "Number in range: " << inRange->size() << endl;
 
-			b2Vec2 position(loc.x + (offset.x * 10), loc.y + (offset.y * 10));
-			b2Vec2 speed(offset.x * 500, offset.y * 500);
-			Projectile* proj = new Projectile(position.x, position.y,speed, 1);
-			manager->add(proj);
+		if(inRange->size() >= 1){
+			float minDistance = range + 1;
+			Entity* minEntity = NULL;
+			for(vector<Entity*>::iterator  itr = inRange->begin(); itr != inRange->end(); ++itr){
+				if((*itr)->getEntityType() != ENT_TYPE_WALL){
+					b2Vec2 entLoc = (*itr)->getBody()->GetWorldCenter();
+					float32 distance = sqrt(pow(entLoc.x - location.x, 2) + pow(entLoc.y - location.y, 2));
+					if(distance < minDistance){
+						minDistance = distance;
+						minEntity = (*itr);
+					}
+				}
+			}
+			if(minEntity != NULL){
+//				cout << "Nearest: " << minEntity->getEntityType() << endl;
+			}
 		}
-		delete inRange;
+//		if((*nearest) != NULL){
+//			cout << "Nearest: " << (*nearest)->getEntityType() << endl;
+//
+//			// fire at nearest; = NULL;
+//			b2Vec2 loc = body->GetPosition();
+//			b2Vec2 offset = body->GetWorldVector(b2Vec2(0, -1));
+//
+//			b2Vec2 position(loc.x + (offset.x * 10), loc.y + (offset.y * 10));
+//			b2Vec2 speed(offset.x * 500, offset.y * 500);
+//			Projectile* proj = new Projectile(position.x, position.y,speed, 1);
+//			manager->add(proj);
+//			heat+=heatFromFiring;
+//		}
+		//delete inRange;
 	}
 }
 
