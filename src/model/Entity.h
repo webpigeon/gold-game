@@ -40,6 +40,7 @@ class Entity {
 		b2Vec2 initPos;
 		float32 size;
 		float health;
+		float color[3];
 };
 
 #endif /* ENTITY_H_ */

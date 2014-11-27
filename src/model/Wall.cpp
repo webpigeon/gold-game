@@ -17,6 +17,7 @@ void Wall::init(Manager<Entity>* manager) {
 	body = manager->buildBody(buildWallBodyDef(initPos.x, initPos.y));
 	body->SetUserData(this);
 	body->CreateFixture(buildWallFixtureDef(size));
+	health = 51;
 }
 
 int Wall::getEntityType(){

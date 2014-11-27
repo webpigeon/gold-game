@@ -15,7 +15,6 @@ public:
 	Ship(float32 x, float32 y, float32 size);
 	void init(Manager<Entity>* manager);
 	b2Body* getBody();
-	void collidedWith(Entity* entity, Manager<Entity>* manager);
 	int getEntityType();
 };
 

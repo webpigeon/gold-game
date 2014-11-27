@@ -25,6 +25,7 @@ Turret::Turret(float32 x, float32 y, float32 size) : Entity(x, y, size) {
 	delayed = false;
 	shotDelay = 500;
 	msTillWeCanShoot = 0;
+	color[1] = 0.5;
 }
 
 void Turret::init(Manager<Entity>* manager) {
@@ -45,6 +46,9 @@ float Turret::getRange(){
 void Turret::update(int delta, Manager<Entity>* manager){
 	calcCooldown(delta);
 	calcShotDelay(delta);
+
+	color[0] = health / 100;
+
 //	cout << "Updating turret" << endl;
 
 	// Can fire if we are not delayed and not tooHot
@@ -76,8 +80,8 @@ void Turret::update(int delta, Manager<Entity>* manager){
 
 				b2Vec2 position(loc.x + (target.x*(size+1)), loc.y + (target.y*(size+1)));
 
-				b2Vec2 speed(target.x * 250, target.y * 250);
-				Projectile* proj = new Projectile(position.x, position.y,speed, 1);
+				b2Vec2 speed(target.x * 350, target.y * 350);
+				Projectile* proj = new Projectile(position.x, position.y,speed, 0.25);
 				manager->add(proj);
 				heat+=heatFromFiring;
 				msTillWeCanShoot += shotDelay;

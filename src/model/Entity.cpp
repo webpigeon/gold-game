@@ -14,6 +14,11 @@ Entity::Entity(float32 x, float32 y, float32 size) : initPos(x, y) {
 	this->body = NULL;
 	this->size = size;
 	health = 100;
+
+	// Green
+	color[0] = 0;
+	color[1] = 1;
+	color[2] = 0;
 }
 
 Entity::~Entity() {
@@ -38,7 +43,7 @@ void Entity::draw(){
 	float angle = body->GetAngle() * RAD_TO_DEG_FACTOR;
 
 	//set shape
-	glColor3f(0, 1.0f, 0);
+	glColor3f(color[0], color[1], color[2]);
 	glPushMatrix();
 
 	//move the origin to the asteroid
@@ -68,7 +73,7 @@ void Entity::draw(){
 void Entity::collidedWith(Entity* entity, Manager<Entity>* manager) {
 	std::cout << "Entity collide method called" << std::endl;
 
-	if(entity->getEntityType() == ENT_TYPE_BULLET){
+	if(entity->getEntityType() == ENT_TYPE_BULLET || entity->getEntityType() == ENT_TYPE_WALL || entity->getEntityType() == ENT_TYPE_ASTEROID){
 		health -= entity->getHealth();
 		if(health <= 0){
 			manager->remove(this);

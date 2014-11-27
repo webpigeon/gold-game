@@ -56,8 +56,10 @@ void Model::BeginContact(b2Contact* contact){
 
 	//if either entity is the player, it's game over
 	if (entity1 == player || entity2 == player) {
-		player = NULL;
-		std::cout << "game over" << endl;
+		if(player->getHealth() <= 0){
+			player = NULL;
+			std::cout << "game over" << endl;
+		}
 	}
 
 	if (entity1->getEntityType() == ENT_TYPE_GOAL && entity2->getEntityType() == ENT_TYPE_BULLET) {
@@ -89,7 +91,7 @@ void Model::fire(){
 			b2Vec2 location(loc.x + (offset.x * 5), loc.y + (offset.y * 5));
 			b2Vec2 speed(offset.x * 500, offset.y * 500);
 
-			Projectile* proj = new Projectile(location.x, location.y, speed, 1);
+			Projectile* proj = new Projectile(location.x, location.y, speed, 0.5);
 			world->add(proj);
 
 			weaponLastFired = currentTime;

@@ -8,7 +8,7 @@
 #include "Projectile.h"
 #include <iostream>
 
-static b2CircleShape* buildProjectileShape(int points, int size);
+static b2CircleShape* buildProjectileShape(int points, float32 size);
 
 
 
@@ -65,7 +65,7 @@ void Projectile::draw(){
 		b2Vec2 offset = shape->m_p;
 
 		for(int i = 0; i < pointsLength; i++){
-			glVertex2f((pointsArray[i].x + offset.x) * radius, (pointsArray[i].y + offset.y) * radius);
+			glVertex2f((pointsArray[i].x) * radius, (pointsArray[i].y) * radius);
 		}
 
 		fixtures = fixtures->GetNext();
@@ -86,15 +86,15 @@ void Projectile::generatePoints(){
 	}
 }
 
-b2FixtureDef* buildProjectileFixtureDef(int size){
+b2FixtureDef* buildProjectileFixtureDef(float32 size){
 	b2FixtureDef* fixture = new b2FixtureDef();
 	fixture->shape = buildProjectileShape(8, size);
-	fixture->density = 1.0f;
+	fixture->density = 0.70f;
 	fixture->friction = 0.0f;
 	return fixture;
 }
 
-b2BodyDef* buildProjectileBodyDef(int x, int y){
+b2BodyDef* buildProjectileBodyDef(float32 x, float32 y){
 	b2BodyDef* bodyDef = new b2BodyDef();
 	bodyDef->type = b2_dynamicBody;
 	bodyDef->bullet = true;
@@ -103,7 +103,7 @@ b2BodyDef* buildProjectileBodyDef(int x, int y){
 }
 
 
-b2CircleShape* buildProjectileShape(int points, int size){
+b2CircleShape* buildProjectileShape(int points, float32 size){
 	b2CircleShape* shape = new b2CircleShape();
 	shape->m_p.Set(0, 0);
 	shape->m_radius = size;

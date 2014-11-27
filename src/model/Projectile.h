@@ -27,7 +27,7 @@ private:
 	bool generated;
 };
 
-b2BodyDef* buildProjectileBodyDef(int x, int y);
-b2FixtureDef* buildProjectileFixtureDef(int size);
+b2BodyDef* buildProjectileBodyDef(float32 x, float32 y);
+b2FixtureDef* buildProjectileFixtureDef(float32 size);
 
 #endif /* PROJECTILE_H_ */

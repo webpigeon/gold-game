@@ -23,9 +23,10 @@ void Asteroid::init(Manager<Entity>* manager) {
 	body->CreateFixture(buildAsteroidFixtureDef(size));
 	body->SetUserData(this);
 	manager->add(this);
+	health = 51;
 
 	body->ApplyLinearImpulse(b2Vec2(body->GetMass(), body->GetMass()), body->GetWorldCenter(), true);
-	body->ApplyAngularImpulse(body->GetMass() * 20, true);
+	body->ApplyAngularImpulse(body->GetMass() * 10, true);
 }
 
 void Asteroid::collidedWith(Entity* entity, Manager<Entity>* manager) {

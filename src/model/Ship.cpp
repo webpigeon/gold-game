@@ -46,10 +46,6 @@ void Ship::init(Manager<Entity>* manager) {
 	this->body->CreateFixture(&fixture);
 }
 
-void Ship::collidedWith(Entity* entity, Manager<Entity>* manager){
-	manager->remove(this);
-}
-
 b2Body* Ship::getBody(){
 	return this->body;
 }
