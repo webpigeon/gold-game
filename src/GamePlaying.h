@@ -20,6 +20,7 @@ public:
 	void render(DisplayUtils* context);
 	void renderGUI(DisplayUtils* context);
 	void keyPressed(int keyCode);
+	void keyReleased(int keyCode);
 	virtual ~GamePlaying();
 
 private:

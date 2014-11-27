@@ -53,6 +53,10 @@ int main() {
 	        if (event.type == SDL_KEYDOWN){
 	        	display.onKeyDown(event.key.keysym.sym);
 	        }
+
+	        if (event.type == SDL_KEYUP){
+	        	display.onKeyUp(event.key.keysym.sym);
+	        }
 		}
 
 		display.update(NULL);

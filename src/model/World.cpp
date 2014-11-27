@@ -98,12 +98,6 @@ void World::remove(Entity* entity) {
 	killList.insert(entity);
 }
 
-b2Body* World::buildBody(b2FixtureDef* fixture, b2BodyDef* bodyDef){
-	b2Body* body = physicsWorld -> CreateBody(bodyDef);
-	body -> CreateFixture(fixture);
-	return body;
-}
-
 b2Body* World::buildBody(b2BodyDef* bodyDef){
 	b2Body* body = physicsWorld -> CreateBody(bodyDef);
 	return body;

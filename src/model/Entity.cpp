@@ -34,7 +34,19 @@ float Entity::getHealth(){
 	return health;
 }
 
+void Entity::addComponent(Component<Entity>* comp) {
+	components.push_back(comp);
+	comp->onBind(this);
+}
+
 void Entity::update(int delta, Manager<Entity>* manager){
+
+	std::vector<Component<Entity>*>::iterator it = components.begin();
+	std::vector<Component<Entity>*>::iterator end = components.end();
+	for (; it!=end; ++it) {
+		Component<Entity>* component = *it;
+		component->update(delta);
+	}
 
 }
 

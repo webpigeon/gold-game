@@ -18,10 +18,7 @@ MapReader::MapReader() {
 }
 
 void MapReader::loadMap(const char* name, Manager<Entity>* world, b2Vec2& playerPosition){
-
-	cout << "Loading map: " << name << endl;
 	SDL_Texture* newTexture = NULL;
-
 	SDL_Surface* loadedSurface = IMG_Load(name);
 
 	playerPosition.x = 11;
@@ -34,7 +31,7 @@ void MapReader::loadMap(const char* name, Manager<Entity>* world, b2Vec2& player
 //	cout << "Gets here" << endl;
 
 	if(loadedSurface == NULL){
-			cout << "Unable to load image " << name << endl;
+			std::cerr << "Unable to load image " << name << std::endl;
 	}else{
 		// Lock texture, give it reference to pixels
 		SDL_LockTexture(newTexture, NULL, &pixels, &pitch);
@@ -72,7 +69,6 @@ void MapReader::loadMap(const char* name, Manager<Entity>* world, b2Vec2& player
 		// Free the surface
 		SDL_FreeSurface(loadedSurface);
 	}
-	cout << "DEBUG: world has been loaded." << endl;
 }
 
 bool MapReader::lockTexture(){
@@ -80,11 +76,11 @@ bool MapReader::lockTexture(){
 
 	if(pixels != NULL){
 		success = false;
-		cout << "Texture is already locked" << endl;
+		std::cerr << "Texture is already locked" << std::endl;
 	}else{
 		if(SDL_LockTexture(texture, NULL, &pixels, &pitch) != 0){
 			success = false;
-			cout << "Failed to lock texture" << SDL_GetError() << endl;
+			std::cerr << "Failed to lock texture" << SDL_GetError() << std::endl;
 		}
 	}
 

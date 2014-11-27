@@ -34,6 +34,7 @@ public:
 	void addState(std::string name, GameState* state);
 	void changeState(std::string name);
 	void onKeyDown(int keyCode);
+	void onKeyUp(int keyCode);
 
 private:
 	SDL_Window* window;
