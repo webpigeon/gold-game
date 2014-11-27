@@ -59,8 +59,10 @@ void Model::BeginContact(b2Contact* contact){
 		std::cout << "game over" << endl;
 	}
 
-	score += 1;
-	audio.playExplosion();
+	if (entity2->getEntityType() == ENT_TYPE_BULLET && entity1->getEntityType() == ENT_TYPE_ASTEROID) {
+		score += 1;
+		audio.playExplosion();
+	}
 }
 
 void Model::EndContact(b2Contact* contact){
