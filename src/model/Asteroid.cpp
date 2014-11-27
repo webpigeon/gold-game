@@ -30,8 +30,16 @@ void Asteroid::init(Manager<Entity>* manager) {
 
 void Asteroid::collidedWith(Entity* entity, Manager<Entity>* manager) {
 	// when an asteroid is hit, distroy it
-	manager->remove(this);
 	b2Vec2 myPos = body->GetWorldCenter();
+
+	if (entity->getEntityType() == ENT_TYPE_BULLET) {
+		manager->remove(this);
+		float newSize = this->size * 0.5;
+		if (newSize > 2) {
+			manager->add(new Asteroid(myPos.x + 5, myPos.y + 5, newSize));
+			manager->add(new Asteroid(myPos.x - 5, myPos.y - 5, newSize));
+		}
+	}
 
 	//b2Body* part1Body = manager->buildBody(buildAsteroidBodyDef(myPos.x + 5, myPos.y + 5));
 	//Asteroid* part1 = new Asteroid(part1Body, 2);
