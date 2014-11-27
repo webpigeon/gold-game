@@ -12,6 +12,7 @@
 #include <vector>
 #include <iostream>
 #include "Projectile.h"
+#include "Weapon.h"
 
 using namespace std;
 
@@ -25,24 +26,7 @@ public:
 	float getRange();
 
 protected:
-	float range; // Radius of range of turret in meters
-	int heat; // How hot are we?
-	int coolPerSecond; // How much do we cooldown a second
-	int heatFromFiring; // How hot do we get when firing
-	int maxHeat; // How hot can we be before stopping to fire
-	int minHeat; // When do we stop cooling down and can fire again
-	bool cooling; // Are we cooling down?
-	bool tooHot; // are we too hot to fire?
-	bool canFire; // Can we fire if there were something to shoot at?
-	bool delayed; // Are we waiting for shot delay
-	int shotDelay; // delay between shots in ms
-	int msTillWeCanShoot; // How long till we can shoot again in ms
-	float damagePerProjectile;
-	float sizeOfProjectile;
-
-	void calcCooldown(int delta);
-	void calcShotDelay(int delta);
-	Projectile* fire(Entity* target);
+	Weapon weapon;
 };
 
 b2BodyDef* buildTurretBodyDef(int x, int y);
