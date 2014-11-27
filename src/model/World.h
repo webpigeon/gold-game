@@ -36,7 +36,6 @@ class World : public Manager<Entity> {
 		void draw();
 		void add(Entity* entity);
 		vector<Entity*>* inRange(b2Vec2 location, float32 range);
-		b2Body* buildBody(b2FixtureDef* fixture, b2BodyDef* bodyDef);
 		b2Body* buildBody(b2BodyDef* bodyDef);
 		void remove(Entity* entity);
 		void addColliderCallback(b2ContactListener* callback);
