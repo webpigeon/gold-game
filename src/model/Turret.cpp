@@ -53,9 +53,7 @@ void Turret::update(int delta, Manager<Entity>* manager){
 		// Fire at something if its in range
 
 		b2Vec2 location = body->GetWorldCenter();
-//		cout << location.x << ":" << location.y << " Turret is here" << endl;
 		vector<Entity*>* inRange = manager->inRange(location, range);
-//		cout << "Number in range: " << inRange->size() << endl;
 
 		if(inRange->size() >= 1){
 			float minDistance = range + 1;
@@ -85,16 +83,6 @@ void Turret::update(int delta, Manager<Entity>* manager){
 				heat+=heatFromFiring;
 			}
 		}
-//		if((*nearest) != NULL){
-//			cout << "Nearest: " << (*nearest)->getEntityType() << endl;
-//
-//			// fire at nearest; = NULL;
-//			b2Vec2 loc = body->GetPosition();
-//			b2Vec2 offset = body->GetWorldVector(b2Vec2(0, -1));
-//
-//
-//		}
-		//delete inRange;
 	}
 }
 
