@@ -15,10 +15,7 @@ static b2CircleShape* buildProjectileShape(int points, int size);
 Projectile::Projectile(float32 x, float32 y, b2Vec2 initialVelocity, float32 size) :  Entity(x, y, size), initVelocity(initialVelocity) {
 	// TODO Auto-generated constructor stub
 	health = 10;
-
-	if(!generated){
-		generatePoints();
-	}
+	generatePoints();
 }
 
 void Projectile::init(Manager<Entity>* manager) {
@@ -60,7 +57,7 @@ void Projectile::draw(){
 		float radius = shape->m_radius;
 		b2Vec2 offset = shape->m_p;
 
-		for(int i = 0; i < pointsLength; ++i){
+		for(int i = 0; i < pointsLength; i++){
 			glVertex2f((pointsArray[i].x + offset.x) * radius, (pointsArray[i].y + offset.y) * radius);
 		}
 
