@@ -19,6 +19,10 @@ int Wall::getEntityType(){
 	return ENT_TYPE_WALL;
 }
 
+void Wall::collidedWith(Entity* entity, Manager<Entity>* manager){
+	// Specifically must do nothing with collision
+}
+
 Wall::~Wall() {
 	// TODO Auto-generated destructor stub
 }

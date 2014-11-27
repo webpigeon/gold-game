@@ -32,9 +32,11 @@ class Entity {
 		virtual void collidedWith(Entity* entity, Manager<Entity>* manager);
 		virtual int getEntityType();
 		b2Body* getBody();
+		float getHealth();
 
 	protected:
 		b2Body* body;
+		float health;
 };
 
 #endif /* ENTITY_H_ */
