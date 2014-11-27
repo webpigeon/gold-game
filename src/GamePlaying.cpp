@@ -14,8 +14,8 @@ GamePlaying::GamePlaying() {
 	this->level = 0;
 	this->levelCount = 2;
 	this->levels = new std::string[levelCount];
-	this->levels[0] = "Assets/Maps/map2.bmp";
-	this->levels[1] = "Assets/Maps/map1.bmp";
+	this->levels[0] = "Assets/Maps/tutorial-1.bmp";
+	this->levels[1] = "Assets/Maps/map2.bmp";
 }
 
 void GamePlaying::enterState(DisplayUtils* utils){
