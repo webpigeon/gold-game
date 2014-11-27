@@ -116,6 +116,10 @@ void Display::renderText(float32 x, float32 y, const std::string& text) {
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
+	if (x == -1) {
+		x = 800/2 - message->w/2;
+	}
+
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, message->w, message->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, message->pixels);
 
 		glColor3f(1.0f, 1.0f, 1.0f);

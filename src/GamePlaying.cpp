@@ -11,7 +11,11 @@
 #include <cstdlib>
 
 GamePlaying::GamePlaying() {
-	// TODO Auto-generated constructor stub
+	this->level = 0;
+	this->levelCount = 2;
+	this->levels = new std::string[levelCount];
+	this->levels[0] = "Assets/Maps/map1.bmp";
+	this->levels[1] = "Assets/Maps/map1.bmp";
 }
 
 void GamePlaying::enterState(DisplayUtils* utils){
@@ -22,8 +26,14 @@ void GamePlaying::enterState(DisplayUtils* utils){
 	model = new Model(world, player);
 	world->addColliderCallback(model);
 
+	// we have no more levels
+	if (level >= levelCount) {
+		exit(0);
+	}
+
 	MapReader reader;
-	reader.loadMap("Assets/Maps/map1.bmp", world);
+	std::string mapName = levels[level];
+	reader.loadMap(mapName.c_str(), world);
 }
 
 void GamePlaying::keyPressed(int keyCode) {
@@ -56,9 +66,19 @@ void GamePlaying::keyPressed(int keyCode) {
 void GamePlaying::update(int delta){
     world->update(delta);
 
-    /*if (!model->isPlayerAlive()){
-    	utils->changeState("gameover");
-    }*/
+    if (!model->isPlayerAlive()){
+    	utils->changeState("gameover-lose");
+    }
+
+    if (model->hasPlayerWon()) {
+    	level++;
+    	if (level < levelCount) {
+    		utils->changeState("complete");
+    	} else {
+    		std::cout << "all maps complete" << std::endl;
+    		utils->changeState("gameover-win");
+    	}
+    }
 }
 
 void GamePlaying::render(DisplayUtils* context){

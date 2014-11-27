@@ -10,7 +10,7 @@
 #include "view/Display.h"
 #include "model/Audio.h"
 #include "GamePlaying.h"
-#include "GameOver.h"
+#include "GameMessage.h"
 
 using namespace std;
 
@@ -31,11 +31,14 @@ int main() {
 	//create display
 	Display display;
 	display.addState("playing", new GamePlaying);
-	display.addState("gameover", new GameOver);
+	display.addState("splash", new GameMessage("iggi-gold"));
+	display.addState("complete", new GameMessage("Level complete"));
+	display.addState("gameover-win", new GameMessage("you win"));
+	display.addState("gameover-lose", new GameMessage("you lose"));
 
 	display.init();
 
-	display.changeState("gameover");
+	display.changeState("splash");
 
 	unsigned short fps = 0;
 	Uint32 lastUpdateTime = SDL_GetTicks();
