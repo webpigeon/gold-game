@@ -14,6 +14,9 @@
 #include "Manager.h"
 #include "Asteroid.h"
 #include "GoalObject.h"
+#include "Turret.h"
+#include "Projectile.h"
+
 
 using namespace std;
 
@@ -30,7 +33,7 @@ public:
 	MapReader();
 	virtual ~MapReader();
 
-	void loadMap(const char* name, Manager<Entity>* world);
+	void loadMap(const char* name, Manager<Entity>* world, b2Vec2& playerPosition);
 
 private:
 	bool lockTexture();
