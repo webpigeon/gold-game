@@ -43,24 +43,27 @@ void MapReader::loadMap(const char* name, Manager<Entity>* world, b2Vec2& player
 
 		//Iterate through the pixels!!
 		for(int i = 0; i < width * height; i++){
-			uint r = (pixelData[i] >> 16) & 255;
-			uint g = (pixelData[i] >> 8) & 255;
-			uint b = (pixelData[i]) & 255;
+			uint r = (pixelData[i] >> 24) & 255;
+			uint g = (pixelData[i] >> 16) & 255;
+			uint b = (pixelData[i] >> 8) & 255;
+			cout << "Blue: " << g << endl;
 			float32 x = (i % width) * 10;
 			float32 y = (i / width) * 10;
 			if(pixelData[i] == 0){
 				world->add(new Wall(x, y, 5));
-			}else if(g == 255 && r != 255){
+			}else if(g == 255 && r == 255 && b == 0){
 				// Build asteroid
-				world->add(new Asteroid(x, y, 2));
-			}else if(r == 255 && g != 255){
+				world->add(new Asteroid(x, y, 4));
+			}else if(r == 255 && g == 0 && b == 0){
 				world->add(new Turret(x, y, 2));
+			}else if(r == 0 && g == 255 && b == 255){
+				playerPosition.Set(x, y);
+			}else if(r == 255 & g == 255 & b == 0){
+				world->add(new GoalObject(x, y, 1));
 			}
 		}
 
-
-
-		world->add(new GoalObject(50, 50, 10));
+//		world->add(new GoalObject(50, 50, 10));
 
 		// Unlock texture, it now has its own copy of pixels
 		SDL_UnlockTexture(newTexture);
