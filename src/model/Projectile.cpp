@@ -12,9 +12,10 @@ static b2CircleShape* buildProjectileShape(int points, float32 size);
 
 
 
-Projectile::Projectile(float32 x, float32 y, b2Vec2 initialVelocity, float32 size) :  Entity(x, y, size), initVelocity(initialVelocity) {
+Projectile::Projectile(float32 x, float32 y, b2Vec2 initialVelocity, float32 size, float32 damage) :  Entity(x, y, size), initVelocity(initialVelocity) {
 	// TODO Auto-generated constructor stub
 	health = 100;
+	this->damage = damage;
 	generatePoints();
 }
 
@@ -26,6 +27,10 @@ void Projectile::init(Manager<Entity>* manager) {
 	manager->add(this);
 
 	body->ApplyLinearImpulse(initVelocity, body->GetWorldCenter(), true);
+}
+
+float32 Projectile::getHealth(){
+	return damage * (health / 100.0f);
 }
 
 Projectile::~Projectile() {

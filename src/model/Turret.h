@@ -24,7 +24,7 @@ public:
 	int getEntityType();
 	float getRange();
 
-private:
+protected:
 	float range; // Radius of range of turret in meters
 	int heat; // How hot are we?
 	int coolPerSecond; // How much do we cooldown a second
@@ -37,6 +37,8 @@ private:
 	bool delayed; // Are we waiting for shot delay
 	int shotDelay; // delay between shots in ms
 	int msTillWeCanShoot; // How long till we can shoot again in ms
+	float damagePerProjectile;
+	float sizeOfProjectile;
 
 	void calcCooldown(int delta);
 	void calcShotDelay(int delta);
@@ -45,6 +47,11 @@ private:
 
 b2BodyDef* buildTurretBodyDef(int x, int y);
 b2FixtureDef* buildTurretFixtureDef(int size);
+
+class TurretMiniGun : public Turret{
+public:
+	TurretMiniGun(float32 x, float32 y, float32 size);
+};
 
 
 #endif /* TURRET_H_ */
