@@ -42,10 +42,10 @@ void PlayerController::update(int delta){
 	if (turning != DIR_NONE) {
 		b2Body* body = entity->getBody();
 		float w = body->GetAngularVelocity();
-		w += (turning * 0.5);
+		w += (turning * 0.2);
 
-		if (w > 2) w = 2;
-		if (w < -2) w = -2;
+		if (w > 2) w = 0.75;
+		if (w < -2) w = -0.75;
 
 		body->SetAngularVelocity(w);
 	}
