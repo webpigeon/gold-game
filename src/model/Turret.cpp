@@ -59,7 +59,7 @@ void Turret::update(int delta, Manager<Entity>* manager){
 			float minDistance = range + 1;
 			Entity* minEntity = NULL;
 			for(vector<Entity*>::iterator  itr = inRange->begin(); itr != inRange->end(); ++itr){
-				if((*itr)->getEntityType() != ENT_TYPE_WALL && (*itr)->getEntityType() != ENT_TYPE_BULLET){
+				if((*itr)->getEntityType() != ENT_TYPE_WALL && (*itr)->getEntityType() != ENT_TYPE_BULLET && (*itr)->getEntityType() != ENT_TYPE_GOAL){
 					b2Vec2 entLoc = (*itr)->getBody()->GetWorldCenter();
 					float32 distance = sqrt(pow(entLoc.x - location.x, 2) + pow(entLoc.y - location.y, 2));
 					if(distance < minDistance){

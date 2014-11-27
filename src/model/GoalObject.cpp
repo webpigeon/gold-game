@@ -18,7 +18,9 @@ void GoalObject::init(Manager<Entity>* manager) {
 }
 
 void GoalObject::collidedWith(Entity* entity, Manager<Entity>* manager) {
-	manager->remove(this);
+	if (entity->getEntityType() == ENT_TYPE_BULLET) {
+		manager->remove(this);
+	}
 }
 
 int GoalObject::getEntityType() {
