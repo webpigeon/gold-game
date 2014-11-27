@@ -15,17 +15,18 @@ Turret::Turret(float32 x, float32 y, float32 size) : Entity(x, y, size) {
 	// TODO Auto-generated constructor stub
 	range = 35;
 	heat = 0;
-	coolPerSecond = 10;
+
+	coolPerSecond = 5;
 	heatFromFiring = 25;
 	maxHeat = 110;
-	minHeat = 35;
+	minHeat = 15;
 	cooling = false;
 	canFire = true;
 	tooHot = false;
 	delayed = false;
-	shotDelay = 500;
+	shotDelay = 250;
 	msTillWeCanShoot = 0;
-	color[1] = 0.5;
+	color[1] = 1.0;
 }
 
 void Turret::init(Manager<Entity>* manager) {
@@ -47,7 +48,7 @@ void Turret::update(int delta, Manager<Entity>* manager){
 	calcCooldown(delta);
 	calcShotDelay(delta);
 
-	color[0] = health / 100;
+	color[0] = heat / 100.0f;
 
 //	cout << "Updating turret" << endl;
 
@@ -75,12 +76,15 @@ void Turret::update(int delta, Manager<Entity>* manager){
 			if(minEntity != NULL){
 				b2Vec2 loc = body->GetWorldCenter();
 
-				b2Vec2 target = (minEntity->getBody()->GetPosition()) - loc;
+				b2Vec2 target = (minEntity->getBody()->GetPosition());
+				target.x *= 1 + (rand() % 2 - 1)/20.0f;
+				target.y *= 1 + (rand() % 2 - 1)/20.0f;
+				target -= loc;
 				target.Normalize();
 
 				b2Vec2 position(loc.x + (target.x*(size+1)), loc.y + (target.y*(size+1)));
 
-				b2Vec2 speed(target.x * 350, target.y * 350);
+				b2Vec2 speed(target.x * 250, target.y * 250);
 				Projectile* proj = new Projectile(position.x, position.y,speed, 0.25);
 				manager->add(proj);
 				heat+=heatFromFiring;

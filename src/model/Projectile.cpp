@@ -89,7 +89,7 @@ void Projectile::generatePoints(){
 b2FixtureDef* buildProjectileFixtureDef(float32 size){
 	b2FixtureDef* fixture = new b2FixtureDef();
 	fixture->shape = buildProjectileShape(8, size);
-	fixture->density = 0.70f;
+	fixture->density = 0.7f;
 	fixture->friction = 0.0f;
 	return fixture;
 }
