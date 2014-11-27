@@ -64,12 +64,8 @@ void MapReader::loadMap(const char* name, Manager<Entity>* world, b2Vec2& player
 			}
 		}
 
-//		world->add(new GoalObject(50, 50, 10));
-
 		// Unlock texture, it now has its own copy of pixels
 		SDL_UnlockTexture(newTexture);
-
-		world->add(new Projectile(25, 25, b2Vec2(0.01, 0), 2));
 		// Free the pixels
 		pixels = NULL;
 
