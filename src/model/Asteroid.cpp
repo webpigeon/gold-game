@@ -35,7 +35,7 @@ void Asteroid::collidedWith(Entity* entity, Manager<Entity>* manager) {
 	if (entity->getEntityType() == ENT_TYPE_BULLET) {
 		manager->remove(this);
 		float newSize = this->size * 0.5;
-		if (newSize > 2) {
+		if (newSize >= 2) {
 			manager->add(new Asteroid(myPos.x + 5, myPos.y + 5, newSize));
 			manager->add(new Asteroid(myPos.x - 5, myPos.y - 5, newSize));
 		}
