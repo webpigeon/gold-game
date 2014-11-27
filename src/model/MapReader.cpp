@@ -17,7 +17,7 @@ MapReader::MapReader() {
 
 }
 
-void MapReader::loadMap(char* name, Manager<Entity>* world){
+void MapReader::loadMap(const char* name, Manager<Entity>* world){
 	cout << "Loading map: " << name << endl;
 	SDL_Texture* newTexture = NULL;
 
@@ -54,6 +54,8 @@ void MapReader::loadMap(char* name, Manager<Entity>* world){
 			float y = i * 60;
 			world->add(new Asteroid(x, y, 10));
 		}
+
+		world->add(new GoalObject(50, 50, 10));
 
 		// Unlock texture, it now has its own copy of pixels
 		SDL_UnlockTexture(newTexture);

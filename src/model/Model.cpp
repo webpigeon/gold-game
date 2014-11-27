@@ -19,6 +19,7 @@ Model::Model(World* world, Entity* player) {
 	this->score = 0;
 	this->player = player;
 	this->weaponLastFired = 0;
+	this->goalsLeft = 1;
 }
 
 Model::~Model() {
@@ -59,6 +60,12 @@ void Model::BeginContact(b2Contact* contact){
 		std::cout << "game over" << endl;
 	}
 
+	if (entity1->getEntityType() == ENT_TYPE_GOAL && entity2->getEntityType() == ENT_TYPE_BULLET) {
+		player = NULL;
+		goalsLeft--;
+		std::cout << "You win!" << std::endl;
+	}
+
 	if (entity2->getEntityType() == ENT_TYPE_BULLET && entity1->getEntityType() == ENT_TYPE_ASTEROID) {
 		score += 1;
 		audio.playExplosion();
@@ -89,6 +96,10 @@ void Model::fire(){
 			audio.playLaser();
 		}
 	}
+}
+
+bool Model::hasPlayerWon() {
+	return goalsLeft == 0;
 }
 
 bool Model::isPlayerAlive() {

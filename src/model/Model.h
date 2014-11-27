@@ -23,6 +23,7 @@ public:
 	void turn(int direction);
 
 	Entity* getPlayer();
+	bool hasPlayerWon();
 	bool isPlayerAlive();
 	int getScore();
 
@@ -33,6 +34,7 @@ public:
 private:
 	World* world;
 	int score;
+	int goalsLeft;
 	uint32 weaponLastFired;
 	Entity* player;
 };

@@ -27,6 +27,9 @@ private:
 	Entity* player;
 	Model* model;
 	DisplayUtils* utils;
+	int level;
+	int levelCount;
+	std::string* levels;
 };
 
 #endif /* GAMEPLAYING_H_ */
