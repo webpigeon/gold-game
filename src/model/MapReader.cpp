@@ -17,11 +17,14 @@ MapReader::MapReader() {
 
 }
 
-void MapReader::loadMap(char* name, Manager<Entity>* world){
+void MapReader::loadMap(char* name, Manager<Entity>* world, b2Vec2& playerPosition){
 	cout << "Loading map: " << name << endl;
 	SDL_Texture* newTexture = NULL;
 
 	SDL_Surface* loadedSurface = IMG_Load(name);
+
+	playerPosition.x = 11;
+	playerPosition.y = 11;
 
 //	cout << "Gets here" << endl;
 
@@ -39,20 +42,19 @@ void MapReader::loadMap(char* name, Manager<Entity>* world){
 
 		//Iterate through the pixels!!
 		for(int i = 0; i < width * height; i++){
+			uint r = (pixelData[i] >> 16) & 255;
+			uint g = (pixelData[i] >> 8) & 255;
+			uint b = (pixelData[i]) & 255;
+			float32 x = (i % width) * 10;
+			float32 y = (i / width) * 10;
 			if(pixelData[i] == 0){
-				// Make wall
-//				cout << "Wall: (X: " << i % width << " Y: " << (i / width) << endl;
-				float32 x = (i % width) * 10;
-				float32 y = (i / width) * 10;
 				world->add(new Wall(x, y, 5));
+			}else if(g == 255 && r != 255){
+				// Build asteroid
+				world->add(new Asteroid(x, y, 2));
+			}else if(r == 255 && g != 255){
+				world->add(new Turret(x, y, 2));
 			}
-		}
-
-		// build some asteroids
-		for(int i=1; i<2; i++){
-			float x = i * 60;
-			float y = i * 60;
-			world->add(new Asteroid(x, y, 10));
 		}
 
 		// Unlock texture, it now has its own copy of pixels

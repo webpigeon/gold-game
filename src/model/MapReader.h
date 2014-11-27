@@ -13,6 +13,7 @@
 #include "World.h"
 #include "Manager.h"
 #include "Asteroid.h"
+#include "Turret.h"
 
 using namespace std;
 
@@ -29,7 +30,7 @@ public:
 	MapReader();
 	virtual ~MapReader();
 
-	void loadMap(char* name, Manager<Entity>* world);
+	void loadMap(char* name, Manager<Entity>* world, b2Vec2& playerPosition);
 
 private:
 	bool lockTexture();

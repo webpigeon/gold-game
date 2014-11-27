@@ -17,13 +17,16 @@ GamePlaying::GamePlaying() {
 void GamePlaying::enterState(DisplayUtils* utils){
 	this->utils = utils;
 	world = new World;
-	player = world->addShip(20, 20);
+
+
+	MapReader reader;
+	b2Vec2 playerLocation;
+	reader.loadMap("Assets/Maps/map1.bmp", world, playerLocation);
+
+	player = world->addShip(playerLocation.x, playerLocation.y);
 
 	model = new Model(world, player);
 	world->addColliderCallback(model);
-
-	MapReader reader;
-	reader.loadMap("Assets/Maps/map1.bmp", world);
 }
 
 void GamePlaying::keyPressed(int keyCode) {

@@ -19,8 +19,8 @@ World::World(){
 	physicsWorld = new b2World(gravity);
 
 	//Build a turret
-	Turret* turret = new Turret(15, 15, 1);
-	add(turret);
+//	Turret* turret = new Turret(15, 15, 1);
+//	add(turret);
 }
 
 void World::addColliderCallback(b2ContactListener* callback) {
