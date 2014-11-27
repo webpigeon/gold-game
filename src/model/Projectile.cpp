@@ -14,7 +14,7 @@ static b2CircleShape* buildProjectileShape(int points, int size);
 
 Projectile::Projectile(float32 x, float32 y, b2Vec2 initialVelocity, float32 size) :  Entity(x, y, size), initVelocity(initialVelocity) {
 	// TODO Auto-generated constructor stub
-	health = 10;
+	health = 100;
 	generatePoints();
 }
 
@@ -42,7 +42,7 @@ int Projectile::getEntityType() {
 }
 
 void Projectile::update(int delta, Manager<Entity>* manager){
-	health -= 0.5;
+	health -= (delta * 0.25);
 	if (health <= 0) {
 		manager->remove(this);
 	}

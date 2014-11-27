@@ -74,9 +74,9 @@ void Turret::update(int delta, Manager<Entity>* manager){
 				b2Vec2 target = (minEntity->getBody()->GetPosition()) - loc;
 				target.Normalize();
 
-				b2Vec2 position(loc.x + (target.x), loc.y + (target.y));
+				b2Vec2 position(loc.x + (target.x*(size+1)), loc.y + (target.y*(size+1)));
 
-				b2Vec2 speed(target.x * 25, target.y * 25);
+				b2Vec2 speed(target.x * 250, target.y * 250);
 				Projectile* proj = new Projectile(position.x, position.y,speed, 1);
 				manager->add(proj);
 				heat+=heatFromFiring;
@@ -84,11 +84,6 @@ void Turret::update(int delta, Manager<Entity>* manager){
 			}
 		}
 	}
-}
-
-
-void Turret::collidedWith(Entity* entity, Manager<Entity>* manager){
-	cout << "Turret collided with: " << entity->getEntityType() << endl;
 }
 
 void Turret::calcCooldown(int delta){

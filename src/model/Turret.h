@@ -21,7 +21,6 @@ public:
 	void init(Manager<Entity>* manager);
 	virtual ~Turret();
 	void update(int delta, Manager<Entity>* manager);
-	void collidedWith(Entity* entity, Manager<Entity>* manager);
 	int getEntityType();
 	float getRange();
 
