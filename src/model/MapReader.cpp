@@ -21,6 +21,11 @@ void MapReader::loadMap(const char* name, Manager<Entity>* world, b2Vec2& player
 	SDL_Texture* newTexture = NULL;
 	SDL_Surface* loadedSurface = IMG_Load(name);
 
+	if (loadedSurface == NULL) {
+		std::cerr << "could not load map" << name << std::endl;
+		exit(-1);
+	}
+
 	playerPosition.x = 11;
 	playerPosition.y = 11;
 
