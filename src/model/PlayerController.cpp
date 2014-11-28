@@ -44,8 +44,8 @@ void PlayerController::update(int delta){
 		float w = body->GetAngularVelocity();
 		w += (turning * 0.2);
 
-		if (w > 2) w = 0.75;
-		if (w < -2) w = -0.75;
+		if (w > 0.75) w = 0.75;
+		if (w < -0.75) w = -0.75;
 
 		body->SetAngularVelocity(w);
 	}
