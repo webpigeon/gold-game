@@ -12,12 +12,13 @@ static b2PolygonShape* buildTurretShape(int points, int size);
 
 Turret::Turret(float32 x, float32 y, float32 size) : Entity(x, y, size), weapon(size) {
 	// TODO Auto-generated constructor stub
+	this->health = 50;
 }
 
 void Turret::init(Manager<Entity>* manager) {
 	body = manager->buildBody(buildTurretBodyDef(initPos.x, initPos.y));
 	body->SetUserData(this);
-	body->CreateFixture(buildTurretFixtureDef(1));
+	body->CreateFixture(buildTurretFixtureDef(size));
 	manager->add(this);
 }
 
@@ -73,7 +74,7 @@ b2PolygonShape* buildTurretShape(int points, int size){
 
 TurretMiniGun::TurretMiniGun(float32 x, float32 y, float32 size) : Turret(x, y, size){
 	weapon.setShotDelay(100);
-	weapon.setDamagePerProjectile(10);
+	weapon.setDamagePerProjectile(5);
 	weapon.setSizeOfProjectile(0.1);
 	weapon.setHeatFromFiring(15);
 	weapon.setMaxHeat(150);

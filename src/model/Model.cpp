@@ -93,7 +93,7 @@ void Model::fireStarted(){
 			b2Vec2 location(loc.x + (offset.x * 5), loc.y + (offset.y * 5));
 			b2Vec2 speed(offset.x * 500, offset.y * 500);
 
-			Projectile* proj = new Projectile(location.x, location.y, speed, 0.5, 10);
+			Projectile* proj = new Projectile(location.x, location.y, speed, 0.5, 100);
 			world->add(proj);
 
 			weaponLastFired = currentTime;

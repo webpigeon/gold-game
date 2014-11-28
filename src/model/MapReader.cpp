@@ -57,6 +57,8 @@ void MapReader::loadMap(const char* name, Manager<Entity>* world, b2Vec2& player
 				// Build asteroid
 				world->add(new Asteroid(x, y, 4));
 			}else if(r == 255 && g == 0 && b == 0){
+				world->add(new TurretMiniGun(x, y, 2));
+			}else if(r == 255 && g == 128 && b == 0){
 				world->add(new Turret(x, y, 2));
 			}else if(r == 0 && g == 255 && b == 255){
 				playerPosition.Set(x, y);
