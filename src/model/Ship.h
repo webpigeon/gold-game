@@ -14,6 +14,7 @@ class Ship: public Entity {
 public:
 	Ship(float32 x, float32 y, float32 size);
 	void init(Manager<Entity>* manager);
+	void update(int delta, Manager<Entity>* manager);
 	b2Body* getBody();
 	int getEntityType();
 };

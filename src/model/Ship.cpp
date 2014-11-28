@@ -13,6 +13,12 @@ Ship::Ship(float32 x, float32 y, float32 size) : Entity(x, y, size){
 	// TODO Auto-generated constructor stub
 }
 
+void Ship::update(int delta, Manager<Entity>* manager) {
+	Entity::update(delta, manager);
+	this->color[0] = 1 - health / 100;
+	this->color[1] = health / 100;
+}
+
 void Ship::init(Manager<Entity>* manager) {
 	body = manager->buildBody(buildShipBodyDef(initPos.x, initPos.y));
 	body->SetUserData(this);
